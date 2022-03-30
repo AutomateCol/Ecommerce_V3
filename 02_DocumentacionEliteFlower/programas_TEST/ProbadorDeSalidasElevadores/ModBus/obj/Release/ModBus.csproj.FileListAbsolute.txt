@@ -1,0 +1,26 @@
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Release\ModBus.exe.config
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Release\ModBus.exe
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Release\ModBus.pdb
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Release\EasyModbus.dll
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Release\EasyModbus.xml
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.csprojAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.Form1.resources
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.Properties.Resources.resources
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.csproj.CopyComplete
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.exe
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Release\ModBus.pdb
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\bin\Release\ModBus.exe.config
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\bin\Release\ModBus.exe
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\bin\Release\ModBus.pdb
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\bin\Release\EasyModbus.dll
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\bin\Release\EasyModbus.xml
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.csprojAssemblyReference.cache
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.Form1.resources
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.Properties.Resources.resources
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.csproj.CopyComplete
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.exe
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDeSalidasElevadores\ModBus\obj\Release\ModBus.pdb

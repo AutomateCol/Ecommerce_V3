@@ -1,0 +1,39 @@
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Debug\ModBus.exe.config
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Debug\ModBus.exe
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Debug\ModBus.pdb
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Debug\EasyModbus.dll
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\bin\Debug\EasyModbus.xml
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.csprojAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.Form1.resources
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.Properties.Resources.resources
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.csproj.CopyComplete
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.exe
+C:\Users\Usuario\Documents\Visual Studio 2019\ModBus\ModBus\obj\Debug\ModBus.pdb
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\ModBus.exe.config
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\ModBus.exe
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\ModBus.pdb
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\EasyModbus.dll
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\EasyModbus.xml
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.Form1.resources
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.Properties.Resources.resources
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csproj.CopyComplete
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.exe
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.pdb
+C:\Users\Usuario\Documents\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csprojAssemblyReference.cache
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\ModBus.exe.config
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\ModBus.exe
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\ModBus.pdb
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\EasyModbus.dll
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\bin\Debug\EasyModbus.xml
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csprojAssemblyReference.cache
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.Form1.resources
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.Properties.Resources.resources
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csproj.GenerateResource.cache
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.csproj.CopyComplete
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.exe
+C:\Users\Usuario\Documents\01_Santi\01_ProgramasListos\ProbadorDePosicionesElevadores\ModBus\obj\Debug\ModBus.pdb

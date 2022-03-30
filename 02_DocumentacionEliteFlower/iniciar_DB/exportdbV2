@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# Simple and efficient way to create de initial state of database in MongoDB
+################################################################################
+
+collections=("Actual" "AddOn" "Balance" "BalanceQuantity" "IDAddOn" "IDDistinct" "IDStages" "ML" "Mesanin" "Next" "PLC" "Product" "State" "Summary")
+
+echo "Ingrese el nombre de la DB"
+read db_name
+
+rm -rf output
+mkdir output
+
+for i in ${!collections[@]}; do
+    mongodump --db ${db_name} --collection ${collections[$i]} --out output/${collections[$i]}
+done
+

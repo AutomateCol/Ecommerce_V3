@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Simple and efficient way to create de initial state of database in MongoDB
+################################################################################
+
+collections=("Actual" "AddOn" "Balance" "BalanceQuantity" "IDAddOn" "IDDistinct" "IDStages" "ML" "Mesanin" "Next" "PLC" "Product" "State" "Summary")
+
+echo "Ingrese el nombre de la DB a la cual se le van a importar los datos"
+read db_import
+echo "Ingrese el nombre de la DB a la cual se le extrajeros los datos"
+read db_export
+
+rm -rf output
+mkdir output
+
+for i in ${!collections[@]}; do
+    echo "mongorestore --db ${db_import} --collection ${collections[$i]} --dir output/${collections[$i]}/${db_export}/${collections[$i]}.bson"
+done

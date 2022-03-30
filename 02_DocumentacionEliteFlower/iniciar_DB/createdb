@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Simple and efficient way to create de initial state of database in MongoDB
+################################################################################
+
+collections=("Actual" "AddOn" "Balance" "BalanceQuantity" "IDAddOn" "IDDistinct" "IDStages" "ML" "Mesanin" "Next" "PLC" "Product" "State" "Summary")
+
+echo "Ingrese el nombre de la DB"
+read db_name
+
+echo "db.dropDatabase()" | mongo ${db_name}
+for i in ${!collections[@]}; do
+    echo "db.createCollection('${collections[$i]}')" | mongo ${db_name}
+done
+
