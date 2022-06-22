@@ -243,7 +243,6 @@ ModbusTCPServer modbusTCPServer;
 #define CoilE4R2BO              81  //-- COIL para el sensor reflex que detecta caja en la entrada del elevador.
 
 #define CoilEMG                 90 //--COIL para activar el paro de emergencia
-#define CoilExit                91 //-- COIL para saber cuando el usuario se salió de la aplicación
 
 
 
@@ -291,7 +290,6 @@ bool flagAutom = false;
 bool flagPrueba = false;
 bool withPedal[3] = {false , false , false };
 int  EnableStages[3] = {1 , 1 , 1 };
-bool flagServoON;
 
 unsigned int stateActuadores = 0x0005; //? 0x000A;
 unsigned long tiempoAhora = 0;
@@ -428,33 +426,32 @@ bool _InEmergencyStop = false;
   Comentar las lineas de acuerdo a la version del sistema
 */
 // Version 1
-//int PinE4T9BO = 9;
-//int SlotE4T9BO = ENTELEVADOR1;
-//
-//int PinE3S3BO = 9;
-//int SlotE3S3BO = ENTELEVADOR2;
-//
-//int PinE4S1BO = 10;
-//int SlotE4S1BO = ENTELEVADOR2;
-//
-//int PinReflexSorter = 10;
-//int SlotReflexSorter = ENTELEVADOR1;
-//
-//int PinReflexElev = 15;
-//int SlotReflexElev = ENTELEVADOR2;
-
-//Version 2
 int PinE4T9BO = 9;
-int SlotE4T9BO = ENTELEVADOR4;
-int PinE3S3BO = 10;
-int SlotE3S3BO = ENTELEVADOR4;
-int PinE4S1BO = 11;
-int SlotE4S1BO = ENTELEVADOR4;
+int SlotE4T9BO = ENTELEVADOR1;
+
+int PinE3S3BO = 9;
+int SlotE3S3BO = ENTELEVADOR2;
+
+int PinE4S1BO = 10;
+int SlotE4S1BO = ENTELEVADOR2;
+
 int PinReflexSorter = 10;
 int SlotReflexSorter = ENTELEVADOR1;
-int PinReflexElev = 10;
+
+int PinReflexElev = 15;
 int SlotReflexElev = ENTELEVADOR2;
 
+//Version 2
+//int PinE4T9BO = 9;
+//int SlotE4T9BO = ENTELEVADOR4;
+//int PinE3S3BO = 9;
+//int SlotE3S3BO = ENTELEVADOR2;
+//int PinE4S1BO = 11;
+//int SlotE4S1BO = ENTELEVADOR4;
+//int PinReflexSorter = 10;
+//int SlotReflexSorter = ENTELEVADOR1;
+//int PinReflexElev = 10;
+//int SlotReflexElev = ENTELEVADOR2;
 
 
 
@@ -471,8 +468,8 @@ void tLeerSensoresElevadores()
 
 int SerialCallback() {
   int incomingByte;
-  int woSBoxFeeder = P1.readDiscrete(ENTELEVADOR2, 10); //Sensor reflex en el elevador
-  int woSBoxSorter = P1.readDiscrete(ENTELEVADOR1, 10); // sensor reflex en el sorter
+  int woSBoxFeeder = P1.readDiscrete(SlotReflexElev, PinReflexSorter); //Sensor reflex en el elevador
+  int woSBoxSorter = P1.readDiscrete(SlotReflexSorter, PinReflexSorter); // sensor reflex en el sorter
 
 
 
@@ -660,7 +657,6 @@ void tCycleCallback()
 
   SerialCallback();
   leerSensores();
-  offservo_exit();
 
   if (P1.readDiscrete(ENTELEVADOR4, 2) == 1 && flag_wait_reset == false) {
     EMGFlag = true;  //no hay paro de emergencia
@@ -1137,12 +1133,6 @@ void UpdatePositionN() {
       MB_C[servosSON] = modbusTCPServer.coilWrite(servosSON, LOW);
       stateActuadores = stateActuadores ^ maskSON;
       _PL(stateActuadores);
-      if (flagServoON) {
-        flagServoON = false;
-      }
-      else {
-        flagServoON = true;
-      }
       P1.writeDiscrete(stateActuadores, SLDELEVADOR4);
     }
   }
@@ -1230,12 +1220,12 @@ void setPositionDOWNElevador(int posElevator)
     case 1:  setPositionServoW(_elevadoresDOWN[1], POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR1, _elevadoresDOWN[1]); break;
     case 2:  setPositionServoW(_elevadoresDOWN[2], POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR1, _elevadoresDOWN[2]); break;
     case 3:  setPositionServoW(_elevadoresDOWN[3], POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR1, _elevadoresDOWN[3]); break;
-    case 4:  setPositionServoW(_elevadoresDOWN[4], POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR2, _elevadoresDOWN[4]); break;
-    case 5:  setPositionServoW(_elevadoresDOWN[5], POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR2, _elevadoresDOWN[5]); break;
-    case 6:  setPositionServoW(_elevadoresDOWN[6], POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR2, _elevadoresDOWN[6]); break;
-    case 7:  setPositionServoW(_elevadoresDOWN[7], POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR3, _elevadoresDOWN[7]); break;
-    case 8:  setPositionServoW(_elevadoresDOWN[8], POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR3, _elevadoresDOWN[8]); break;
-    case 9:  setPositionServoW(_elevadoresDOWN[9], POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR3, _elevadoresDOWN[9]); break;
+    case 4:  setPositionServoW(_elevadoresDOWN[4], POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR3, _elevadoresDOWN[4]); break;
+    case 5:  setPositionServoW(_elevadoresDOWN[5], POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR3, _elevadoresDOWN[5]); break;
+    case 6:  setPositionServoW(_elevadoresDOWN[6], POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR3, _elevadoresDOWN[6]); break;
+    case 7:  setPositionServoW(_elevadoresDOWN[7], POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR2, _elevadoresDOWN[7]); break;
+    case 8:  setPositionServoW(_elevadoresDOWN[8], POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR2, _elevadoresDOWN[8]); break;
+    case 9:  setPositionServoW(_elevadoresDOWN[9], POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR2, _elevadoresDOWN[9]); break;
     case 10: setPositionServoW(_elevadoresDOWN[10], POS1, POS1CTRG, ELEVADOR4, SLDELEVADOR3, _elevadoresDOWN[10]); break;
     default: break;
   }
@@ -1251,12 +1241,12 @@ void setPositionUPElevador(int posElevator)
     case 1:  setPositionServoW(_elevadoresUP[1], POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR1, _elevadoresUP[1]); break;
     case 2:  setPositionServoW(_elevadoresUP[2], POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR1, _elevadoresUP[2]); break;
     case 3:  setPositionServoW(_elevadoresUP[3], POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR1, _elevadoresUP[3]); break;
-    case 4:  setPositionServoW(_elevadoresUP[4], POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR2, _elevadoresUP[4]); break;
-    case 5:  setPositionServoW(_elevadoresUP[5], POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR2, _elevadoresUP[5]); break;
-    case 6:  setPositionServoW(_elevadoresUP[6], POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR2, _elevadoresUP[6]); break;
-    case 7:  setPositionServoW(_elevadoresUP[7], POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR3, _elevadoresUP[7]); break;
-    case 8:  setPositionServoW(_elevadoresUP[8], POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR3, _elevadoresUP[8]); break;
-    case 9:  setPositionServoW(_elevadoresUP[9], POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR3, _elevadoresUP[9]); break;
+    case 4:  setPositionServoW(_elevadoresUP[4], POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR3, _elevadoresUP[4]); break;
+    case 5:  setPositionServoW(_elevadoresUP[5], POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR3, _elevadoresUP[5]); break;
+    case 6:  setPositionServoW(_elevadoresUP[6], POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR3, _elevadoresUP[6]); break;
+    case 7:  setPositionServoW(_elevadoresUP[7], POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR2, _elevadoresUP[7]); break;
+    case 8:  setPositionServoW(_elevadoresUP[8], POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR2, _elevadoresUP[8]); break;
+    case 9:  setPositionServoW(_elevadoresUP[9], POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR2, _elevadoresUP[9]); break;
     case 10: setPositionServoW(_elevadoresUP[10], POS2, POS2CTRG, ELEVADOR4, SLDELEVADOR3, _elevadoresUP[10]); break;
     default: break;
   }
@@ -1342,10 +1332,10 @@ void setPositionE21(int posElevator)
   */
   switch (posElevator)
   {
-    case 0: setHomeServo    (13,  CTRG,           ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 13); break;
-    case 1: setPositionServo(14,  POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 14); break;
-    case 2: setPositionServo(15,  POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 15); break;
-    case 3: setPositionServo(16,  POS3, POS3CTRG, ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 16); break;
+    case 0: setHomeServo    (13,  CTRG,           ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 13); break;
+    case 1: setPositionServo(14,  POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 14); break;
+    case 2: setPositionServo(15,  POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 15); break;
+    case 3: setPositionServo(16,  POS3, POS3CTRG, ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 16); break;
     default: break;
   }
 }
@@ -1358,10 +1348,10 @@ void setPositionE22(int posElevator)
   */
   switch (posElevator)
   {
-    case 0: setHomeServo    (17,  CTRG,           ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 17); break;
-    case 1: setPositionServo(18,  POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 18); break;
-    case 2: setPositionServo(19,  POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 19); break;
-    case 3: setPositionServo(20,  POS3, POS3CTRG, ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 20); break;
+    case 0: setHomeServo    (17,  CTRG,           ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 17); break;
+    case 1: setPositionServo(18,  POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 18); break;
+    case 2: setPositionServo(19,  POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 19); break;
+    case 3: setPositionServo(20,  POS3, POS3CTRG, ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 20); break;
     default: break;
   }
 }
@@ -1374,10 +1364,10 @@ void setPositionE23(int posElevator)
   */
   switch (posElevator)
   {
-    case 0: setHomeServo    (21,  CTRG,           ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 21); break;
-    case 1: setPositionServo(22,  POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 22); break;
-    case 2: setPositionServo(23,  POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 23); break;
-    case 3: setPositionServo(24,  POS3, POS3CTRG, ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 24); break;
+    case 0: setHomeServo    (21,  CTRG,           ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 21); break;
+    case 1: setPositionServo(22,  POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 22); break;
+    case 2: setPositionServo(23,  POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 23); break;
+    case 3: setPositionServo(24,  POS3, POS3CTRG, ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 24); break;
     default: break;
   }
 }
@@ -1413,10 +1403,10 @@ void setPositionE31(int posElevator)
   */
   switch (posElevator)
   {
-    case 0: setHomeServo    (26,  CTRG,           ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 26); break;
-    case 1: setPositionServo(27,  POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 27); break;
-    case 2: setPositionServo(28,  POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 28); break;
-    case 3: setPositionServo(29,  POS3, POS3CTRG, ELEVADOR1, SLDELEVADOR3, ADDRCOIL + 29); break;
+    case 0: setHomeServo    (26,  CTRG,           ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 26); break;
+    case 1: setPositionServo(27,  POS1, POS1CTRG, ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 27); break;
+    case 2: setPositionServo(28,  POS2, POS2CTRG, ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 28); break;
+    case 3: setPositionServo(29,  POS3, POS3CTRG, ELEVADOR1, SLDELEVADOR2, ADDRCOIL + 29); break;
     default: break;
   }
 }
@@ -1429,10 +1419,10 @@ void setPositionE32(int posElevator)
   */
   switch (posElevator)
   {
-    case 0: setHomeServo    (30,  CTRG,           ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 30); break;
-    case 1: setPositionServo(31,  POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 31); break;
-    case 2: setPositionServo(32,  POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 32); break;
-    case 3: setPositionServo(33,  POS3, POS3CTRG, ELEVADOR2, SLDELEVADOR3, ADDRCOIL + 33); break;
+    case 0: setHomeServo    (30,  CTRG,           ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 30); break;
+    case 1: setPositionServo(31,  POS1, POS1CTRG, ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 31); break;
+    case 2: setPositionServo(32,  POS2, POS2CTRG, ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 32); break;
+    case 3: setPositionServo(33,  POS3, POS3CTRG, ELEVADOR2, SLDELEVADOR2, ADDRCOIL + 33); break;
     default: break;
   }
 }
@@ -1445,10 +1435,10 @@ void setPositionE33(int posElevator)
   */
   switch (posElevator)
   {
-    case 0: setHomeServo    (34,  CTRG,           ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 34); break;
-    case 1: setPositionServo(35,  POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 35); break;
-    case 2: setPositionServo(36,  POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 36); break;
-    case 3: setPositionServo(37,  POS3, POS3CTRG, ELEVADOR3, SLDELEVADOR3, ADDRCOIL + 37); break;
+    case 0: setHomeServo    (34,  CTRG,           ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 34); break;
+    case 1: setPositionServo(35,  POS1, POS1CTRG, ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 35); break;
+    case 2: setPositionServo(36,  POS2, POS2CTRG, ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 36); break;
+    case 3: setPositionServo(37,  POS3, POS3CTRG, ELEVADOR3, SLDELEVADOR2, ADDRCOIL + 37); break;
     default: break;
   }
 }
@@ -2220,7 +2210,6 @@ void restar_queue_elevadores() {
 }
 
 void leerSensores() {
-
   EnableStages[0] = modbusTCPServer.coilRead(enableStage1);
   EnableStages[1] = modbusTCPServer.coilRead(enableStage2);
   EnableStages[2] = modbusTCPServer.coilRead(enableStage3);
@@ -2330,7 +2319,6 @@ void loop()
           tCycle.disable();
           _PL("desconectado");
           connectflag = false;
-
         }
       }
     }
@@ -2575,8 +2563,8 @@ void tSubirElevadorSorter() {
   {
 
     int botonSubida = P1.readDiscrete(ENTELEVADOR2, 16);  // boton doble confirmacion
-    int woSBoxFeeder = P1.readDiscrete(ENTELEVADOR2, 10); //Sensor reflex en el elevador
-    int woSBoxSorter = P1.readDiscrete(ENTELEVADOR1, 10); // sensor reflex en el sorter
+    int woSBoxFeeder = P1.readDiscrete(SlotReflexElev, PinReflexElev); //Sensor reflex en el elevador
+    int woSBoxSorter = P1.readDiscrete(SlotReflexSorter, PinReflexSorter); // sensor reflex en el sorter
     int boxFeeder = P1.readDiscrete(SlotE4S1BO, PinE4S1BO); // sensor de caja en el elevador
     int cuentaSPulmon = SensoresPulmones();
     bool _availableTask = modbusTCPServer.coilRead(waitFeederE);  //bandera para inhabilitar la ejecución de la tarea
@@ -2647,7 +2635,7 @@ void tSubirElevadorSorter() {
 
 void tMoverSorter() {
   int  Pos = queue_sorter[0];
-  int woSBoxSorter = P1.readDiscrete(ENTELEVADOR1, 10); // sensor reflex en el sorter
+  int woSBoxSorter = P1.readDiscrete(SlotReflexSorter, PinReflexSorter); // sensor reflex en el sorter
 
 
   //-- Lectura sensores de los sensores del pulmon
@@ -2720,18 +2708,19 @@ void tMoverSorter() {
     if (task2_sorter == true && task3_sorter == false  && _valuesSPulmones[Pos] == 1) {
       _PL("Sorter Entregó la caja");
       _PL("Regresando a la Posición de inicio");
-      _PL("Se desactiva la banda del sorter");
       setPositionSorter(5);
       SorterLastPos = 4;
       delay(10);
       if (BandON) {
+        _PL("Se desactiva la banda del sorter");
         TriggerBandaSorter();
       }
-      if (!BandON) {
-        task3_sorter = true;
-      }
+      
+
+      task3_sorter = true;
     }
-    if (task3_sorter == true && P1.readDiscrete(ENTELEVADOR3, CMDOK_SORTER) == 1 ) {
+
+    if (task3_sorter == true && P1.readDiscrete(ENTELEVADOR3, CMDOK_SORTER) == 1 && P1.readDiscrete(ENTELEVADOR3, CMDOK_SORTER) == 1 && BandON == false) {
       task1_elevador = false;
       task2_elevador = false;
       task3_elevador = false;
@@ -2797,7 +2786,7 @@ void TriggerBandaSorter() {
     BandON = false;
   }
 
-  else if (P1.readDiscrete(ENTELEVADOR3, CMDOK_SORTER ) == 1 && P1.readDiscrete(ENTELEVADOR3, CMDOK_EMPUJADOR) == 1 ) { // solo prende la banda si el empujador y el sorter no se están moviendo
+  if (P1.readDiscrete(ENTELEVADOR3, CMDOK_SORTER ) == 1 && P1.readDiscrete(ENTELEVADOR3, CMDOK_EMPUJADOR) == 1 ) { // solo prende la banda si el empujador y el sorter no se están moviendo
     if (!BandON) {
       stateActuadores = stateActuadores ^ maskMot;
       P1.writeDiscrete(stateActuadores, SLDELEVADOR4);
@@ -2898,23 +2887,6 @@ void resume_operation() {
     flag_reset_system = false;
     delay(100);
     _PL("resume_operation");
-  }
-
-}
-
-void  offservo_exit() {
-
-  if (modbusTCPServer.coilRead(CoilExit)) {
-    if (flagServoON) {
-      _PL("Apagando Servos");
-      stateActuadores = stateActuadores ^ maskSON;
-      P1.writeDiscrete(stateActuadores, SLDELEVADOR4);
-      flagServoON = false;
-      modbusTCPServer.coilWrite(CoilExit, LOW);
-    }
-    else {
-      _PL("Servos Apagados");
-    }
   }
 
 }

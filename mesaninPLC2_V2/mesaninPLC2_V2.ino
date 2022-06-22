@@ -3,7 +3,7 @@
 
   Este programa establece una comunicacion con el cliente
   por medio del protocolo de comunicacion ModBus.
-  
+
   Funciona con un P1AM-100 con los siguientes modulos
    - SLOT 1: P1-15TD2
    - SLOT 2: P1-15TD2
@@ -12,7 +12,7 @@
   El programa se encarga de encender/apagar los pilotos de los elevadores,
   activar/desactivar las bandas y asignar el voltaje de referencia para los
   variadores de velocidad.
-   _____  _____ _____  _____ 
+   _____  _____ _____  _____
   |  P  ||  S  |  S  ||  S  |
   |  1  ||  L  |  L  ||  L  |
   |  A  ||  O  |  O  ||  O  |
@@ -21,9 +21,9 @@
   |  1  ||  0  |  0  ||  0  |
   |  0  ||  1  |  2  ||  3  |
   |  0  ||     |     ||     |
-   ¯¯¯¯¯  ¯¯¯¯¯ ¯¯¯¯¯  ¯¯¯¯¯ 
+   ¯¯¯¯¯  ¯¯¯¯¯ ¯¯¯¯¯  ¯¯¯¯¯
 
-  SLOT 1: 
+  SLOT 1:
     - 01 al 09 pilotos de la banda 1
     - 10 al 12 pilotos de los addon banda 1
     - 13  y 14 activar bandas 1 y 2
@@ -92,98 +92,100 @@ void updateVoltageBands();          //-- Actualiza los voltajes de las bandas
 
 void setup()
 {
-    // Inicializa la conexion de Ethernet
-    pinMode(LED_BUILTIN,OUTPUT);
-    Ethernet.begin(mac, ip, myDns, gateway, subnet);
-    // Espera hasta que la comunicacion serial con P1AM se establesca
-    while (!P1.init())
+  // Inicializa la conexion de Ethernet
+  pinMode(LED_BUILTIN, OUTPUT);
+  Ethernet.begin(mac, ip, myDns, gateway, subnet);
+  // Espera hasta que la comunicacion serial con P1AM se establesca
+  while (!P1.init())
+  {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(1000);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(1000);
+  }
+  digitalWrite(LED_BUILTIN, LOW);
+  // Verifica que se tenga conexion a Internet
+  if (Ethernet.hardwareStatus() == EthernetNoHardware)
+  {
+    while (true)
     {
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(1000);
-        digitalWrite(LED_BUILTIN, LOW);
-        delay(1000);
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(500);
+      digitalWrite(LED_BUILTIN, LOW);
+      delay(500);
     }
     digitalWrite(LED_BUILTIN, LOW);
-    // Verifica que se tenga conexion a Internet
-    if (Ethernet.hardwareStatus() == EthernetNoHardware)
+  }
+  // Inicia el servidor en el puerto 502
+  server.begin();
+  // start the Modbus TCP server
+  if (!modbusTCPServer.begin())
+  {
+    while (true)
     {
-        while (true)
-        {
-            digitalWrite(LED_BUILTIN, HIGH);
-            delay(500);
-            digitalWrite(LED_BUILTIN, LOW);
-            delay(500);
-        }
-        digitalWrite(LED_BUILTIN, LOW);
+      digitalWrite(LED_BUILTIN, HIGH);
+      delay(250);
+      digitalWrite(LED_BUILTIN, LOW);
+      delay(250);
     }
-    // Inicia el servidor en el puerto 502
-    server.begin();
-    // start the Modbus TCP server
-    if (!modbusTCPServer.begin())
-    {
-        while (true)
-        {
-            digitalWrite(LED_BUILTIN, HIGH);
-            delay(250);
-            digitalWrite(LED_BUILTIN, LOW);
-            delay(250);
-        }
-        digitalWrite(LED_BUILTIN, LOW);
-    }
-    // Configura las direcciones para las bobinas y registros
-    modbusTCPServer.configureCoils(ADDRCOIL, NUMCOILS);
-    modbusTCPServer.configureHoldingRegisters(ADDRMOTOR1, NUMREGS);
-    digitalWrite(LED_BUILTIN, HIGH);
+    digitalWrite(LED_BUILTIN, LOW);
+  }
+  // Configura las direcciones para las bobinas y registros
+  modbusTCPServer.configureCoils(ADDRCOIL, NUMCOILS);
+  modbusTCPServer.configureHoldingRegisters(ADDRMOTOR1, NUMREGS);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
 void loop()
 {
-    // Espera que se establesca la comunicacion con el cliente
-    EthernetClient client = server.available();
-    if (client)
+  // Espera que se establesca la comunicacion con el cliente
+  EthernetClient client = server.available();
+  if (client)
+  {
+    // Espera hasta que el cliente mande el primer bit y acepta los TCP requests
+    modbusTCPServer.accept(client);
+    while (client.connected())
     {
-        // Espera hasta que el cliente mande el primer bit y acepta los TCP requests
-        modbusTCPServer.accept(client);
-        while (client.connected())
-        {
-            modbusTCPServer.poll();
-            updateCoilsBanda1();
-            updateCoilsBanda2();
-            updateVoltageBands();
-        }
+      modbusTCPServer.poll();
+      updateCoilsBanda1();
+      updateCoilsBanda2();
+      updateVoltageBands();
     }
+  }
 }
 
 void updateCoilsBanda1()
 {
-    for (int i = INITBANDA1; i < FINBANDA1; i++)
-    {
-        MB_C[i] = modbusTCPServer.coilRead(i);
-        P1.writeDiscrete(MB_C[i], SLDBANDA1, i+1);
-    }
+  for (int i = INITBANDA1; i < FINBANDA1; i++)
+  {
+    MB_C[i] = modbusTCPServer.coilRead(i);
+    P1.writeDiscrete(MB_C[i], SLDBANDA1, i + 1);
+    //P1.writeDiscrete(1, SLDBANDA1, i + 1);
+  }
 }
 
 void updateCoilsBanda2()
 {
-    for (int i = INITBANDA2; i < FINBANDA2; i++)
-    {
-        MB_C[i] = modbusTCPServer.coilRead(i);
-        P1.writeDiscrete(MB_C[i], SLDBANDA2, i-INITBANDA2+1);
-    }
+  for (int i = INITBANDA2; i < FINBANDA2; i++)
+  {
+    MB_C[i] = modbusTCPServer.coilRead(i);
+    P1.writeDiscrete(MB_C[i], SLDBANDA2, i - INITBANDA2 + 1);
+   // P1.writeDiscrete(1, SLDBANDA2, i - INITBANDA2 + 1);
+  }
 }
 
 void updateVoltageBands()
 {
-    if (modbusTCPServer.holdingRegisterRead(ADDRMOTOR1) != MemoriaMotor1)
-    {
-      
-        MemoriaMotor1 = modbusTCPServer.holdingRegisterRead(ADDRMOTOR1);
-        _PP("Velocidad Motor"); _PL(MemoriaMotor1);
-        P1.writeAnalog(MemoriaMotor1, SLDANALOGA, 1); 
-    }
-    if (modbusTCPServer.holdingRegisterRead(ADDRMOTOR2) != MemoriaMotor2)
-    {
-        MemoriaMotor2 = modbusTCPServer.holdingRegisterRead(ADDRMOTOR2);
-        P1.writeAnalog(MemoriaMotor2, SLDANALOGA, 2);
-    }
+  if (modbusTCPServer.holdingRegisterRead(ADDRMOTOR1) != MemoriaMotor1)
+  {
+
+    MemoriaMotor1 = modbusTCPServer.holdingRegisterRead(ADDRMOTOR1);
+    _PP("Velocidad Motor"); _PL(MemoriaMotor1);
+    P1.writeAnalog(MemoriaMotor1, SLDANALOGA, 1);
+  }
+  if (modbusTCPServer.holdingRegisterRead(ADDRMOTOR2) != MemoriaMotor2)
+  {
+    MemoriaMotor2 = modbusTCPServer.holdingRegisterRead(ADDRMOTOR2);
+    P1.writeAnalog(MemoriaMotor2, SLDANALOGA, 2);
+  }
 }
