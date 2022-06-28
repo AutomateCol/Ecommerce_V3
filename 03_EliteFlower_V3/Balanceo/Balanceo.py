@@ -1,4 +1,4 @@
-
+print("soy una funcion de python")
 # -*- coding: utf-8 -*-
 """ALGORITMO_BALANCEO_ELITE_PYTHON.ipynb
 
@@ -12,6 +12,8 @@ Original file is located at
 # DEFINICIÓN DE FUNCIONES
 """
 from itertools import combinations
+import json
+from lib2to3.pytree import convert
 from multiprocessing import connection
 from os import getcwd
 from xmlrpc.client import boolean 
@@ -841,7 +843,7 @@ def balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
 """
 def balanceo_automatico(var_ext_estaciones_slc, df_original):
 
-
+   
 
 
   # Se carga la base de datos desde el archivo de excel
@@ -859,17 +861,19 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
   #print (df_original)
   df_original = df_original.replace(np.nan,'-1')
   db_g = df_original.groupby('VASE_ID', dropna=False).agg(list)
-  print(db_g)
+  #print("base de datos")
+  #print(db_g)
   dp = getcwd()
-  file1 = open(rf'{dp}\intercambio.txt', "wb") # cambiar la direccion de guardado de acuerdo al proyecto, solo cambiar ruta, wb se mantiene
-  pickle.dump(db_g, file1)
-  file1.close
+  #file1 = open(rf'{dp}\intercambio.txt', "wb") # cambiar la direccion de guardado de acuerdo al proyecto, solo cambiar ruta, wb se mantiene
+  #pickle.dump(db_g, file1)
+  #file1.close
 
   """#PROCESAR"""
 
-  with open(rf'{dp}\intercambio.txt', 'rb') as f:
-      db_group = pickle.load(f)
-
+  #with open(rf'{dp}\intercambio.txt', 'rb') as f:
+      #db_group = pickle.load(f)
+  db_group = db_g    
+  #print(db_group)
   Vases_ID = db_group.index.values
   Barcodes = db_group.BARCODE_NUMBER.values
   AddOn_List = db_group.ADD_ON_ID.values
@@ -937,11 +941,12 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
   var_ext_estaciones_slc.sort()
   cant_st = len(var_ext_estaciones_slc)
   Distribucion_estaciones = ['-1','-1','-1','-1','-1','-1','-1','-1','-1'] # elevadores
-
+ 
   if cant_st*3 < Vases_type_num:
     print("!ERROR! -> La cantidad de vases supera el número de elevadores seleccionados")
 
   else:
+    #print(f"Addon Id: {AddOn_ID}")
     Led_Pos = ['N_A','N_A','N_A']
     for i in range(AddOn_ID.size):
       Led_Pos[i] = AddOn_ID[i]
@@ -1027,7 +1032,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
 
   Dist_Led_AD =[]
   for i in range(AddOn_ID.size):
-    Dist_Led_AD.append([AddOn_ID[i],AddOn_count[i]])
+    Dist_Led_AD.append((AddOn_ID[i],AddOn_count[i]))
 
   print("Total de órdenes ingresadas con vase = " + str(total_con_vase))
   print("Pedidos con vases ordenados de mayor a menor:", sort_cantidades)
@@ -1037,7 +1042,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
   print("Leds Add-On:", Dist_Led_AD)
 
   panda_df = pd.DataFrame(data = base_datos_output, columns = ["BARCODE_NUMBER", "VASE_ID", "ELEVATOR_ASIGN","ADD_ON_ID","LED_ASIGN"])
-  panda_df
+ #panda_df
 
   """# ASIGNACIÓN MANUAL"""
 
@@ -1093,7 +1098,8 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
   else:
     print("Asigne nuevamente los elevadores")
 
-  ##return panda_df
+  get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo, Dist_Led_AD)
+  return base_datos_output
   """# Crear y cargar TXTs
 
   """
@@ -1118,17 +1124,102 @@ def get_database(data):
     import pymongo
     client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
     db = client['EliteFlower']
-    PruebaPython = db.PruebaPython
+    print(client)
+    #print(data)
 
-    record = {'nombre':'santiago',
-              'nombre2':'Luis',          
-              'nombre3':'Laura'
-             }
-    PruebaPython.insert_one(record)
 
+    
     balanceData = db.balanceData
+    balanceData.delete_many({}) #borra todos los elementos de la coleccion
+    Data = db.Data
+    whstage = -1
     for item in data:
-      balanceData.insert_one(balanceData)
+      #print(item[4])
+      if item[3] == -1:
+        Whstage = -1
+      else:
+        whstage = 1
+      if item[1] == "-1":
+        item[1] = "null"
+      else:
+        pass
+      if item[3] == "-1":
+        item[3] = "null"
+      else:
+        pass
+
+      jsondata = {'TrackingNumber': item[0],
+                  'Vase': item[1],
+                  'Balance': item[2],
+                  'AddOnId':item[3],
+                  'AddOnBalance': item[4],
+                  'WhStage': whstage                 
+                 }
+      balanceData.insert_one(jsondata)
+      db.Data.update_many({"TrackingNumber":item[0]},{"$set":{'Vase': item[1],'Balance': item[2],'AddOnId':item[3],'AddOnBalance': item[4],'WhStage': whstage}})
+    client.close()
+
+def Convert(tup, di):
+    di = dict(tup)
+    return di
+    
+
+def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo, Dist_Led_AD):
+  print('from statics')
+  import pymongo
+  from collections import defaultdict
+  client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
+  db = client['EliteFlower']
+  #print(client)
+
+  Statics = db.Statics
+  Statics.delete_many({}) #borra todos los elementos de la coleccion
+
+  # record = {'Total con Vase':total_con_vase,
+  #           'Ordenes segun Vase':sort_cantidades,
+  #           'Estaciones seleccionadas':var_ext_estaciones_slc,
+  #           'Distribucion':Distribucion_estaciones,
+  #           'Balanceo': Balanceo,
+  #           'AddON': Dist_Led_AD}
+  # Driver Code    
+
+  dictionary = {} 
+  dic_sort_cant = Convert(sort_cantidades,dictionary)
+  for keys in dic_sort_cant:
+    dic_sort_cant[keys] = str(dic_sort_cant[keys])
+
+
+  dictionary = {} 
+  dic_AddON = Convert(Dist_Led_AD,dictionary)
+  for keys in dic_AddON:
+    dic_AddON[keys] = str(dic_AddON[keys])
+  
+  print (dic_AddON)
+  record = {"Total_Orders": str(Total_ordenes),
+            "Total_Vases": str(total_con_vase),
+            "Orders": dic_sort_cant,  
+            "Active_Stations": var_ext_estaciones_slc,
+            "BalancedWork": Balanceo,
+            "AddON" : dic_AddON
+            }
+
+  print(record)
+
+ 
+
+  #result = json.dumps(record)
+  
+  #print(result)
+  #record_j = json.dumps(record)
+  
+
+  #print(record_j)
+
+  Statics.insert_one(record)
+  client.close()
+
+
+
       
 
 
@@ -1143,12 +1234,16 @@ dp = 'D:\GitHub\EliteFlowerDeploy_V3\03_EliteFlower_V3'   # direccion del proyec
 #dp = getcwd(
 var_ext_estaciones_slc = [sys.argv[1],sys.argv[2],sys.argv[3]]
 estaciones_activas = []
+print(sys.argv[4])
 
-if bool(sys.argv[4]) == False:
-  df = sys.argv[4]
-else:
+if ((sys.argv[4]) == "FilePath: "): 
   df = 'D:\GitHub\EliteFlowerDeploy_V3\DataBases\Prueba_Python.xlsx' #direccion de la base de datos
-  
+else:
+  print("df es =")  
+  df = sys.argv[4]
+
+
+print(df)  
 #print(df)
 s = 'True'
 #print(len(var_ext_estaciones_slc))
@@ -1165,5 +1260,13 @@ for item in var_ext_estaciones_slc:
 
 #print(estaciones_activas) 
 
-balanceo_automatico(estaciones_activas,df)
-get_database()
+balanced_Data = balanceo_automatico(estaciones_activas,df)
+print("Data balanceda = ")
+#for item in balanced_Data:
+ # print((item))
+  
+"BARCODE_NUMBER", "VASE_ID", "ELEVATOR_ASIGN","ADD_ON_ID","LED_ASIGN"
+for i in range(11):
+
+  print(balanced_Data[i])
+get_database(balanced_Data)

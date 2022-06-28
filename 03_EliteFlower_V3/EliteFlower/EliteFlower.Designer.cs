@@ -279,6 +279,7 @@ namespace EliteFlower
             this.btnCleanDB = new System.Windows.Forms.Button();
             this.btnCleanWorkers = new System.Windows.Forms.Button();
             this.tabElite = new System.Windows.Forms.TabPage();
+            this.lblPath = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
@@ -321,7 +322,6 @@ namespace EliteFlower
             this.btnRestaurar = new System.Windows.Forms.PictureBox();
             this.comboNext = new System.Windows.Forms.ComboBox();
             this.comboActual = new System.Windows.Forms.ComboBox();
-            this.lblPath = new System.Windows.Forms.Label();
             this.mnuppal.SuspendLayout();
             this.gpMatriz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLeds12)).BeginInit();
@@ -502,7 +502,7 @@ namespace EliteFlower
             this.mnuELEnglish.CheckOnClick = true;
             this.mnuELEnglish.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuELEnglish.Name = "mnuELEnglish";
-            this.mnuELEnglish.Size = new System.Drawing.Size(139, 28);
+            this.mnuELEnglish.Size = new System.Drawing.Size(180, 28);
             this.mnuELEnglish.Text = "English";
             this.mnuELEnglish.Click += new System.EventHandler(this.mnuELEnglish_Click);
             // 
@@ -510,7 +510,7 @@ namespace EliteFlower
             // 
             this.mnuELSpanish.CheckOnClick = true;
             this.mnuELSpanish.Name = "mnuELSpanish";
-            this.mnuELSpanish.Size = new System.Drawing.Size(139, 28);
+            this.mnuELSpanish.Size = new System.Drawing.Size(180, 28);
             this.mnuELSpanish.Text = "Spanish";
             this.mnuELSpanish.Click += new System.EventHandler(this.mnuELSpanish_Click);
             // 
@@ -534,33 +534,33 @@ namespace EliteFlower
             // mnuEProducts
             // 
             this.mnuEProducts.Name = "mnuEProducts";
-            this.mnuEProducts.Size = new System.Drawing.Size(147, 28);
+            this.mnuEProducts.Size = new System.Drawing.Size(180, 28);
             this.mnuEProducts.Text = "Products";
             this.mnuEProducts.Click += new System.EventHandler(this.mnuEProducts_Click_1);
             // 
             // mnuEAddOn
             // 
             this.mnuEAddOn.Name = "mnuEAddOn";
-            this.mnuEAddOn.Size = new System.Drawing.Size(147, 28);
+            this.mnuEAddOn.Size = new System.Drawing.Size(180, 28);
             this.mnuEAddOn.Text = "Addon";
             this.mnuEAddOn.Click += new System.EventHandler(this.mnuEAddOn_Click_1);
             // 
             // mnuEPackage
             // 
             this.mnuEPackage.Name = "mnuEPackage";
-            this.mnuEPackage.Size = new System.Drawing.Size(147, 28);
+            this.mnuEPackage.Size = new System.Drawing.Size(180, 28);
             this.mnuEPackage.Text = "Package";
             this.mnuEPackage.Click += new System.EventHandler(this.mnuEPackage_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(144, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuEPLC
             // 
             this.mnuEPLC.Name = "mnuEPLC";
-            this.mnuEPLC.Size = new System.Drawing.Size(147, 28);
+            this.mnuEPLC.Size = new System.Drawing.Size(180, 28);
             this.mnuEPLC.Text = "PLC";
             this.mnuEPLC.Click += new System.EventHandler(this.mnuEPLC_Click_1);
             // 
@@ -1844,7 +1844,7 @@ namespace EliteFlower
             this.prueba2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.prueba2.Font = new System.Drawing.Font("Zygo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.prueba2.ForeColor = System.Drawing.Color.White;
-            this.prueba2.Location = new System.Drawing.Point(587, 543);
+            this.prueba2.Location = new System.Drawing.Point(596, 543);
             this.prueba2.Name = "prueba2";
             this.prueba2.Size = new System.Drawing.Size(120, 40);
             this.prueba2.TabIndex = 59;
@@ -3096,6 +3096,17 @@ namespace EliteFlower
             this.tabElite.TabIndex = 4;
             this.tabElite.Text = "Elite";
             // 
+            // lblPath
+            // 
+            this.lblPath.AutoSize = true;
+            this.lblPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.58F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPath.Location = new System.Drawing.Point(6, 645);
+            this.lblPath.Name = "lblPath";
+            this.lblPath.Size = new System.Drawing.Size(80, 20);
+            this.lblPath.TabIndex = 76;
+            this.lblPath.Text = "FilePath: ";
+            this.lblPath.Visible = false;
+            // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
@@ -3544,17 +3555,6 @@ namespace EliteFlower
             this.comboActual.Name = "comboActual";
             this.comboActual.Size = new System.Drawing.Size(121, 21);
             this.comboActual.TabIndex = 31;
-            // 
-            // lblPath
-            // 
-            this.lblPath.AutoSize = true;
-            this.lblPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.58F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPath.Location = new System.Drawing.Point(6, 645);
-            this.lblPath.Name = "lblPath";
-            this.lblPath.Size = new System.Drawing.Size(80, 20);
-            this.lblPath.TabIndex = 76;
-            this.lblPath.Text = "FilePath: ";
-            this.lblPath.Visible = false;
             // 
             // EliteFlower
             // 

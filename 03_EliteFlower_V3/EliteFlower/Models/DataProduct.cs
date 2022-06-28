@@ -44,5 +44,9 @@ namespace EliteFlower.Models
         public int Random { get; set; }
         [BsonElement("TypeBand")]
         public string TypeBand { get; set; }
+        [BsonElement("AddOnBalance")]
+        public string AddOnBalance { get; set; }
+       
+
     }
 }
