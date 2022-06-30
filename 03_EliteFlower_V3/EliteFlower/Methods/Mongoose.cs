@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
+using MongoDB.Bson;
+
+
 
 namespace EliteFlower.Methods
 {
@@ -146,6 +149,8 @@ namespace EliteFlower.Methods
                 OverviewDB.ReplaceOneAsync(r => r.ID == tt[0].ID, tt[0]);
             }
         }
+
+
 
         public static void SetWorkMesaninFalse()
         {
@@ -916,7 +921,47 @@ namespace EliteFlower.Methods
         //-------------------------------
         //              READ            |
         //-------------------------------
+        //public static void get_balance()
+        //{
+        //    MongoClient client = GetDBConnection();
+        //    IMongoDatabase database = GetDataBase(client);
+        //    //var statics = database.GetCollection<BsonDocument>("Statics");
+        //    //var documents = statics.Find(new BsonDocument()).ToList();
+        //    var statics = database.GetCollection<BsonDocument>("Statics");
+        //    var documents = statics.Find(new BsonDocument()).ToList();
+        //    Console.WriteLine(documents.ToString());
 
+        //    foreach (var doc in documents)
+        //    {               
+        //            var vases = doc.GetValue(i);         
+        //        Console.WriteLine(vases);
+
+        //    }                      
+        //}
+
+        public static List<Statics> get_balance()
+        {
+            MongoClient client = GetDBConnection();
+            IMongoDatabase database = GetDataBase(client);
+            IMongoCollection<Statics> StaticsDB = database.GetCollection<Statics>("Statics");
+            List<Statics> doc = StaticsDB.Find(f => f._id == 1).ToList();
+           
+
+
+            Console.WriteLine(doc);
+            //List<Statics> Static = StaticsDB.Find(s => s.BalancedWork).ToList();
+
+            //Console.WriteLine(documents.ToString());
+
+            //foreach (var doc in documents)
+            //{               
+            //        var vases = doc.GetValue(i);         
+            //    Console.WriteLine(vases);
+
+            //
+            //
+            return doc;
+        }
 
         public static void SetVase2Stage(int valueBalance)
         {
@@ -1802,5 +1847,7 @@ namespace EliteFlower.Methods
             IMongoCollection<IDAddOn> StateStageDB = database.GetCollection<IDAddOn>("BalanceIDAddOn");
             StateStageDB.DeleteManyAsync(d => d._Id != 0);
         }
+
+   
     }
 }

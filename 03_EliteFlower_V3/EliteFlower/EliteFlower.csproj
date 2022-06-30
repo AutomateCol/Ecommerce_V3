@@ -284,6 +284,7 @@
     <Compile Include="Methods\Mongoose.cs" />
     <Compile Include="Methods\UIMessages.cs" />
     <Compile Include="Methods\Utils.cs" />
+    <Compile Include="Models\Statics.cs" />
     <Compile Include="Models\AddOnID.cs" />
     <Compile Include="Models\BalanceCount.cs" />
     <Compile Include="Models\BalanceName.cs" />

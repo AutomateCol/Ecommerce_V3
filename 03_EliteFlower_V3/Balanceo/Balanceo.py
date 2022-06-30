@@ -895,14 +895,14 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
   for i in range(Vases_ID.size):
     Vases_count[i]=len(Barcodes[i])
 
-  AddOn_ID = []
+  AddOn_ID = ["","",""]
   for i in range(len(AddOn_List)):
     AddOn_ID = np.append(AddOn_ID,np.unique(AddOn_List[i]))
   AddOn_ID = np.unique(AddOn_ID)
   if '-1' in AddOn_ID:
     AddOn_ID = np.delete(AddOn_ID,np.where(AddOn_ID =='-1')[0][0])
 
-  AddOn_count=[]
+  AddOn_count=[0,0,0]
   aux = []
   aux1 = []
 
@@ -1049,7 +1049,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
   Asignacion_Selec = ['-1','-1','-1','GINGER', 'SLENDER' ,'-1','LARGE', 'GINGER', 'GINGER'] # Lista extraida directamente de la elección que hace el usuario en la interfaz
   #Los presets son simplemente listas que se puedan almacenar en la base de datos 
 
-  Distribucion_estaciones = Asignacion_Selec
+ # Distribucion_estaciones = Asignacion_Selec
 
   Vases_ID_select = np.unique(Asignacion_Selec)
 
@@ -1098,7 +1098,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original):
   else:
     print("Asigne nuevamente los elevadores")
 
-  get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo, Dist_Led_AD)
+  get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
   return base_datos_output
   """# Crear y cargar TXTs
 
@@ -1164,7 +1164,7 @@ def Convert(tup, di):
     return di
     
 
-def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo, Dist_Led_AD):
+def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD,AddOn_ID, AddOn_count):
   print('from statics')
   import pymongo
   from collections import defaultdict
@@ -1193,14 +1193,19 @@ def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaci
   dic_AddON = Convert(Dist_Led_AD,dictionary)
   for keys in dic_AddON:
     dic_AddON[keys] = str(dic_AddON[keys])
-  
-  print (dic_AddON)
-  record = {"Total_Orders": str(Total_ordenes),
+
+  print (f'Estaciones = {type(Distribucion_estaciones)}')
+  print (f'addon = {type(AddOn_ID)}')
+  record = { "_id" : 1,
+            "Total_Orders": str(Total_ordenes),
             "Total_Vases": str(total_con_vase),
-            "Orders": dic_sort_cant,  
+            "Orders": dic_sort_cant, 
             "Active_Stations": var_ext_estaciones_slc,
-            "BalancedWork": Balanceo,
-            "AddON" : dic_AddON
+            "Estaciones": Distribucion_estaciones,
+            "Cuenta_Estaciones" : Cuenta_Elevador,
+             "AddON" : AddOn_ID.tolist(),
+             "Cuenta_AddON" : AddOn_count.tolist()
+            # "File" : "Data"
             }
 
   print(record)

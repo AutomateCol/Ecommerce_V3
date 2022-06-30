@@ -24,6 +24,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using MongoDB.Bson;
+using MongoDB.Driver;
 #pragma warning restore CS0105 // La directiva using para 'System.Diagnostics' aparece previamente en este espacio de nombres
 
 
@@ -5025,6 +5027,63 @@ namespace EliteFlower
             Console.WriteLine();
             Console.WriteLine("Results");
             Console.WriteLine(results);
+
+            
+        }
+
+        private void btnShowBalance_Click(object sender, EventArgs e)
+        {
+            List<Statics> doc = Mongoose.get_balance();
+            int Total_Orders = doc[0].Total_Orders;
+            int Total_Vases = doc[0].Total_Vases;
+            // object Orders = doc[0].Orders;
+            string[] Balance = doc[0].Estaciones;
+            int[] Cuenta = doc[0].Cuenta_Estaciones;
+            string[] AddON = doc[0].AddON;
+            int[] Cuenta_AddON = doc[0].Cuenta_AddON;
+
+
+            Console.WriteLine(Total_Orders);
+            Console.WriteLine(Total_Vases);
+            Console.WriteLine(Balance);
+            for (int i = 0; i < Balance.Length; i++)
+            {
+                Console.WriteLine(Balance[i]);
+                Console.WriteLine(Cuenta[i]);
+            }
+
+            cbWorker11.Text = Balance[0];
+            cbWorker12.Text = Balance[1];
+            cbWorker13.Text = Balance[2];
+            cbWorker21.Text = Balance[3];
+            cbWorker22.Text = Balance[4];
+            cbWorker23.Text = Balance[5];
+            cbWorker31.Text = Balance[6];
+            cbWorker32.Text = Balance[7];
+            cbWorker33.Text = Balance[8];
+
+            TxtSubtotal11.Text = Cuenta[0].ToString();
+            TxtSubtotal12.Text = Cuenta[1].ToString();
+            TxtSubtotal13.Text = Cuenta[2].ToString();
+            TxtSubtotal21.Text = Cuenta[3].ToString();
+            TxtSubtotal22.Text = Cuenta[4].ToString();
+            TxtSubtotal23.Text = Cuenta[5].ToString();
+            TxtSubtotal31.Text = Cuenta[6].ToString();
+            TxtSubtotal32.Text = Cuenta[7].ToString();
+            TxtSubtotal33.Text = Cuenta[8].ToString();
+
+            TxtTotal1.Text = (Cuenta[0] + Cuenta[1] + Cuenta[2]).ToString();
+            TxtTotal2.Text = (Cuenta[3] + Cuenta[4] + Cuenta[5]).ToString();
+            TxtTotal3.Text = (Cuenta[6] + Cuenta[7] + Cuenta[8]).ToString();
+
+            cbAddon11.Text = AddON[0];
+            cbAddon12.Text = AddON[1];
+            cbAddon13.Text = AddON[2];
+
+            TxtSubtotal41.Text = Cuenta_AddON[0].ToString();
+            TxtSubtotal42.Text = Cuenta_AddON[1].ToString();
+            TxtSubtotal43.Text = Cuenta_AddON[2].ToString();
+
 
 
         }

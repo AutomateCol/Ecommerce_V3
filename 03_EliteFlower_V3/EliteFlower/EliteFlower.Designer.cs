@@ -168,8 +168,7 @@ namespace EliteFlower
             this.lblMesanin = new System.Windows.Forms.Label();
             this.pcbInitialFill = new System.Windows.Forms.PictureBox();
             this.tabConfiguration = new System.Windows.Forms.TabPage();
-            this.prueba2 = new System.Windows.Forms.Button();
-            this.prueba = new System.Windows.Forms.Button();
+            this.btnShowBalance = new System.Windows.Forms.Button();
             this.Bal_Python = new System.Windows.Forms.Button();
             this.txtControl = new System.Windows.Forms.TextBox();
             this.btnManBalance = new System.Windows.Forms.Button();
@@ -434,7 +433,7 @@ namespace EliteFlower
             this.mnuFDUpdateData,
             this.mnuFDRestoreBackup});
             this.mnuFData.Name = "mnuFData";
-            this.mnuFData.Size = new System.Drawing.Size(180, 28);
+            this.mnuFData.Size = new System.Drawing.Size(145, 28);
             this.mnuFData.Text = "Data";
             // 
             // mnuFDNewData
@@ -463,14 +462,14 @@ namespace EliteFlower
             // mnuFStatistics
             // 
             this.mnuFStatistics.Name = "mnuFStatistics";
-            this.mnuFStatistics.Size = new System.Drawing.Size(180, 28);
+            this.mnuFStatistics.Size = new System.Drawing.Size(145, 28);
             this.mnuFStatistics.Text = "Statistics";
             this.mnuFStatistics.Click += new System.EventHandler(this.mnuFStatistics_Click);
             // 
             // mnuFQuit
             // 
             this.mnuFQuit.Name = "mnuFQuit";
-            this.mnuFQuit.Size = new System.Drawing.Size(180, 28);
+            this.mnuFQuit.Size = new System.Drawing.Size(145, 28);
             this.mnuFQuit.Text = "Quit";
             this.mnuFQuit.Click += new System.EventHandler(this.mnuFQuit_Click_1);
             // 
@@ -502,7 +501,7 @@ namespace EliteFlower
             this.mnuELEnglish.CheckOnClick = true;
             this.mnuELEnglish.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuELEnglish.Name = "mnuELEnglish";
-            this.mnuELEnglish.Size = new System.Drawing.Size(180, 28);
+            this.mnuELEnglish.Size = new System.Drawing.Size(139, 28);
             this.mnuELEnglish.Text = "English";
             this.mnuELEnglish.Click += new System.EventHandler(this.mnuELEnglish_Click);
             // 
@@ -510,7 +509,7 @@ namespace EliteFlower
             // 
             this.mnuELSpanish.CheckOnClick = true;
             this.mnuELSpanish.Name = "mnuELSpanish";
-            this.mnuELSpanish.Size = new System.Drawing.Size(180, 28);
+            this.mnuELSpanish.Size = new System.Drawing.Size(139, 28);
             this.mnuELSpanish.Text = "Spanish";
             this.mnuELSpanish.Click += new System.EventHandler(this.mnuELSpanish_Click);
             // 
@@ -534,33 +533,33 @@ namespace EliteFlower
             // mnuEProducts
             // 
             this.mnuEProducts.Name = "mnuEProducts";
-            this.mnuEProducts.Size = new System.Drawing.Size(180, 28);
+            this.mnuEProducts.Size = new System.Drawing.Size(147, 28);
             this.mnuEProducts.Text = "Products";
             this.mnuEProducts.Click += new System.EventHandler(this.mnuEProducts_Click_1);
             // 
             // mnuEAddOn
             // 
             this.mnuEAddOn.Name = "mnuEAddOn";
-            this.mnuEAddOn.Size = new System.Drawing.Size(180, 28);
+            this.mnuEAddOn.Size = new System.Drawing.Size(147, 28);
             this.mnuEAddOn.Text = "Addon";
             this.mnuEAddOn.Click += new System.EventHandler(this.mnuEAddOn_Click_1);
             // 
             // mnuEPackage
             // 
             this.mnuEPackage.Name = "mnuEPackage";
-            this.mnuEPackage.Size = new System.Drawing.Size(180, 28);
+            this.mnuEPackage.Size = new System.Drawing.Size(147, 28);
             this.mnuEPackage.Text = "Package";
             this.mnuEPackage.Click += new System.EventHandler(this.mnuEPackage_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(144, 6);
             // 
             // mnuEPLC
             // 
             this.mnuEPLC.Name = "mnuEPLC";
-            this.mnuEPLC.Size = new System.Drawing.Size(180, 28);
+            this.mnuEPLC.Size = new System.Drawing.Size(147, 28);
             this.mnuEPLC.Text = "PLC";
             this.mnuEPLC.Click += new System.EventHandler(this.mnuEPLC_Click_1);
             // 
@@ -1816,8 +1815,7 @@ namespace EliteFlower
             // tabConfiguration
             // 
             this.tabConfiguration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
-            this.tabConfiguration.Controls.Add(this.prueba2);
-            this.tabConfiguration.Controls.Add(this.prueba);
+            this.tabConfiguration.Controls.Add(this.btnShowBalance);
             this.tabConfiguration.Controls.Add(this.Bal_Python);
             this.tabConfiguration.Controls.Add(this.txtControl);
             this.tabConfiguration.Controls.Add(this.btnManBalance);
@@ -1836,37 +1834,21 @@ namespace EliteFlower
             this.tabConfiguration.TabIndex = 1;
             this.tabConfiguration.Text = "Setup";
             // 
-            // prueba2
+            // btnShowBalance
             // 
-            this.prueba2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.prueba2.FlatAppearance.BorderSize = 0;
-            this.prueba2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
-            this.prueba2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.prueba2.Font = new System.Drawing.Font("Zygo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prueba2.ForeColor = System.Drawing.Color.White;
-            this.prueba2.Location = new System.Drawing.Point(596, 543);
-            this.prueba2.Name = "prueba2";
-            this.prueba2.Size = new System.Drawing.Size(120, 40);
-            this.prueba2.TabIndex = 59;
-            this.prueba2.Text = "Prueba2";
-            this.prueba2.UseVisualStyleBackColor = false;
-            this.prueba2.Click += new System.EventHandler(this.prueba2_Click);
-            // 
-            // prueba
-            // 
-            this.prueba.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.prueba.FlatAppearance.BorderSize = 0;
-            this.prueba.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
-            this.prueba.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.prueba.Font = new System.Drawing.Font("Zygo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prueba.ForeColor = System.Drawing.Color.White;
-            this.prueba.Location = new System.Drawing.Point(448, 543);
-            this.prueba.Name = "prueba";
-            this.prueba.Size = new System.Drawing.Size(120, 40);
-            this.prueba.TabIndex = 58;
-            this.prueba.Text = "Prueba";
-            this.prueba.UseVisualStyleBackColor = false;
-            this.prueba.Click += new System.EventHandler(this.prueba_Click);
+            this.btnShowBalance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.btnShowBalance.FlatAppearance.BorderSize = 0;
+            this.btnShowBalance.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
+            this.btnShowBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowBalance.Font = new System.Drawing.Font("Zygo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowBalance.ForeColor = System.Drawing.Color.White;
+            this.btnShowBalance.Location = new System.Drawing.Point(146, 543);
+            this.btnShowBalance.Name = "btnShowBalance";
+            this.btnShowBalance.Size = new System.Drawing.Size(120, 40);
+            this.btnShowBalance.TabIndex = 58;
+            this.btnShowBalance.Text = "Show Bal";
+            this.btnShowBalance.UseVisualStyleBackColor = false;
+            this.btnShowBalance.Click += new System.EventHandler(this.btnShowBalance_Click);
             // 
             // Bal_Python
             // 
@@ -3973,9 +3955,8 @@ namespace EliteFlower
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button Bal_Python;
-        private System.Windows.Forms.Button prueba;
-        private System.Windows.Forms.Button prueba2;
         private System.Windows.Forms.Label lblPath;
+        private System.Windows.Forms.Button btnShowBalance;
     }
 }
 
