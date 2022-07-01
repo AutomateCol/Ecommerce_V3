@@ -168,6 +168,7 @@ namespace EliteFlower
             this.lblMesanin = new System.Windows.Forms.Label();
             this.pcbInitialFill = new System.Windows.Forms.PictureBox();
             this.tabConfiguration = new System.Windows.Forms.TabPage();
+            this.chb_manual = new System.Windows.Forms.CheckBox();
             this.btnShowBalance = new System.Windows.Forms.Button();
             this.Bal_Python = new System.Windows.Forms.Button();
             this.txtControl = new System.Windows.Forms.TextBox();
@@ -1815,6 +1816,7 @@ namespace EliteFlower
             // tabConfiguration
             // 
             this.tabConfiguration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
+            this.tabConfiguration.Controls.Add(this.chb_manual);
             this.tabConfiguration.Controls.Add(this.btnShowBalance);
             this.tabConfiguration.Controls.Add(this.Bal_Python);
             this.tabConfiguration.Controls.Add(this.txtControl);
@@ -1833,6 +1835,18 @@ namespace EliteFlower
             this.tabConfiguration.Size = new System.Drawing.Size(790, 701);
             this.tabConfiguration.TabIndex = 1;
             this.tabConfiguration.Text = "Setup";
+            // 
+            // chb_manual
+            // 
+            this.chb_manual.AutoSize = true;
+            this.chb_manual.Checked = true;
+            this.chb_manual.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chb_manual.Location = new System.Drawing.Point(451, 551);
+            this.chb_manual.Name = "chb_manual";
+            this.chb_manual.Size = new System.Drawing.Size(212, 20);
+            this.chb_manual.TabIndex = 16;
+            this.chb_manual.Text = "Balanceo  Manual";
+            this.chb_manual.UseVisualStyleBackColor = true;
             // 
             // btnShowBalance
             // 
@@ -3957,6 +3971,7 @@ namespace EliteFlower
         private System.Windows.Forms.Button Bal_Python;
         private System.Windows.Forms.Label lblPath;
         private System.Windows.Forms.Button btnShowBalance;
+        private System.Windows.Forms.CheckBox chb_manual;
     }
 }
 
