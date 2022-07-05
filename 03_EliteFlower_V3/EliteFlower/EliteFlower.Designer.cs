@@ -3101,7 +3101,6 @@ namespace EliteFlower
             this.lblPath.Size = new System.Drawing.Size(80, 20);
             this.lblPath.TabIndex = 76;
             this.lblPath.Text = "FilePath: ";
-            this.lblPath.Visible = false;
             // 
             // button3
             // 

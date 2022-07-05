@@ -1213,6 +1213,15 @@ namespace EliteFlower.Methods
             List<IDOverview> tt = OverviewDB.Find(f => f.ID == 1).ToList();
             return tt[0].NameActualFile;
         }
+        public static string GetFilePath()
+        {
+            MongoClient client = new MongoClient(mongoDBConnection);
+            IMongoDatabase database = client.GetDatabase("EliteFlower");
+            IMongoCollection<IDOverview> OverviewDB = database.GetCollection<IDOverview>("Metadata");
+
+            List<IDOverview> tt = OverviewDB.Find(f => f.ID == 1).ToList();
+            return tt[0].FilePath;
+        }
         /// <summary>
         /// Obtiene el estado del modo de UPS.
         /// </summary>
@@ -1674,14 +1683,19 @@ namespace EliteFlower.Methods
         /// Guarda el nombre del archivo actual que se esta usando.
         /// </summary>
         /// <param name="filename"></param>
-        public static void SetFileNameML(string filename, bool update)
+        public static void SetFileNameML(string filename, bool update, string filepath)
         {
+            Console.WriteLine("file path ");
+            Console.WriteLine(filepath);
             MongoClient client = new MongoClient(mongoDBConnection);
             IMongoDatabase database = client.GetDatabase("EliteFlower");
             IMongoCollection<IDOverview> OverviewDB = database.GetCollection<IDOverview>("Metadata");
             List<IDOverview> tt = OverviewDB.Find(f => f.ID == 1).ToList();
             string[] lines = filename.Split(new string[] { "\\" }, StringSplitOptions.None);
+            string path = filepath;
             tt[0].NameActualFile = lines[lines.Length - 1];
+            tt[0].FilePath = path;
+
             if (update == true)
             {
                 tt[0].lastUpdate = DateTime.Now.ToString("MM/dd/yyyy");

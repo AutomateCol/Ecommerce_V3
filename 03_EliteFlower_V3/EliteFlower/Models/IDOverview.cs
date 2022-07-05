@@ -32,5 +32,8 @@ namespace EliteFlower.Models
         public int lastPosSorter { get; set; }
         [BsonElement("ESActive")]
         public bool ESActive { get; set; }
+        [BsonElement("FilePath")]
+        public string FilePath { get; set; }
+
     }
 }

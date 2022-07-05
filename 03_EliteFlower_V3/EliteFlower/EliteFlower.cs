@@ -215,7 +215,7 @@ namespace EliteFlower
             Utils.SetComboBox(nameVS, new List<ComboBox> { comboActual });
             _ = CheckDB(Mongoose.GetNameVases("Data"), true);
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
-
+            lblPath.Text = $"{Mongoose.GetFilePath()}";
             CheckForIllegalCrossThreadCalls = false;
         }
         /// <summary>
@@ -571,8 +571,8 @@ namespace EliteFlower
                         Mongoose.DeleteEntryData("Actual");
                         Mongoose.DeleteCountIDs("Actual");
                         Mongoose.DeleteIDAddOn();
-                        Mongoose.LoadExcel(ofd.FileName, "Actual");
-                        Mongoose.SetFileNameML(ofd.FileName, false);
+                        Mongoose.LoadExcel(ofd.FileName, "Actual");                        
+                        Mongoose.SetFileNameML(ofd.FileName, false, lblPath.Text);
                         Mongoose.LoadCountIDs("Actual", 1);
                         Mongoose.GetDistinctAddOn("Actual", 10);
                         Mongoose.GetStatistics("Actual", mnuELEnglish.Checked);
@@ -591,6 +591,7 @@ namespace EliteFlower
                         Utils.SetComboBox(nameVS, new List<ComboBox> { comboActual });
                         _ = CheckDB(Mongoose.GetNameVases("Actual"), true);
                         lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
+                        lblPath.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFilePath())}";
                     }
                 }
             }
@@ -2371,6 +2372,7 @@ namespace EliteFlower
         private void SetRecoveryState()
         {
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
+            lblPath.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFilePath())}";
             //-- Llena los ListBox con los nombres de las referencias que se tenia en el archivo previa a la caida de energia 
             List<String> nameVS = FillVases(Mongoose.GetNameVases("Data"));
             Utils.SetComboBox(nameVS, new List<ComboBox> { cbWorker11, cbWorker12, cbWorker13, cbWorker21, cbWorker22, cbWorker23, cbWorker31, cbWorker32, cbWorker33 });
@@ -3758,7 +3760,7 @@ namespace EliteFlower
             Mongoose.DeleteEntryData("Data");
             Mongoose.DeleteEntryData("DataSummary");
             Mongoose.LoadExcel(ofdFilename, "Data");
-            Mongoose.SetFileNameML(ofdFilename, false);
+            Mongoose.SetFileNameML(ofdFilename, false, lblPath.Text);
 
             Mongoose.DeleteCountIDs("Data");
             Mongoose.DeleteIDAddOn();
@@ -3779,6 +3781,7 @@ namespace EliteFlower
 
             _ = CheckDB(Mongoose.GetNameVases("Data"), true);
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
+            lblPath.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFilePath())}";
         }
 
         public void LoadingUpdateData()
@@ -3789,7 +3792,7 @@ namespace EliteFlower
             Mongoose.BackupEntryData();
             Mongoose.LoadExcel(ofdFilename, "DataTunnel");
             Mongoose.UpdateEntryData();
-            Mongoose.SetFileNameML(ofdFilename, true);
+            Mongoose.SetFileNameML(ofdFilename, true, lblPath.Text);
 
             Mongoose.DeleteCountIDs("Data");
             Mongoose.DeleteIDAddOn();
@@ -3810,6 +3813,7 @@ namespace EliteFlower
 
             _ = CheckDB(Mongoose.GetNameVases("Data"), true);
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
+            lblPath.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFilePath())}";
         }
 
         private async void mnuFDUpdateData_Click(object sender, EventArgs e)
@@ -4943,7 +4947,7 @@ namespace EliteFlower
             Console.WriteLine("Workers checked = ");
 
             var FileName = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
-            var FilePath = lblPath.Text;
+            var FilePath = lblPath.Text = $"{Mongoose.GetFilePath()}"; 
             Console.Write("File Name: ");
             Console.WriteLine(FileName);
             Console.Write("excel path: ");
