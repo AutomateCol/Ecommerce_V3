@@ -5060,14 +5060,14 @@ namespace EliteFlower
             int[] Cuenta_AddON = doc[0].Cuenta_AddON;
 
 
-            Console.WriteLine(Total_Orders);
-            Console.WriteLine(Total_Vases);
-            Console.WriteLine(Balance);
-            for (int i = 0; i < Balance.Length; i++)
-            {
-                Console.WriteLine(Balance[i]);
-                Console.WriteLine(Cuenta[i]);
-            }
+            //Console.WriteLine(Total_Orders);
+            //Console.WriteLine(Total_Vases);
+            //Console.WriteLine(Balance);
+            //for (int i = 0; i < Balance.Length; i++)
+            //{
+            //    Console.WriteLine(Balance[i]);
+            //    Console.WriteLine(Cuenta[i]);
+            //}
 
             cbWorker11.Text = Balance[0];
             cbWorker12.Text = Balance[1];
@@ -5092,6 +5092,7 @@ namespace EliteFlower
             TxtTotal1.Text = (Cuenta[0] + Cuenta[1] + Cuenta[2]).ToString();
             TxtTotal2.Text = (Cuenta[3] + Cuenta[4] + Cuenta[5]).ToString();
             TxtTotal3.Text = (Cuenta[6] + Cuenta[7] + Cuenta[8]).ToString();
+            TxtTotal4.Text = (Cuenta_AddON[0] + Cuenta_AddON[1] + Cuenta_AddON[2]).ToString();
 
             cbAddon11.Text = AddON[0];
             cbAddon12.Text = AddON[1];

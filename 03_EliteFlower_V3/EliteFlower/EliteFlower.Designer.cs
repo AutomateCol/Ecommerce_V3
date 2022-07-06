@@ -1839,8 +1839,6 @@ namespace EliteFlower
             // chb_manual
             // 
             this.chb_manual.AutoSize = true;
-            this.chb_manual.Checked = true;
-            this.chb_manual.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_manual.Location = new System.Drawing.Point(451, 551);
             this.chb_manual.Name = "chb_manual";
             this.chb_manual.Size = new System.Drawing.Size(212, 20);
