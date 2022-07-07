@@ -120,38 +120,27 @@ def balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
         aux_1 = [V_P1, V_P1, V_P2]   
         aux_2 = [V_P1, V_P1, V_P1]
         aux_3 = [V_P1, V_P1, V_P1]
-        random.shuffle(aux_1)
-        estacion = [aux_1,aux_2,aux_3]
-        random.shuffle(estacion)
 
       elif cant1 / 7 > cant2 / 2:
         aux_1 = [V_P1, V_P1, V_P2]   
         aux_2 = [V_P1, V_P1, V_P2]
         aux_3 = [V_P1, V_P1, V_P1]
-        random.shuffle(aux_1)
-        random.shuffle(aux_2)
-        estacion = [aux_1,aux_2,aux_3]
-        random.shuffle(estacion)
 
       elif cant1 / 6 > cant2 / 3:
         aux_1 = [V_P1, V_P1, V_P2]   
         aux_2 = [V_P1, V_P1, V_P2]
         aux_3 = [V_P1, V_P1, V_P2]
-        random.shuffle(aux_1)
-        random.shuffle(aux_2)
-        random.shuffle(aux_3)
-        estacion = [aux_1,aux_2,aux_3]
-        random.shuffle(estacion)
 
       else:
         aux_1 = [V_P1, V_P2, V_P2]   
         aux_2 = [V_P1, V_P1, V_P2]
         aux_3 = [V_P1, V_P1, V_P2]
-        random.shuffle(aux_1)
-        random.shuffle(aux_2)
-        random.shuffle(aux_3)
-        estacion = [aux_1,aux_2,aux_3]
-        random.shuffle(estacion)
+      
+      random.shuffle(aux_1)
+      random.shuffle(aux_2)
+      random.shuffle(aux_3)
+      estacion = [aux_1,aux_2,aux_3]
+      random.shuffle(estacion)
 
     print(f'estacion {estacion}')
     inicio = []
@@ -287,15 +276,65 @@ def balanceo_3_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
   V_P2 = sort_cantidades[1][0];
   V_P3 = sort_cantidades[2][0];
 
-  estacion = []
-  aux_estacion = [V_P1, V_P2, V_P3]
+  cant1 = Vases_count[0]
+  cant2 = Vases_count[1]
+  cant3 = Vases_count[2]
 
-  for i in range(cant_st):
-    random.shuffle(aux_estacion)
-    estacion += aux_estacion
-  
+  estacion = []
+  if cant_st == 1:
+    estacion = [V_P1, V_P2, V_P3]
+  elif cant_st == 2:
+    if cant1 / 4 > cant2:
+     aux_1 = [V_P1, V_P1, V_P2]
+     aux_2 = [V_P1, V_P1, V_P3]
+    else:
+     aux_1 = [V_P1, V_P1, V_P2]
+     aux_2 = [V_P1, V_P2, V_P3]
+    random.shuffle(aux_1)
+    random.shuffle(aux_2)   
+    estacion = [aux_1,aux_2]
+    random.shuffle(estacion)
+  else:
+    if cant1 / 7 > cant2:
+       aux_1 = [V_P1, V_P1, V_P2]   
+       aux_2 = [V_P1, V_P1, V_P3]
+       aux_3 = [V_P1, V_P1, V_P1]
+    elif cant1 / 6 > cant2 /2 and cant1 / 6 > cant3:
+       aux_1 = [V_P1, V_P1, V_P2]   
+       aux_2 = [V_P1, V_P1, V_P3]
+       aux_3 = [V_P1, V_P1, V_P2]      
+    elif cant1 / 5 > cant2 /2 and cant1 / 6 > cant3 / 2:
+       aux_1 = [V_P1, V_P2, V_P3]   
+       aux_2 = [V_P1, V_P1, V_P3]
+       aux_3 = [V_P1, V_P1, V_P2]   
+    elif cant1 / 5 > cant2 /3 and cant1 / 5 > cant3:
+       aux_1 = [V_P1, V_P2, V_P3]   
+       aux_2 = [V_P1, V_P1, V_P2]
+       aux_3 = [V_P1, V_P1, V_P2]
+    elif cant1 / 4 > cant2 /4 and cant1 / 4 > cant3:
+       aux_1 = [V_P1, V_P2, V_P3]   
+       aux_2 = [V_P1, V_P2, V_P2]
+       aux_3 = [V_P1, V_P1, V_P2]  
+    elif cant1 / 4 > cant2 /3 and cant1 / 4 > cant3 / 2:
+       aux_1 = [V_P1, V_P2, V_P3]   
+       aux_2 = [V_P1, V_P2, V_P3]
+       aux_3 = [V_P1, V_P1, V_P2] 
+    elif cant1 / 4 > cant2 /3 and cant1 / 4 > cant3 / 2:
+       aux_1 = [V_P1, V_P2, V_P3]   
+       aux_2 = [V_P1, V_P2, V_P3]
+       aux_3 = [V_P1, V_P1, V_P2]
+    else:
+       aux_1 = [V_P1, V_P2, V_P3]   
+       aux_2 = [V_P1, V_P2, V_P3]
+       aux_3 = [V_P1, V_P2, V_P3]
+    random.shuffle(aux_1)
+    random.shuffle(aux_2)  
+    random.shuffle(aux_3) 
+    estacion = [aux_1,aux_2,aux_3]
+    random.shuffle(estacion) 
   inicio = []
 
+  print(f'Estacion = {estacion}')
   for i in range(cant_st):
     r = var_ext_estaciones_slc[i]
     if (r == 1 ):
@@ -305,14 +344,18 @@ def balanceo_3_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
     else:
       inicio.append(6)
 
-  n=0
   
+
+
+
   if manual != "1":
     for i in range(cant_st):
+      n=0
       for j in range(inicio[i],inicio[i]+3,1):
-        Distribucion_estaciones[j]= estacion[n]
+        Distribucion_estaciones[j]= estacion[i][n]
         n+=1  
-  
+
+  print(f'distribucion estaciones {Distribucion_estaciones}')
 
   elevadores_asignados = []
   elevadores_asignados_aux = []
