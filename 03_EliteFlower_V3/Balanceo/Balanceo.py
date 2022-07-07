@@ -88,48 +88,83 @@ def balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
   V_P1 = sort_cantidades[0][0]
   V_P2 = sort_cantidades[1][0]
 
+
   cant1 = Vases_count[0]
   cant2 = Vases_count[1]
   case = 0
   print(f'cant  1 = {cant1}')
-
-  if cant_st == 1:
-    estacion = [V_P1, V_P1, V_P2]
-    random.shuffle(estacion)
-  elif cant_st == 2:
-    if cant1 / 5 >= cant2:
-      case = 1
-      aux_1 = [V_P1, V_P1, V_P1]   
-      aux_2 = [V_P1, V_P1, V_P2]
-    elif cant1 / 4 >= cant2:
-      case = 2
-      aux_1 = [V_P1, V_P1, V_P1]   
-      aux_2 = [V_P1, V_P2, V_P2]
-    else:
-      case = 3
-      aux_1 = [V_P1, V_P1, V_P2]   
-      aux_2 = [V_P1, V_P2, V_P2]
-
-    random.shuffle(aux_1)
-    random.shuffle(aux_2)
-    estacion = [aux_1,aux_2]
-    random.shuffle(estacion)
-  else:
-    aux = [V_P1, V_P1, V_P2]
-    random.shuffle(aux)
-    estacion = [aux,aux,aux]
-  print(f'estacion {estacion}')
-  inicio = []
-
-  for i in range(cant_st):
-    r = var_ext_estaciones_slc[i]
-    if (r == 1 ):
-      inicio.append(0)
-    elif (r == 2 ):
-      inicio.append(3)
-    else:
-      inicio.append(6)
   if manual != "1":
+    if cant_st == 1:
+      estacion = [V_P1, V_P1, V_P2]
+      random.shuffle(estacion)
+    elif cant_st == 2:
+      if cant1 / 5 >= cant2:
+        case = 1
+        aux_1 = [V_P1, V_P1, V_P1]   
+        aux_2 = [V_P1, V_P1, V_P2]
+      elif cant1 / 4 >= cant2:
+        case = 2
+        aux_1 = [V_P1, V_P1, V_P1]   
+        aux_2 = [V_P1, V_P2, V_P2]
+      else:
+        case = 3
+        aux_1 = [V_P1, V_P1, V_P2]   
+        aux_2 = [V_P1, V_P2, V_P2]
+
+      random.shuffle(aux_1)
+      random.shuffle(aux_2)
+      estacion = [aux_1,aux_2]
+      random.shuffle(estacion)
+    else:
+      if cant1 / 8 > cant2:
+        aux_1 = [V_P1, V_P1, V_P2]   
+        aux_2 = [V_P1, V_P1, V_P1]
+        aux_3 = [V_P1, V_P1, V_P1]
+        random.shuffle(aux_1)
+        estacion = [aux_1,aux_2,aux_3]
+        random.shuffle(estacion)
+
+      elif cant1 / 7 > cant2 / 2:
+        aux_1 = [V_P1, V_P1, V_P2]   
+        aux_2 = [V_P1, V_P1, V_P2]
+        aux_3 = [V_P1, V_P1, V_P1]
+        random.shuffle(aux_1)
+        random.shuffle(aux_2)
+        estacion = [aux_1,aux_2,aux_3]
+        random.shuffle(estacion)
+
+      elif cant1 / 6 > cant2 / 3:
+        aux_1 = [V_P1, V_P1, V_P2]   
+        aux_2 = [V_P1, V_P1, V_P2]
+        aux_3 = [V_P1, V_P1, V_P2]
+        random.shuffle(aux_1)
+        random.shuffle(aux_2)
+        random.shuffle(aux_3)
+        estacion = [aux_1,aux_2,aux_3]
+        random.shuffle(estacion)
+
+      else:
+        aux_1 = [V_P1, V_P2, V_P2]   
+        aux_2 = [V_P1, V_P1, V_P2]
+        aux_3 = [V_P1, V_P1, V_P2]
+        random.shuffle(aux_1)
+        random.shuffle(aux_2)
+        random.shuffle(aux_3)
+        estacion = [aux_1,aux_2,aux_3]
+        random.shuffle(estacion)
+
+    print(f'estacion {estacion}')
+    inicio = []
+
+    for i in range(cant_st):
+      r = var_ext_estaciones_slc[i]
+      if (r == 1 ):
+        inicio.append(0)
+      elif (r == 2 ):
+        inicio.append(3)
+      else:
+        inicio.append(6)
+ 
     if cant_st > 1 :
       for i in range(cant_st):
         n=0
@@ -145,12 +180,15 @@ def balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
 
   elevadores_asignados = []
   elevadores_asignados_aux = []
+
   for r in range(Vases_type_num):
     indices = [i for i, x in enumerate(Distribucion_estaciones) if  x == Vases_ID[r]]
     elevadores_asignados_aux.append(indices)
 
   elevadores_asignados = [[y+1 for y in x ] for x in elevadores_asignados_aux]
   
+  
+
   if '-1' in Vases_ID:
     elevadores_asignados.append([-1])
 
@@ -174,31 +212,45 @@ def balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
     elevador_ID = []
     lista_aux = []
 
-    for i in range(len(elevadores_asignados)):
-      lista_aux = []
-      if (Vases_ID[i] == V_P1):
-        R=list(elevadores_asignados[i])
-        print(f'lista {R}')
-        for k in range(len(ubi)):
-          R.remove(ubi[k])
+    if len(ubi)>0:
+      for i in range(len(elevadores_asignados)):
+        lista_aux = []
+        if (Vases_ID[i] == V_P1):
+          R=list(elevadores_asignados[i])
           print(f'lista {R}')
-          for r in range(x):
-            lista_aux.append(ubi[k])
+          for k in range(len(ubi)):
+            R.remove(ubi[k])
+            print(f'lista {R}')
+            for r in range(x):
+              lista_aux.append(ubi[k])
+          j = 0
+          for t in range (Vases_count[i]-x):
+            if j>(len(R)-1):
+              j=0
+            lista_aux.append(R[j])
+            j=j+1
+          random.shuffle(lista_aux)
+        else:
+          j = 0
+          for t in range (Vases_count[i]):
+            if j>(len(elevadores_asignados[i])-1):
+              j=0
+            lista_aux.append(elevadores_asignados[i][j])
+            j=j+1
+        elevador_ID.append(lista_aux)
+    else:
+      elevador_ID = []
+      lista_aux = []
+
+      for w in range(len(elevadores_asignados)):
+        lista_aux = []
         j = 0
-        for t in range (Vases_count[i]-x):
-          if j>(len(R)-1):
+        for i in range (Vases_count[w]):
+          if j>(len(elevadores_asignados[w])-1):
             j=0
-          lista_aux.append(R[j])
+          lista_aux.append(elevadores_asignados[w][j])
           j=j+1
-        random.shuffle(lista_aux)
-      else:
-        j = 0
-        for t in range (Vases_count[i]):
-          if j>(len(elevadores_asignados[i])-1):
-            j=0
-          lista_aux.append(elevadores_asignados[i][j])
-          j=j+1
-      elevador_ID.append(lista_aux)
+        elevador_ID.append(lista_aux)
 
   else:
     elevador_ID = []
@@ -213,6 +265,15 @@ def balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
         lista_aux.append(elevadores_asignados[w][j])
         j=j+1
       elevador_ID.append(lista_aux)
+#elevador ID, vector con la posicion del codigo i referente al vase en los elevadores
+  # for i in range(len(elevador_ID)):
+  #  print(f'len ID {i} = {len(elevador_ID[i])}')
+  #  for j in range(30):
+  #   print(f'ID 0 = {elevador_ID[i][j]}')
+#Elevadores Asignados, contiene una lista de listas con las posiciones en las que se encuetran
+# cada uno de los vases de la base de datos
+  print(f'elevadores asignados {elevadores_asignados}')
+   
   return elevadores_asignados, elevador_ID
 
 """
@@ -897,10 +958,17 @@ def balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
 
 
 """# CARGAR BASE DE DATOS
+
+   var_ext_estaciones_slc : vector con las estaciones activas
+   df_original: string con la direccion local de la base de datos en excel
+   manual: boleano 0-1 que indica si es balanceo manual o automatico
+   CV: vector con la configuracion usada en el balanceo manual
 """
+
 def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
 
-   
+
+
 
 
   # Se carga la base de datos desde el archivo de excel
@@ -1150,7 +1218,7 @@ def get_database(data):
         Whstage = -1
       else:
         whstage = 1
-      if item[1] == "-1":
+      if item[1] == "-1": 
         item[1] = "null"
       else:
         pass

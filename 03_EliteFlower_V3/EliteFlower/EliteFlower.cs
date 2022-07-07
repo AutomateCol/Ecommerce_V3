@@ -4916,12 +4916,19 @@ namespace EliteFlower
             }
         }
 
-         private void Bal_Python_Click(object sender, EventArgs e)
+         private async void Bal_Python_Click(object sender, EventArgs e)
         {
-            balanceo();
+            ShowLoader("Balancing Data");
+            Task oTask2 = new Task(balanceo);
+            oTask2.Start();
+            await oTask2;
+            HideLoader();
+            ShowBalance();
         }
 
-        private void balanceo()
+
+
+        private  void balanceo()
         {
             List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };
             int AvailableWorkers = WorkersChecked.Where(c => c).Count();
@@ -5047,8 +5054,7 @@ namespace EliteFlower
 
             
         }
-
-        private void btnShowBalance_Click(object sender, EventArgs e)
+        private void ShowBalance()
         {
             List<Statics> doc = Mongoose.get_balance();
             int Total_Orders = doc[0].Total_Orders;
@@ -5101,12 +5107,14 @@ namespace EliteFlower
             TxtSubtotal41.Text = Cuenta_AddON[0].ToString();
             TxtSubtotal42.Text = Cuenta_AddON[1].ToString();
             TxtSubtotal43.Text = Cuenta_AddON[2].ToString();
-
-
+        }
+        private void btnShowBalance_Click(object sender, EventArgs e)
+        {
+            ShowBalance();
 
         }
 
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private  void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
 
         }

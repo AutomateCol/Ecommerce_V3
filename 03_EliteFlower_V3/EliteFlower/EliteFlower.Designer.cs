@@ -169,7 +169,6 @@ namespace EliteFlower
             this.pcbInitialFill = new System.Windows.Forms.PictureBox();
             this.tabConfiguration = new System.Windows.Forms.TabPage();
             this.chb_manual = new System.Windows.Forms.CheckBox();
-            this.btnShowBalance = new System.Windows.Forms.Button();
             this.Bal_Python = new System.Windows.Forms.Button();
             this.txtControl = new System.Windows.Forms.TextBox();
             this.btnManBalance = new System.Windows.Forms.Button();
@@ -1817,7 +1816,6 @@ namespace EliteFlower
             // 
             this.tabConfiguration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
             this.tabConfiguration.Controls.Add(this.chb_manual);
-            this.tabConfiguration.Controls.Add(this.btnShowBalance);
             this.tabConfiguration.Controls.Add(this.Bal_Python);
             this.tabConfiguration.Controls.Add(this.txtControl);
             this.tabConfiguration.Controls.Add(this.btnManBalance);
@@ -1845,22 +1843,6 @@ namespace EliteFlower
             this.chb_manual.TabIndex = 16;
             this.chb_manual.Text = "Balanceo  Manual";
             this.chb_manual.UseVisualStyleBackColor = true;
-            // 
-            // btnShowBalance
-            // 
-            this.btnShowBalance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.btnShowBalance.FlatAppearance.BorderSize = 0;
-            this.btnShowBalance.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
-            this.btnShowBalance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowBalance.Font = new System.Drawing.Font("Zygo", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShowBalance.ForeColor = System.Drawing.Color.White;
-            this.btnShowBalance.Location = new System.Drawing.Point(146, 543);
-            this.btnShowBalance.Name = "btnShowBalance";
-            this.btnShowBalance.Size = new System.Drawing.Size(120, 40);
-            this.btnShowBalance.TabIndex = 58;
-            this.btnShowBalance.Text = "Show Bal";
-            this.btnShowBalance.UseVisualStyleBackColor = false;
-            this.btnShowBalance.Click += new System.EventHandler(this.btnShowBalance_Click);
             // 
             // Bal_Python
             // 
@@ -3967,7 +3949,6 @@ namespace EliteFlower
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button Bal_Python;
         private System.Windows.Forms.Label lblPath;
-        private System.Windows.Forms.Button btnShowBalance;
         private System.Windows.Forms.CheckBox chb_manual;
     }
 }
