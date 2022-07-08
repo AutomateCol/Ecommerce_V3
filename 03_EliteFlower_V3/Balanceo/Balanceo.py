@@ -6,7 +6,7 @@ Original file is located at
     https://colab.research.google.com/drive/1BlaA48w4FHk1hIh_PjzrD-2CPzobT5Uy
 # DEFINICIÓN DE FUNCIONES
 """
-from itertools import combinations
+from itertools import combinations, count
 import json
 from lib2to3.pytree import convert
 from multiprocessing import connection
@@ -394,16 +394,48 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
   V_P3 = sort_cantidades[2][0];
   V_P4 = sort_cantidades[3][0];
 
+  cant1 = Vases_count[0]
+  cant2 = Vases_count[1]
+  cant3 = Vases_count[2]
+  cant4 = Vases_count[3]
+
+
+
+  if cant1/total_con_vase > 0.8:
+    if cant_st == 2:
+      aux_1 = [V_P1, V_P2, V_P3]
+      aux_2 = [V_P1, V_P1, V_P4]
+    else:
+      aux_1 = [V_P1, V_P1, V_P2]
+      aux_2 = [V_P1, V_P1, V_P3]
+      aux_3 = [V_P1, V_P1, V_P4]
+  elif cant1/total_con_vase > 0.5 and cant2/total_con_vase > 0.3:
+    if cant_st == 2:
+      aux_1 = [V_P1, V_P2, V_P3]
+      aux_2 = [V_P1, V_P2, V_P4]
+    else:
+      aux_1 = [V_P1, V_P1, V_P2]
+      aux_2 = [V_P1, V_P2, V_P3]
+      aux_3 = [V_P1, V_P1, V_P4]
+  else:
+    if cant_st == 2:
+      aux_1 = [V_P1, V_P2, V_P3]
+      aux_2 = [V_P1, V_P2, V_P4]
+    else:
+      aux_1 = [V_P1, V_P2, V_P3]
+      aux_2 = [V_P1, V_P3, V_P4]
+      aux_3 = [V_P1, V_P2, V_P4]
+
   estacion = []
-  aux_1 = [V_P1, V_P2, V_P4]
-  aux_2 = [V_P1, V_P2, V_P3]
   random.shuffle(aux_1)
   random.shuffle(aux_2)
 
   if cant_st == 2:
     estacion = [aux_1,aux_2]
   else:
-    estacion = [aux_1,aux_2,aux_2]
+    random.shuffle(aux_3)
+    estacion = [aux_1,aux_2,aux_3]
+  random.shuffle(estacion) 
 
   inicio = []
 
@@ -425,6 +457,9 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
   else:
     pass
 
+
+
+
   elevadores_asignados = []
   elevadores_asignados_aux = []
   for r in range(Vases_type_num):
@@ -435,27 +470,86 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
   if '-1' in Vases_ID:
     elevadores_asignados.append([-1])
 
+  rv = []
+
+  rv.append(Distribucion_estaciones.count(V_P1))
+  rv.append(Distribucion_estaciones.count(V_P2))
+  rv.append(Distribucion_estaciones.count(V_P3))
+  rv.append(Distribucion_estaciones.count(V_P4))
+
+  print(f'rv = {rv}')
 
 
   vases_por_st = int(round(total_con_vase / cant_st))
 
-  print(f'vases por st {vases_por_st}')
-
-  y = int(round(Cantidades[V_P2]/cant_st)) #Cantidad de vase de la segunda con mayor porcentaje por estación
-  #Estacion con V_P3 y V_P2
-  x = int(round(vases_por_st - (y + Cantidades[V_P3]/(cant_st-1))))
+ 
   
   elevador_ID = []
   lista_aux = []
 
+
+
+
   if cant_st == 2:
+    y = int(round(Cantidades[V_P2]/cant_st)) #Cantidad de vase de la segunda con mayor porcentaje por estación
+    #Estacion con V_P3 y V_P2
+    x = int(round(vases_por_st - (y + Cantidades[V_P3]/(cant_st-1))))
+
+    if var_ext_estaciones_slc[0] == 1:
+      ea_st1 = [1,2,3]
+    else:
+      ea_st1 = [4,5,6]
+    if var_ext_estaciones_slc[1] == 2:
+      ea_st2 = [4,5,6]
+    else:
+      ea_st2 = [7,8,9]
+    
+    
+
+    gr1 = []
+    gr2 = []
+
+    for i in range(len(elevadores_asignados[0])):
+      if elevadores_asignados[0][i] in ea_st1:
+        gr1.append(elevadores_asignados[0][i])
+      elif elevadores_asignados[0][i] in ea_st2:
+        gr2.append(elevadores_asignados[0][i])
+
+
+      
+
+    print(f'grupo 1 = {gr1}, grupo 2 = {gr2}')
+
+ 
     for i in range(len(elevadores_asignados)):
       lista_aux = []
-      if (Vases_ID[i] == V_P1):
-        for h in range(Vases_count[i]-x):
-          lista_aux.append(elevadores_asignados[i][0])
-        for h in range(x):
-          lista_aux.append(elevadores_asignados[i][1])
+      k = 0
+      j = 0
+      if (Vases_ID[i] == V_P1): # distribuye el vase con mayor cantidad de pedidos
+        if len(gr1) > 0 and len(gr2) == 0:
+          for h in range(Vases_count[i]):           
+            lista_aux.append(gr1[k])
+            k += 1
+            if k > len(gr1)-1:
+              k = 0 
+        elif len(gr1) == 0 and len(gr2) > 0:
+          for h in range(Vases_count[i]):
+            lista_aux.append(gr2[k])
+            k += 1
+            if k > len(gr2)-1:
+              k = 0                    
+        else:
+          for h in range(Vases_count[i]-x):
+            lista_aux.append(gr1[k])
+            k += 1
+            if k > len(gr1)-1:
+              k = 0
+
+          for h in range(x):
+            lista_aux.append(gr2[j])
+            j+= 1
+            if j > len(gr2)-1:
+              j = 0
       else:
         j = 0
         for t in range (Vases_count[i]):
@@ -466,14 +560,90 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
       elevador_ID.append(lista_aux)
 
   else:
+    gr1 = []
+    gr2 = []
+    gr3 = []
+    k = 0
+    j = 0
+    p = 0
+ 
+
+
+
+
+    for i in range(len(elevadores_asignados[0])):
+      if elevadores_asignados[0][i] in [1,2,3]:
+        gr1.append(elevadores_asignados[0][i])
+      elif elevadores_asignados[0][i] in [4,5,6]:
+        gr2.append(elevadores_asignados[0][i])
+      elif elevadores_asignados[0][i] in [7,8,9]:
+        gr3.append(elevadores_asignados[0][i])
+
+    print(f'grupo1 {gr1}, grupo2 {gr2}, grupo3 {gr3}')
+    x = Vases_count
+
+    cant_st_v2 = int(round(cant2/ rv[1]))
+    cant_st_v3 = int(round(cant3/ rv[2]))   
+    cant_st_v4 = int(round(cant4/ rv[3]))
+
+    cant = {V_P2 : cant_st_v2, V_P3 : cant_st_v3, V_P4 : cant_st_v4 }
+
+    print(f'cant = {cant}')
+
+    """y : variable en la cual se calcula las cantidades por estacion de todos
+    los vases, excepto el que mas cantidad tiene
+    """
+    y = []
+    print(len(estacion))
+    for i in range(len(estacion)):
+      aux = 0
+      for j in range(len(estacion[i])):
+        if estacion[i][j] != V_P1:
+          print(estacion[i][j])
+          aux += cant[estacion[i][j]]
+      y.append(aux)
+    
+    print(f'y = {y}')
+    """En X se calcula la cantidad del vase que mas se repita por estacion
+    tomando a consideración los valores asignados en las demas estaciones
+    con el fin de equiparar lo mas posible la carga
+    """
+    
+    x = []
+
+    for i in range(len(y)):
+      x.append(int(round(total_con_vase/3)-y[i]))
+    surplus = cant1-(x[0]+x[1]+x[2])
+    x[0] += surplus
+
+    print(f'x = {x}')
+
+
+
+
+    # y = int(round(Cantidades[V_P2]/cant_st)) #Cantidad de vase de la segunda con mayor porcentaje por estación
+    #  #Estacion con V_P3 y V_P2
+    # x = int(round(vases_por_st - (y + Cantidades[V_P3]/(cant_st-1))))
+
     for i in range(len(elevadores_asignados)):
       lista_aux = []
+      k = 0; j = 0; p = 0
       if (Vases_ID[i] == V_P1):
-        for h in range(Vases_count[i]-(2*x)):
-          lista_aux.append(elevadores_asignados[i][0])
-        for h in range(x):
-          lista_aux.append(elevadores_asignados[i][1])
-          lista_aux.append(elevadores_asignados[i][2])
+        for h in range(x[0]):
+          lista_aux.append(gr1[k])
+          k += 1
+          if k > len(gr1)-1:
+            k = 0
+        for h in range(x[1]):
+          lista_aux.append(gr2[j])
+          j += 1
+          if j > len(gr2)-1:
+            j = 0
+        for h in range(x[2]):
+          lista_aux.append(gr3[p])
+          p += 1
+          if p > len(gr3)-1:
+            p = 0
         random.shuffle(lista_aux)
       else:
         j = 0
@@ -483,7 +653,7 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
           lista_aux.append(elevadores_asignados[i][j])
           j=j+1
       elevador_ID.append(lista_aux)
-  
+  print(f'elevadores asignados {elevadores_asignados}')
   return elevadores_asignados, elevador_ID
 
 
