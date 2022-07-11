@@ -594,7 +594,7 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
     los vases, excepto el que mas cantidad tiene
     """
     y = []
-    print(len(estacion))
+    print(f'estacion {estacion}')
     for i in range(len(estacion)):
       aux = 0
       for j in range(len(estacion[i])):
@@ -612,7 +612,13 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
     x = []
 
     for i in range(len(y)):
-      x.append(int(round(total_con_vase/3)-y[i]))
+      if (total_con_vase/3-y[i]) > 0:
+        x.append(int(round(total_con_vase/3)-y[i]))
+      else:
+        x.append(int(0))
+      
+      
+      
     surplus = cant1-(x[0]+x[1]+x[2])
     x[0] += surplus
 
@@ -629,21 +635,24 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
       lista_aux = []
       k = 0; j = 0; p = 0
       if (Vases_ID[i] == V_P1):
-        for h in range(x[0]):
-          lista_aux.append(gr1[k])
-          k += 1
-          if k > len(gr1)-1:
-            k = 0
-        for h in range(x[1]):
-          lista_aux.append(gr2[j])
-          j += 1
-          if j > len(gr2)-1:
-            j = 0
-        for h in range(x[2]):
-          lista_aux.append(gr3[p])
-          p += 1
-          if p > len(gr3)-1:
-            p = 0
+        if len(gr1)> 0:
+          for h in range(x[0]):
+            lista_aux.append(gr1[k])
+            k += 1
+            if k > len(gr1)-1:
+              k = 0
+        if len(gr2)> 0:
+          for h in range(x[1]):
+            lista_aux.append(gr2[j])
+            j += 1
+            if j > len(gr2)-1:
+              j = 0
+        if len(gr3)> 0:
+          for h in range(x[2]):
+            lista_aux.append(gr3[p])
+            p += 1
+            if p > len(gr3)-1:
+              p = 0
         random.shuffle(lista_aux)
       else:
         j = 0
