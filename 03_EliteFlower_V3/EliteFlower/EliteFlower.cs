@@ -3759,6 +3759,13 @@ namespace EliteFlower
             Mongoose.BackupEntryDataSummary();
             Mongoose.DeleteEntryData("Data");
             Mongoose.DeleteEntryData("DataSummary");
+
+            //check data flags
+            List<int> lista = Mongoose.LoadExcel(ofdFilename, "Data");
+            Console.WriteLine("mi lista es: ");
+            Console.WriteLine(lista[0]);
+            //----------------------------------------------------------------------//
+
             Mongoose.LoadExcel(ofdFilename, "Data");
             Mongoose.SetFileNameML(ofdFilename, false, lblPath.Text);
 
@@ -3779,9 +3786,19 @@ namespace EliteFlower
             Utils.SetValuesTxt(new List<float> { 0, 0, 0, 0 }, new List<TextBox> { TxtSubtotal41, TxtSubtotal42, TxtSubtotal43, TxtTotal4 });
             Utils.SetComboBox(nameVS, new List<ComboBox> { comboActual });
 
-            _ = CheckDB(Mongoose.GetNameVases("Data"), true);
+            _ = CheckDB(Mongoose.GetNameVases("Data"), true); // REVISAR FUNCIÓN 
+
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
-            lblPath.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFilePath())}";
+
+            if (lista[0]!=1 && lista[1] != 1 && lista[2] != 1)
+            {
+                MessageBox.Show("Falta información de VASE ID, ADD_ON_ID o BARCODE_NUMBER");
+            }
+
+            else if(lista[0] == 1 && lista[1] == 1 && lista[2] == 1)
+            {
+                MessageBox.Show("La información esta completa");
+            }
         }
 
         public void LoadingUpdateData()
@@ -5117,6 +5134,13 @@ namespace EliteFlower
         private  void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mnuBtemplate_Click(object sender, EventArgs e)
+        {
+            BalanceTemplate Btemplate = new BalanceTemplate(this, mnuELEnglish.Checked);
+            this.Enabled = false;
+            Btemplate.Show();
         }
     }
 }
