@@ -619,8 +619,9 @@ namespace EliteFlower.Methods
         /// </summary>
         /// <param name="fileName">Nombre del archivo</param>
         /// <param name="document">Nombre del documento</param>
-        public static void LoadExcel(string fileName, string document)
+        public static List<int> LoadExcel(string fileName, string document)
         {
+            var myValues = new List<int>() { };
             MongoClient client = new MongoClient(mongoDBConnection);
             IMongoDatabase database = client.GetDatabase("EliteFlower");
             IMongoCollection<DataProduct> DataProductDB = database.GetCollection<DataProduct>(document);
@@ -633,10 +634,49 @@ namespace EliteFlower.Methods
                 Cursor.Current = Cursors.WaitCursor;
                 bool isFirstRow = true;
                 var rows = workbook.Worksheet(1).RowsUsed();
+                var columns = workbook.Worksheet(1).ColumnsUsed();
+                bool Vase_flag = false;
+                bool Add_on_flag = false;
+                bool Bar_flag = false;
+
+
+                foreach (var column in columns)
+                {
+
+                    Console.WriteLine(column.Cell(1).Value.ToString());
+                    var excolumns = column.Cell(1).Value.ToString();
+
+
+                    if (excolumns == "VASE_ID")
+                    {
+                        Vase_flag = true;
+                        Console.WriteLine("EXISTE VASE ID");
+                    }
+
+                    if (excolumns == "ADD_ON_ID")
+                    {
+                        Add_on_flag = true;
+                        Console.WriteLine("EXISTE ADD ON");
+                    }
+
+                    if (excolumns == "BARCODE_NUMBER")
+                    {
+                        Bar_flag = true;
+                        Console.WriteLine("EXISTE BARCODE");
+
+                    }
+
+
+                }
+
                 foreach (var row in rows)
                 {
+                    //Console.WriteLine(row.Cell(enableRows[2]).Value.ToString());
                     if (isFirstRow)
+                    {
                         isFirstRow = false;
+                    }
+
                     else
                     {
                         string vase;
@@ -679,7 +719,34 @@ namespace EliteFlower.Methods
                     }
                 }
                 Cursor.Current = Cursors.Default;
+
+
+
+                if (Vase_flag == true && Add_on_flag == true && Bar_flag == true)
+                {
+                    myValues.Add(1);
+                    myValues.Add(1);
+                    myValues.Add(1);
+
+                    Console.WriteLine(myValues);
+                    Console.WriteLine("check flags");
+
+                }
+
+                else
+                {
+
+                    myValues.Add(0);
+                    myValues.Add(0);
+                    myValues.Add(0);
+
+                    Console.WriteLine(myValues);
+                    Console.WriteLine("check flags");
+
+                }
+
             }
+            return myValues;
         }
         /// <summary>
         /// Carga la lista de referencias que debe ir cargando elevador por elevador.

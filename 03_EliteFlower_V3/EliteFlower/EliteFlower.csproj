@@ -230,6 +230,12 @@
     <Compile Include="AddProduct.Designer.cs">
       <DependentUpon>AddProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="BalanceTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BalanceTemplate.Designer.cs">
+      <DependentUpon>BalanceTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Checker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,6 +290,7 @@
     <Compile Include="Methods\Mongoose.cs" />
     <Compile Include="Methods\UIMessages.cs" />
     <Compile Include="Methods\Utils.cs" />
+    <Compile Include="Models\Btemplate.cs" />
     <Compile Include="Models\Statics.cs" />
     <Compile Include="Models\AddOnID.cs" />
     <Compile Include="Models\BalanceCount.cs" />
@@ -349,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddProduct.resx">
       <DependentUpon>AddProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BalanceTemplate.resx">
+      <DependentUpon>BalanceTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Checker.resx">
       <DependentUpon>Checker.cs</DependentUpon>
