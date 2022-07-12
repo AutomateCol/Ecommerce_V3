@@ -455,7 +455,13 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
         Distribucion_estaciones[j]= estacion[i][n]
         n+=1
   else:
-    pass
+    k = 0
+    for j in range(3):
+      for i in range(3):
+        estacion[j][i] = Distribucion_estaciones[k]
+        k += 1
+ 
+
 
 
 
@@ -620,8 +626,15 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
       
       
     surplus = cant1-(x[0]+x[1]+x[2])
-    x[0] += surplus
-
+    if x[0] < x[1] and x[0] < x[2] and x[0] !=0:
+      x[0] += surplus
+    elif x[1] < x[0] and x[1] < x[2] and x[0] != 0:
+      x[1] += surplus
+    elif x[2] < x[0] and x[2] < x[1] and x[2] != 0:
+      x[2] += surplus
+    else:
+      x[0] += surplus
+    
     print(f'x = {x}')
 
 

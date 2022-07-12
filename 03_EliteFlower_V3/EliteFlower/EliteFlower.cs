@@ -3766,7 +3766,7 @@ namespace EliteFlower
             Console.WriteLine(lista[0]);
             //----------------------------------------------------------------------//
 
-            Mongoose.LoadExcel(ofdFilename, "Data");
+            //Mongoose.LoadExcel(ofdFilename, "Data");
             Mongoose.SetFileNameML(ofdFilename, false, lblPath.Text);
 
             Mongoose.DeleteCountIDs("Data");
@@ -3790,12 +3790,12 @@ namespace EliteFlower
 
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
 
-            if (lista[0]!=1 && lista[1] != 1 && lista[2] != 1)
+            if (lista[0] != 1 && lista[1] != 1 && lista[2] != 1)
             {
                 MessageBox.Show("Falta información de VASE ID, ADD_ON_ID o BARCODE_NUMBER");
             }
 
-            else if(lista[0] == 1 && lista[1] == 1 && lista[2] == 1)
+            else if (lista[0] == 1 && lista[1] == 1 && lista[2] == 1)
             {
                 MessageBox.Show("La información esta completa");
             }
