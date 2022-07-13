@@ -70,6 +70,7 @@ namespace EliteFlower
             this.CB_ID3_3.Name = "CB_ID3_3";
             this.CB_ID3_3.Size = new System.Drawing.Size(121, 24);
             this.CB_ID3_3.TabIndex = 24;
+            this.CB_ID3_3.SelectedIndexChanged += new System.EventHandler(this.CB_ID3_3_SelectedIndexChanged);
             // 
             // CB_ID2_3
             // 
@@ -79,6 +80,7 @@ namespace EliteFlower
             this.CB_ID2_3.Name = "CB_ID2_3";
             this.CB_ID2_3.Size = new System.Drawing.Size(121, 24);
             this.CB_ID2_3.TabIndex = 23;
+            this.CB_ID2_3.SelectedIndexChanged += new System.EventHandler(this.CB_ID2_3_SelectedIndexChanged);
             // 
             // CB_ID1_3
             // 
@@ -88,6 +90,7 @@ namespace EliteFlower
             this.CB_ID1_3.Name = "CB_ID1_3";
             this.CB_ID1_3.Size = new System.Drawing.Size(121, 24);
             this.CB_ID1_3.TabIndex = 22;
+            this.CB_ID1_3.SelectedIndexChanged += new System.EventHandler(this.CB_ID1_3_SelectedIndexChanged);
             // 
             // CB_ID3_2
             // 
@@ -97,6 +100,7 @@ namespace EliteFlower
             this.CB_ID3_2.Name = "CB_ID3_2";
             this.CB_ID3_2.Size = new System.Drawing.Size(121, 24);
             this.CB_ID3_2.TabIndex = 21;
+            this.CB_ID3_2.SelectedIndexChanged += new System.EventHandler(this.CB_ID3_2_SelectedIndexChanged);
             // 
             // CB_ID2_2
             // 
@@ -106,6 +110,7 @@ namespace EliteFlower
             this.CB_ID2_2.Name = "CB_ID2_2";
             this.CB_ID2_2.Size = new System.Drawing.Size(121, 24);
             this.CB_ID2_2.TabIndex = 20;
+            this.CB_ID2_2.SelectedIndexChanged += new System.EventHandler(this.CB_ID2_2_SelectedIndexChanged);
             // 
             // CB_ID1_2
             // 
@@ -115,6 +120,7 @@ namespace EliteFlower
             this.CB_ID1_2.Name = "CB_ID1_2";
             this.CB_ID1_2.Size = new System.Drawing.Size(121, 24);
             this.CB_ID1_2.TabIndex = 19;
+            this.CB_ID1_2.SelectedIndexChanged += new System.EventHandler(this.CB_ID1_2_SelectedIndexChanged);
             // 
             // CB_ID3_1
             // 
@@ -124,6 +130,7 @@ namespace EliteFlower
             this.CB_ID3_1.Name = "CB_ID3_1";
             this.CB_ID3_1.Size = new System.Drawing.Size(121, 24);
             this.CB_ID3_1.TabIndex = 18;
+            this.CB_ID3_1.SelectedIndexChanged += new System.EventHandler(this.CB_ID3_1_SelectedIndexChanged);
             // 
             // CB_ID2_1
             // 
@@ -133,6 +140,7 @@ namespace EliteFlower
             this.CB_ID2_1.Name = "CB_ID2_1";
             this.CB_ID2_1.Size = new System.Drawing.Size(121, 24);
             this.CB_ID2_1.TabIndex = 17;
+            this.CB_ID2_1.SelectedIndexChanged += new System.EventHandler(this.CB_ID2_1_SelectedIndexChanged);
             // 
             // label3
             // 

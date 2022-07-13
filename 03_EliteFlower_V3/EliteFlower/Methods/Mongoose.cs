@@ -1546,6 +1546,24 @@ namespace EliteFlower.Methods
         /// </summary>
         /// <param name="document">Nombre del documento</param>
         /// <returns>Retorna una lista</returns>
+        /// 
+
+        public static List<string> GetMasterProducts(string document)
+        {
+            MongoClient client = new MongoClient(mongoDBConnection);
+            IMongoDatabase database = client.GetDatabase("EliteFlower");
+            IMongoCollection<Product> ProductDB = database.GetCollection<Product>("MasterProduct");
+            return  ProductDB.Find(d => d.ID != "").ToList().Select(s => s.ID).ToList();
+
+
+        }
+        /// <summary>
+        /// Obtiene una lista de los datos del documento
+        /// </summary>
+        /// <param name="document">Nombre del documento</param>
+        /// <returns>Retorna una lista</returns>
+        /// 
+
         public static List<DataProduct> GetDataProduct(string document)
         {
             MongoClient client = new MongoClient(mongoDBConnection);

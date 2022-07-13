@@ -51,23 +51,23 @@ namespace EliteFlower
         // -----------------------------------
 
          
-        private void BalanceTemplate_Load()
+        private void BalanceTemplate_Load_Data()
         {
-
+             
             //Mongoose.DeleteCountIDs("Data");
             //Mongoose.DeleteIDAddOn();
-            Mongoose.LoadCountIDs("Data", 1);
-            Mongoose.GetDistinctAddOn("Data", 10);
+            //Mongoose.LoadCountIDs("Data", 1);
+            //Mongoose.GetDistinctAddOn("Data", 10);
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             mongoDBConnection = Mongoose.GetMongoDBConnection();
 
-            List<string> nameVS = FillVases(Mongoose.GetNameVases("Data"));
-            List<string> nameAD = FillVases(Mongoose.GetNamesAddOn("Data"));
+            List<string> nameVS = FillVases(Mongoose.GetMasterProducts("MasterProduct"));
+            //List<string> nameAD = FillVases(Mongoose.GetNamesAddOn("Data"));
             Utils.SetComboBox(nameVS, new List<ComboBox> { CB_ID1_1, CB_ID2_1, CB_ID3_1 });
             Utils.SetComboBox(nameVS, new List<ComboBox> { CB_ID1_2, CB_ID2_2, CB_ID3_2 });
             Utils.SetComboBox(nameVS, new List<ComboBox> { CB_ID1_3, CB_ID2_3, CB_ID3_3 });
-            bool checkbool = CheckDB(Mongoose.GetNameVases("Data"), true);
+            //bool checkbool = CheckDB(Mongoose.GetNameVases("Data"), true);
 
 
 
@@ -145,6 +145,9 @@ namespace EliteFlower
         private void btnCreate_Click(object sender, EventArgs e)
         {
             check_percentage();
+            Console.WriteLine(check_percentage());
+
+            if (check_percentage()) { 
             try
             {
                 MongoClient client = new MongoClient(mongoDBConnection);
@@ -230,6 +233,13 @@ namespace EliteFlower
             }
         }
 
+            else
+            {
+                MessageBox.Show("Percentage values dont sum up to 100%");
+            }
+
+        }
+
 
 
         private void BalanceTemplate_Load_1(object sender, EventArgs e)
@@ -237,7 +247,7 @@ namespace EliteFlower
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             mongoDBConnection = Mongoose.GetMongoDBConnection();
 
-            BalanceTemplate_Load();
+            BalanceTemplate_Load_Data();
             chbCreate.Checked = true;
             //_frm.Enabled = true;
 
@@ -259,6 +269,17 @@ namespace EliteFlower
                 CB_ID1_3.Visible = true;
                 CB_ID2_3.Visible = true;
                 CB_ID3_3.Visible = true;
+
+                CB_ID1_1.Enabled = true;
+                CB_ID2_1.Enabled = true;
+                CB_ID3_1.Enabled = true;
+                                   
+                CB_ID1_2.Enabled = true;
+                CB_ID2_2.Enabled = true;
+                CB_ID3_2.Enabled = true;
+                                  
+                CB_ID1_3.Enabled = true;
+                CB_ID2_3.Enabled = true;
 
                 textBox1.Visible = true;
                 Update_template.Visible = false;
@@ -282,6 +303,15 @@ namespace EliteFlower
                 S3_T1.Text = "0";
                 S3_T2.Text = "0";
                 S3_T3.Text = "0";  
+
+               //if (CB_ID1_1.SelectedItem == "NV")
+               // {
+               //     S1_T1.Enabled = false;
+               // }
+               // else
+               // {
+               //     S1_T1.Enabled = true;
+               // }
             }
             RefreshCRUD();
         }
@@ -474,7 +504,7 @@ namespace EliteFlower
             {
                 CB_ID1_1.Visible = true;
                 CB_ID2_1.Visible = true;
-                CB_ID2_1.Visible = true;
+                CB_ID3_1.Visible = true;
 
                 CB_ID1_2.Visible = true;
                 CB_ID2_2.Visible = true;
@@ -483,6 +513,18 @@ namespace EliteFlower
                 CB_ID1_3.Visible = true;
                 CB_ID2_3.Visible = true;
                 CB_ID3_3.Visible = true;
+
+                CB_ID1_1.Enabled = false;
+                CB_ID2_1.Enabled = false;
+                CB_ID3_1.Enabled = false;
+
+                CB_ID1_2.Enabled = false;
+                CB_ID2_2.Enabled = false;
+                CB_ID3_2.Enabled = false;
+                                   
+                CB_ID1_3.Enabled = false;
+                CB_ID2_3.Enabled = false;
+                CB_ID3_3.Enabled = false;
 
                 textBox1.Visible = false;
                 Update_template.Visible = false;
@@ -660,10 +702,10 @@ namespace EliteFlower
 
         }
 
-        public void check_percentage()
+        public bool check_percentage()
         {
-            
 
+            bool check= false;
             string CB1 = CB_ID1_1.Text;
             string CB2 = CB_ID2_1.Text;
             string CB3 = CB_ID3_1.Text;
@@ -682,22 +724,26 @@ namespace EliteFlower
 
             int p4 = Int32.Parse(S2_T1.Text);
             int p5 = Int32.Parse(S2_T2.Text);
-            int p6 = Int32.Parse(S2_T3.Text);
-
+            int p6 = Int32.Parse(S2_T3.Text); 
+             
             int p7 = Int32.Parse(S3_T1.Text);
             int p8 = Int32.Parse(S3_T2.Text);
             int p9 = Int32.Parse(S3_T3.Text);
 
+            mongoDBConnection = Mongoose.GetMongoDBConnection();
 
+            List<string> nameVS = Mongoose.GetMasterProducts("MasterProduct");
+
+            string[] Vases = nameVS.ToArray();
             string[] CB_text = { CB1, CB2, CB3, CB4, CB5, CB6, CB7, CB8, CB9 };
             int[] p_values = { p1, p2, p3, p4, p5, p6, p7, p8, p9 };
-            string[] Vases = { "GINGER", "LARGE", "SLENDER" };
+            //string[] Vases = { "GINGER", "LARGE", "SLENDER"};
 
-            //Console.WriteLine("p_values =");
+            //Console.WriteLine( "Master products="); 
 
-            //for (int i = 0; i < p_values.Length; i++)
+            //for (int i = 0; i < Vases.Length; i++)
             //{
-            //    Console.WriteLine(p_values[i]);
+            //    Console.WriteLine(Vases[i]);
             //}
 
             for (int i = 0; i < Vases.Length; i++)
@@ -709,16 +755,135 @@ namespace EliteFlower
                     if (Vases[i] == CB_text[j])
                     {
                         suma += p_values[j];
+
+                        if (suma < 100 ^ suma > 100)
+                        {
+
+                            check = false;
+                            Console.WriteLine("La suma es =");
+                            Console.WriteLine(suma);
+                        }
+
+                        else if (suma==100)
+                        {
+                            check=true;
+                        }
                     }
                 }
 
             }
 
+            return check;
+
         }
 
         private void CB_ID1_1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (CB_ID1_1.SelectedItem == "NV")
+            {
+                S1_T1.Enabled = false;
+            }
+            else
+            {
+                S1_T1.Enabled = true;
+            }
 
+        }
+
+        private void CB_ID2_1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_ID2_1.SelectedItem == "NV")
+            {
+                S1_T2.Enabled = false;
+            }
+            else
+            {
+                S1_T2.Enabled = true;
+            }
+        }
+
+        private void CB_ID3_1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_ID3_1.SelectedItem == "NV")
+            {
+                S1_T3.Enabled = false;
+            }
+            else
+            {
+                S1_T3.Enabled = true;
+            }
+        }
+
+        private void CB_ID1_2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_ID1_2.SelectedItem == "NV")
+            {
+                S2_T1.Enabled = false;
+            }
+            else
+            {
+                S2_T1.Enabled = true;
+            }
+        }
+
+        private void CB_ID2_2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_ID2_2.SelectedItem == "NV")
+            {
+                S2_T2.Enabled = false;
+            }
+            else
+            {
+                S2_T2.Enabled = true;
+            }
+        }
+
+        private void CB_ID3_2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_ID3_2.SelectedItem == "NV")
+            {
+                S2_T3.Enabled = false;
+            }
+            else
+            {
+                S2_T3.Enabled = true;
+            }
+        }
+
+        private void CB_ID1_3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_ID1_3.SelectedItem == "NV")
+            {
+                S3_T1.Enabled = false;
+            }
+            else
+            {
+                S3_T1.Enabled = true;
+            }
+        }
+
+        private void CB_ID2_3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CB_ID2_3.SelectedItem == "NV")
+            {
+                S3_T2.Enabled = false;
+            }
+            else
+            {
+                S3_T2.Enabled = true;
+            }
+        }
+
+        private void CB_ID3_3_SelectedIndexChanged(object sender, EventArgs e) 
+        {
+            if (CB_ID3_3.SelectedItem == "NV")
+            {
+                S3_T3.Enabled = false;
+            }
+            else
+            {
+                S3_T3.Enabled = true;
+            }
         }
     }
 }
