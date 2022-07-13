@@ -50,6 +50,16 @@ namespace EliteFlower
             this.Update_template = new System.Windows.Forms.ComboBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.chbUpdate = new System.Windows.Forms.CheckBox();
+            this.S1_T1 = new System.Windows.Forms.TextBox();
+            this.S1_T2 = new System.Windows.Forms.TextBox();
+            this.S1_T3 = new System.Windows.Forms.TextBox();
+            this.S2_T1 = new System.Windows.Forms.TextBox();
+            this.S2_T2 = new System.Windows.Forms.TextBox();
+            this.S2_T3 = new System.Windows.Forms.TextBox();
+            this.S3_T1 = new System.Windows.Forms.TextBox();
+            this.S3_T2 = new System.Windows.Forms.TextBox();
+            this.S3_T3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // CB_ID3_3
@@ -159,6 +169,7 @@ namespace EliteFlower
             this.CB_ID1_1.Name = "CB_ID1_1";
             this.CB_ID1_1.Size = new System.Drawing.Size(121, 24);
             this.CB_ID1_1.TabIndex = 13;
+            this.CB_ID1_1.SelectedIndexChanged += new System.EventHandler(this.CB_ID1_1_SelectedIndexChanged);
             // 
             // textBox1
             // 
@@ -263,11 +274,104 @@ namespace EliteFlower
             this.chbUpdate.UseVisualStyleBackColor = true;
             this.chbUpdate.CheckedChanged += new System.EventHandler(this.chbUpdate_CheckedChanged);
             // 
+            // S1_T1
+            // 
+            this.S1_T1.Location = new System.Drawing.Point(215, 69);
+            this.S1_T1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S1_T1.Name = "S1_T1";
+            this.S1_T1.Size = new System.Drawing.Size(66, 22);
+            this.S1_T1.TabIndex = 57;
+            // 
+            // S1_T2
+            // 
+            this.S1_T2.Location = new System.Drawing.Point(215, 97);
+            this.S1_T2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S1_T2.Name = "S1_T2";
+            this.S1_T2.Size = new System.Drawing.Size(66, 22);
+            this.S1_T2.TabIndex = 57;
+            this.S1_T2.TextChanged += new System.EventHandler(this.S1_T2_TextChanged);
+            // 
+            // S1_T3
+            // 
+            this.S1_T3.Location = new System.Drawing.Point(215, 125);
+            this.S1_T3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S1_T3.Name = "S1_T3";
+            this.S1_T3.Size = new System.Drawing.Size(66, 22);
+            this.S1_T3.TabIndex = 58;
+            // 
+            // S2_T1
+            // 
+            this.S2_T1.Location = new System.Drawing.Point(215, 191);
+            this.S2_T1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S2_T1.Name = "S2_T1";
+            this.S2_T1.Size = new System.Drawing.Size(66, 22);
+            this.S2_T1.TabIndex = 58;
+            // 
+            // S2_T2
+            // 
+            this.S2_T2.Location = new System.Drawing.Point(215, 221);
+            this.S2_T2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S2_T2.Name = "S2_T2";
+            this.S2_T2.Size = new System.Drawing.Size(66, 22);
+            this.S2_T2.TabIndex = 58;
+            // 
+            // S2_T3
+            // 
+            this.S2_T3.Location = new System.Drawing.Point(215, 249);
+            this.S2_T3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S2_T3.Name = "S2_T3";
+            this.S2_T3.Size = new System.Drawing.Size(66, 22);
+            this.S2_T3.TabIndex = 58;
+            // 
+            // S3_T1
+            // 
+            this.S3_T1.Location = new System.Drawing.Point(215, 314);
+            this.S3_T1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S3_T1.Name = "S3_T1";
+            this.S3_T1.Size = new System.Drawing.Size(66, 22);
+            this.S3_T1.TabIndex = 58;
+            // 
+            // S3_T2
+            // 
+            this.S3_T2.Location = new System.Drawing.Point(215, 344);
+            this.S3_T2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S3_T2.Name = "S3_T2";
+            this.S3_T2.Size = new System.Drawing.Size(66, 22);
+            this.S3_T2.TabIndex = 58;
+            // 
+            // S3_T3
+            // 
+            this.S3_T3.Location = new System.Drawing.Point(215, 372);
+            this.S3_T3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.S3_T3.Name = "S3_T3";
+            this.S3_T3.Size = new System.Drawing.Size(66, 22);
+            this.S3_T3.TabIndex = 58;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(214, 47);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label4.Size = new System.Drawing.Size(62, 17);
+            this.label4.TabIndex = 59;
+            this.label4.Text = "LOAD %";
+            // 
             // BalanceTemplate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.S3_T3);
+            this.Controls.Add(this.S3_T2);
+            this.Controls.Add(this.S3_T1);
+            this.Controls.Add(this.S2_T3);
+            this.Controls.Add(this.S2_T2);
+            this.Controls.Add(this.S2_T1);
+            this.Controls.Add(this.S1_T3);
+            this.Controls.Add(this.S1_T2);
+            this.Controls.Add(this.S1_T1);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Update_template);
@@ -291,6 +395,7 @@ namespace EliteFlower
             this.Controls.Add(this.btnDelete);
             this.Name = "BalanceTemplate";
             this.Text = "BalanceTemplate";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BalanceTemplate_FormClosed);
             this.Load += new System.EventHandler(this.BalanceTemplate_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -320,5 +425,15 @@ namespace EliteFlower
         private System.Windows.Forms.ComboBox Update_template;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.CheckBox chbUpdate;
+        private System.Windows.Forms.TextBox S1_T1;
+        private System.Windows.Forms.TextBox S1_T2;
+        private System.Windows.Forms.TextBox S1_T3;
+        private System.Windows.Forms.TextBox S2_T1;
+        private System.Windows.Forms.TextBox S2_T2;
+        private System.Windows.Forms.TextBox S2_T3;
+        private System.Windows.Forms.TextBox S3_T1;
+        private System.Windows.Forms.TextBox S3_T2;
+        private System.Windows.Forms.TextBox S3_T3;
+        private System.Windows.Forms.Label label4;
     }
 }

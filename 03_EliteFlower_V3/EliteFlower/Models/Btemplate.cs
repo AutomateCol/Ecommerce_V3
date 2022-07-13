@@ -12,5 +12,8 @@ namespace EliteFlower.Models
         [BsonElement("Configuration")]
         public string[] Template { get; set; }
 
+        [BsonElement("Percentage")]
+        public string[] Percentage { get; set; }
+
     }
 }

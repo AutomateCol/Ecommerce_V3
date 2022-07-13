@@ -62,9 +62,10 @@ namespace EliteFlower
             this.cbUpdateID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbUpdateID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbUpdateID.FormattingEnabled = true;
-            this.cbUpdateID.Location = new System.Drawing.Point(128, 186);
+            this.cbUpdateID.Location = new System.Drawing.Point(171, 229);
+            this.cbUpdateID.Margin = new System.Windows.Forms.Padding(4);
             this.cbUpdateID.Name = "cbUpdateID";
-            this.cbUpdateID.Size = new System.Drawing.Size(111, 28);
+            this.cbUpdateID.Size = new System.Drawing.Size(147, 33);
             this.cbUpdateID.TabIndex = 40;
             this.cbUpdateID.SelectedIndexChanged += new System.EventHandler(this.cbUpdateID_SelectedIndexChanged);
             this.cbUpdateID.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cbUpdateID_HelpRequested);
@@ -74,18 +75,20 @@ namespace EliteFlower
             this.cbUpdatePack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbUpdatePack.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbUpdatePack.FormattingEnabled = true;
-            this.cbUpdatePack.Location = new System.Drawing.Point(128, 232);
+            this.cbUpdatePack.Location = new System.Drawing.Point(171, 286);
+            this.cbUpdatePack.Margin = new System.Windows.Forms.Padding(4);
             this.cbUpdatePack.Name = "cbUpdatePack";
-            this.cbUpdatePack.Size = new System.Drawing.Size(111, 28);
+            this.cbUpdatePack.Size = new System.Drawing.Size(147, 33);
             this.cbUpdatePack.TabIndex = 34;
             this.cbUpdatePack.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cbUpdatePack_HelpRequested);
             // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(102, 330);
+            this.btnDelete.Location = new System.Drawing.Point(136, 406);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(137, 30);
+            this.btnDelete.Size = new System.Drawing.Size(183, 37);
             this.btnDelete.TabIndex = 39;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -97,9 +100,10 @@ namespace EliteFlower
             this.cbDeleteID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDeleteID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDeleteID.FormattingEnabled = true;
-            this.cbDeleteID.Location = new System.Drawing.Point(139, 186);
+            this.cbDeleteID.Location = new System.Drawing.Point(185, 229);
+            this.cbDeleteID.Margin = new System.Windows.Forms.Padding(4);
             this.cbDeleteID.Name = "cbDeleteID";
-            this.cbDeleteID.Size = new System.Drawing.Size(100, 28);
+            this.cbDeleteID.Size = new System.Drawing.Size(132, 33);
             this.cbDeleteID.TabIndex = 41;
             this.cbDeleteID.SelectedIndexChanged += new System.EventHandler(this.cbDeleteID_SelectedIndexChanged);
             this.cbDeleteID.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cbDeleteID_HelpRequested);
@@ -107,9 +111,10 @@ namespace EliteFlower
             // btnCreate
             // 
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(102, 330);
+            this.btnCreate.Location = new System.Drawing.Point(136, 406);
+            this.btnCreate.Margin = new System.Windows.Forms.Padding(4);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(137, 30);
+            this.btnCreate.Size = new System.Drawing.Size(183, 37);
             this.btnCreate.TabIndex = 49;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -121,28 +126,32 @@ namespace EliteFlower
             this.cbCreatePack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCreatePack.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCreatePack.FormattingEnabled = true;
-            this.cbCreatePack.Location = new System.Drawing.Point(139, 232);
+            this.cbCreatePack.Location = new System.Drawing.Point(185, 286);
+            this.cbCreatePack.Margin = new System.Windows.Forms.Padding(4);
             this.cbCreatePack.Name = "cbCreatePack";
-            this.cbCreatePack.Size = new System.Drawing.Size(100, 28);
+            this.cbCreatePack.Size = new System.Drawing.Size(132, 33);
             this.cbCreatePack.TabIndex = 46;
             this.cbCreatePack.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.cbCreatePack_HelpRequested);
             // 
             // pcbDelete
             // 
             this.pcbDelete.InitialImage = ((System.Drawing.Image)(resources.GetObject("pcbDelete.InitialImage")));
-            this.pcbDelete.Location = new System.Drawing.Point(278, 20);
+            this.pcbDelete.Location = new System.Drawing.Point(371, 25);
+            this.pcbDelete.Margin = new System.Windows.Forms.Padding(4);
             this.pcbDelete.Name = "pcbDelete";
-            this.pcbDelete.Size = new System.Drawing.Size(340, 340);
+            this.pcbDelete.Size = new System.Drawing.Size(453, 418);
             this.pcbDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbDelete.TabIndex = 36;
             this.pcbDelete.TabStop = false;
+            this.pcbDelete.Click += new System.EventHandler(this.pcbDelete_Click);
             // 
             // btnOpenCreate
             // 
             this.btnOpenCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenCreate.Location = new System.Drawing.Point(102, 280);
+            this.btnOpenCreate.Location = new System.Drawing.Point(136, 345);
+            this.btnOpenCreate.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenCreate.Name = "btnOpenCreate";
-            this.btnOpenCreate.Size = new System.Drawing.Size(137, 30);
+            this.btnOpenCreate.Size = new System.Drawing.Size(183, 37);
             this.btnOpenCreate.TabIndex = 48;
             this.btnOpenCreate.Text = "Open";
             this.btnOpenCreate.UseVisualStyleBackColor = true;
@@ -153,18 +162,20 @@ namespace EliteFlower
             // 
             this.lblImg.AutoSize = true;
             this.lblImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImg.Location = new System.Drawing.Point(27, 285);
+            this.lblImg.Location = new System.Drawing.Point(36, 351);
+            this.lblImg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblImg.Name = "lblImg";
-            this.lblImg.Size = new System.Drawing.Size(54, 20);
+            this.lblImg.Size = new System.Drawing.Size(66, 25);
             this.lblImg.TabIndex = 45;
             this.lblImg.Text = "Image";
             // 
             // pcbUpdate
             // 
             this.pcbUpdate.InitialImage = ((System.Drawing.Image)(resources.GetObject("pcbUpdate.InitialImage")));
-            this.pcbUpdate.Location = new System.Drawing.Point(278, 20);
+            this.pcbUpdate.Location = new System.Drawing.Point(371, 25);
+            this.pcbUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.pcbUpdate.Name = "pcbUpdate";
-            this.pcbUpdate.Size = new System.Drawing.Size(340, 340);
+            this.pcbUpdate.Size = new System.Drawing.Size(453, 418);
             this.pcbUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbUpdate.TabIndex = 35;
             this.pcbUpdate.TabStop = false;
@@ -172,9 +183,10 @@ namespace EliteFlower
             // pcbCreate
             // 
             this.pcbCreate.InitialImage = ((System.Drawing.Image)(resources.GetObject("pcbCreate.InitialImage")));
-            this.pcbCreate.Location = new System.Drawing.Point(278, 20);
+            this.pcbCreate.Location = new System.Drawing.Point(371, 25);
+            this.pcbCreate.Margin = new System.Windows.Forms.Padding(4);
             this.pcbCreate.Name = "pcbCreate";
-            this.pcbCreate.Size = new System.Drawing.Size(340, 340);
+            this.pcbCreate.Size = new System.Drawing.Size(453, 418);
             this.pcbCreate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbCreate.TabIndex = 47;
             this.pcbCreate.TabStop = false;
@@ -183,18 +195,20 @@ namespace EliteFlower
             // 
             this.lblPack.AutoSize = true;
             this.lblPack.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPack.Location = new System.Drawing.Point(27, 235);
+            this.lblPack.Location = new System.Drawing.Point(36, 289);
+            this.lblPack.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPack.Name = "lblPack";
-            this.lblPack.Size = new System.Drawing.Size(71, 20);
+            this.lblPack.Size = new System.Drawing.Size(89, 25);
             this.lblPack.TabIndex = 44;
             this.lblPack.Text = "Package";
             // 
             // txtCreateID
             // 
             this.txtCreateID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCreateID.Location = new System.Drawing.Point(139, 186);
+            this.txtCreateID.Location = new System.Drawing.Point(185, 229);
+            this.txtCreateID.Margin = new System.Windows.Forms.Padding(4);
             this.txtCreateID.Name = "txtCreateID";
-            this.txtCreateID.Size = new System.Drawing.Size(100, 26);
+            this.txtCreateID.Size = new System.Drawing.Size(132, 30);
             this.txtCreateID.TabIndex = 43;
             this.txtCreateID.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.txtCreateID_HelpRequested);
             // 
@@ -202,9 +216,10 @@ namespace EliteFlower
             // 
             this.lblID.AutoSize = true;
             this.lblID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblID.Location = new System.Drawing.Point(27, 189);
+            this.lblID.Location = new System.Drawing.Point(36, 233);
+            this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(26, 20);
+            this.lblID.Size = new System.Drawing.Size(31, 25);
             this.lblID.TabIndex = 42;
             this.lblID.Text = "ID";
             // 
@@ -214,9 +229,11 @@ namespace EliteFlower
             this.gbOptions.Controls.Add(this.chbDelete);
             this.gbOptions.Controls.Add(this.chbCreate);
             this.gbOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbOptions.Location = new System.Drawing.Point(31, 20);
+            this.gbOptions.Location = new System.Drawing.Point(41, 25);
+            this.gbOptions.Margin = new System.Windows.Forms.Padding(4);
             this.gbOptions.Name = "gbOptions";
-            this.gbOptions.Size = new System.Drawing.Size(208, 142);
+            this.gbOptions.Padding = new System.Windows.Forms.Padding(4);
+            this.gbOptions.Size = new System.Drawing.Size(277, 175);
             this.gbOptions.TabIndex = 33;
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Options";
@@ -226,9 +243,10 @@ namespace EliteFlower
             // 
             this.chbUpdate.AutoSize = true;
             this.chbUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbUpdate.Location = new System.Drawing.Point(71, 67);
+            this.chbUpdate.Location = new System.Drawing.Point(95, 82);
+            this.chbUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.chbUpdate.Name = "chbUpdate";
-            this.chbUpdate.Size = new System.Drawing.Size(81, 24);
+            this.chbUpdate.Size = new System.Drawing.Size(103, 29);
             this.chbUpdate.TabIndex = 1;
             this.chbUpdate.Text = "Update";
             this.chbUpdate.UseVisualStyleBackColor = true;
@@ -238,9 +256,10 @@ namespace EliteFlower
             // 
             this.chbDelete.AutoSize = true;
             this.chbDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbDelete.Location = new System.Drawing.Point(71, 97);
+            this.chbDelete.Location = new System.Drawing.Point(95, 119);
+            this.chbDelete.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelete.Name = "chbDelete";
-            this.chbDelete.Size = new System.Drawing.Size(77, 24);
+            this.chbDelete.Size = new System.Drawing.Size(96, 29);
             this.chbDelete.TabIndex = 2;
             this.chbDelete.Text = "Delete";
             this.chbDelete.UseVisualStyleBackColor = true;
@@ -250,9 +269,10 @@ namespace EliteFlower
             // 
             this.chbCreate.AutoSize = true;
             this.chbCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbCreate.Location = new System.Drawing.Point(71, 37);
+            this.chbCreate.Location = new System.Drawing.Point(95, 46);
+            this.chbCreate.Margin = new System.Windows.Forms.Padding(4);
             this.chbCreate.Name = "chbCreate";
-            this.chbCreate.Size = new System.Drawing.Size(78, 24);
+            this.chbCreate.Size = new System.Drawing.Size(98, 29);
             this.chbCreate.TabIndex = 0;
             this.chbCreate.Text = "Create";
             this.chbCreate.UseVisualStyleBackColor = true;
@@ -261,9 +281,10 @@ namespace EliteFlower
             // btnUpdate
             // 
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(102, 330);
+            this.btnUpdate.Location = new System.Drawing.Point(136, 406);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(137, 30);
+            this.btnUpdate.Size = new System.Drawing.Size(183, 37);
             this.btnUpdate.TabIndex = 38;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -273,9 +294,10 @@ namespace EliteFlower
             // btnOpenUpdate
             // 
             this.btnOpenUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenUpdate.Location = new System.Drawing.Point(102, 280);
+            this.btnOpenUpdate.Location = new System.Drawing.Point(136, 345);
+            this.btnOpenUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpenUpdate.Name = "btnOpenUpdate";
-            this.btnOpenUpdate.Size = new System.Drawing.Size(137, 30);
+            this.btnOpenUpdate.Size = new System.Drawing.Size(183, 37);
             this.btnOpenUpdate.TabIndex = 50;
             this.btnOpenUpdate.Text = "Open";
             this.btnOpenUpdate.UseVisualStyleBackColor = true;
@@ -283,9 +305,9 @@ namespace EliteFlower
             // 
             // AddProduct
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 381);
+            this.ClientSize = new System.Drawing.Size(875, 469);
             this.Controls.Add(this.btnOpenUpdate);
             this.Controls.Add(this.cbUpdateID);
             this.Controls.Add(this.cbUpdatePack);
@@ -305,6 +327,7 @@ namespace EliteFlower
             this.Controls.Add(this.btnDelete);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddProduct";

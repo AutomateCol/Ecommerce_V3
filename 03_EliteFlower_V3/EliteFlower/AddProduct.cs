@@ -683,5 +683,10 @@ namespace EliteFlower
             string msg = UIMessages.AddProduct(15, _EnglishChecked);
             MessageBox.Show(msg, UIMessages.AddProduct(21, _EnglishChecked), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void pcbDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

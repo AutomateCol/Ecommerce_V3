@@ -3766,7 +3766,6 @@ namespace EliteFlower
             Console.WriteLine(lista[0]);
             //----------------------------------------------------------------------//
 
-            Mongoose.LoadExcel(ofdFilename, "Data");
             Mongoose.SetFileNameML(ofdFilename, false, lblPath.Text);
 
             Mongoose.DeleteCountIDs("Data");
@@ -5139,8 +5138,8 @@ namespace EliteFlower
         private void mnuBtemplate_Click(object sender, EventArgs e)
         {
             BalanceTemplate Btemplate = new BalanceTemplate(this, mnuELEnglish.Checked);
-            this.Enabled = false;
             Btemplate.Show();
+            this.Enabled = false;
         }
     }
 }
