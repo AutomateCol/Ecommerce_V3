@@ -1259,26 +1259,76 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   print(f'elevadores asignados {elevadores_asignados}')
 
   elevador_ID = []
-  print(elevador_ID)
   lista_aux = []
   elevador_ID_aux = []
   i = 0
+  c_list = []
   d_list = []
+  p_list = []
   for vase in T_Distribucion_estaciones:
-    lista_aux = []
     p = list(Vases_ID).index(vase)  
+    p_list.append(p)
     a = Vases_count[p]
     b = int(Cantidades[i])/100
+    i += 1
+   # print(f'a = {a}, b = {b}')
     c = round(a*b)
-    d = c-a*b #excedente del redondeo
+    c_list.append(c)
+    d_list.append(c-a*b)
+  
+  #print(f'p_list = {p_list}')
+  suma = 0
+  cantidades_asignadas = defaultdict(list)
+  for j in range(len(p_list)):
+    key = Vases_ID[p_list[j]]
+    cantidades_asignadas[key].append(c_list[j])
+  
+
+  #print(f'C list = {c_list}')
+
+# ciclo para obtener los desfaces en las cantidades de los porcentajes y ajustarlo
+# a un numero entero
+  for vase in Vases_ID:
+    if vase != '-1':
+      suma = 0
+      surplus = 0
+      lista_aux = []
+      for item in cantidades_asignadas[vase]:
+        suma += item
+      cant = Vases_count[list(Vases_ID).index(vase)]
+      if suma == cant:
+        pass
+      else:
+        surplus = cant - suma
+        lista_aux = cantidades_asignadas[vase]
+        lista_aux[0] += surplus
+        cantidades_asignadas[vase] = lista_aux
+
+  print(f'dic = {cantidades_asignadas}')
+
+  i = 0
+  Vases_aux = np.zeros((Vases_ID.size), dtype=int)
+  print(f'vases aux = {Vases_aux}')
+  for vase in T_Distribucion_estaciones:
+    lista_aux = []
+    lista_dic = cantidades_asignadas[vase]
+    # print(f'lista dic = {lista_dic}')
+    pos = list(Vases_ID).index(vase)
+    # print(f'pos = {pos}')
+    # print(Vases_aux[pos])
+    c = lista_dic[Vases_aux[pos]]
+    #print(f'c = {c}')
+    Vases_aux[pos] += 1
+    #print(f'vases aux = {Vases_aux}')
+
     #print(f'a = {a}, b = {b}, c = {c}')
     i += 1
     for j in range(c):
       lista_aux.append(i) #lista auxiliar de tamaño C con las posiciones del elevador marcado
-    d_list.append(d)  # lista con sobrante del redondeo, para restarlo mas adelante e igual cantidades   
     elevador_ID_aux.append(lista_aux)
- 
- 
+
+ # se hace el llenado de la lista de elevadores, con la cantidad de vases
+ # por elevador
   i = 0
   for t in range(len(Vases_ID[i])-1):
     lista_aux = []
@@ -1484,29 +1534,31 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   print(f'Vases ID : {Vases_ID}')
   print(f'Vases Type Num : {Vases_type_num}')
   print(f'Vases Count : {Vases_count}')
-
-  if Vases_type_num == 1:
-    elevadores_asignados, elevador_ID = balanceo_1_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, manual)
-  elif Vases_type_num == 2:
-    elevadores_asignados, elevador_ID = balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 3:
-    elevadores_asignados, elevador_ID = balanceo_3_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 4:
-    elevadores_asignados, elevador_ID = balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 5:
-    elevadores_asignados, elevador_ID = balanceo_5_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 6:
-    elevadores_asignados, elevador_ID = balanceo_6_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 7:
-    elevadores_asignados, elevador_ID = balanceo_7_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 8:
-    elevadores_asignados, elevador_ID = balanceo_8_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 9:
-    elevadores_asignados, elevador_ID = balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  
   manualF = True
   if (manualF):
     elevadores_asignados, elevador_ID, Distribucion_estaciones = balanceo_Manual("Prueba2", Vases_ID, Vases_count, Vases_type_num)
+  else:
+    if Vases_type_num == 1:
+      elevadores_asignados, elevador_ID = balanceo_1_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, manual)
+    elif Vases_type_num == 2:
+      elevadores_asignados, elevador_ID = balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 3:
+      elevadores_asignados, elevador_ID = balanceo_3_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 4:
+      elevadores_asignados, elevador_ID = balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 5:
+      elevadores_asignados, elevador_ID = balanceo_5_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 6:
+      elevadores_asignados, elevador_ID = balanceo_6_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 7:
+      elevadores_asignados, elevador_ID = balanceo_7_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 8:
+      elevadores_asignados, elevador_ID = balanceo_8_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 9:
+      elevadores_asignados, elevador_ID = balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    
+
+
   set_ID = []
   cant_ID = []
   lista_aux = []

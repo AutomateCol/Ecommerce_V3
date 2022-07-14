@@ -53,13 +53,12 @@ namespace EliteFlower
          
         private void BalanceTemplate_Load_Data()
         {
-<<<<<<< HEAD
+
              
             //Mongoose.DeleteCountIDs("Data");
             //Mongoose.DeleteIDAddOn();
             //Mongoose.LoadCountIDs("Data", 1);
             //Mongoose.GetDistinctAddOn("Data", 10);
-=======
 
             //Mongoose.SetWorkUpFalse();
             //Mongoose.SetWorkMesaninFalse();
@@ -67,7 +66,7 @@ namespace EliteFlower
 
             Mongoose.LoadCountIDs("Data", 1);
             Mongoose.GetDistinctAddOn("Data", 10);
->>>>>>> 4Vases
+
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             mongoDBConnection = Mongoose.GetMongoDBConnection();

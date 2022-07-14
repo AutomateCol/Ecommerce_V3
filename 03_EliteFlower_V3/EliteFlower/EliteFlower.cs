@@ -15,17 +15,13 @@ using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 #pragma warning disable CS0105 // La directiva using para 'System.Diagnostics' aparece previamente en este espacio de nombres
-using System.Diagnostics;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
-using MongoDB.Bson;
-using MongoDB.Driver;
 #pragma warning restore CS0105 // La directiva using para 'System.Diagnostics' aparece previamente en este espacio de nombres
 
 
@@ -3769,10 +3765,9 @@ namespace EliteFlower
             Console.WriteLine(lista[0]);
             //----------------------------------------------------------------------//
 
-<<<<<<< HEAD
-=======
+
             //Mongoose.LoadExcel(ofdFilename, "Data");
->>>>>>> 4Vases
+
             Mongoose.SetFileNameML(ofdFilename, false, lblPath.Text);
 
             Mongoose.DeleteCountIDs("Data");
@@ -5232,11 +5227,11 @@ namespace EliteFlower
                 cbWorker11.Text = temp[0];
                 cbWorker12.Text = temp[1];
                 cbWorker13.Text = temp[2];
-                
+
                 cbWorker21.Text = temp[3];
                 cbWorker22.Text = temp[4];
                 cbWorker23.Text = temp[5];
-                
+
                 cbWorker31.Text = temp[6];
                 cbWorker32.Text = temp[7];
                 cbWorker33.Text = temp[8];
@@ -5271,7 +5266,8 @@ namespace EliteFlower
             Get_Template();
         }
 
-        public bool Compare_database(){
+        public bool Compare_database()
+        {
 
             List<string> ProductDB = Mongoose.GetMasterProducts("MasterProduct");
             List<string> nameVS = Mongoose.GetNameVases("Data");
