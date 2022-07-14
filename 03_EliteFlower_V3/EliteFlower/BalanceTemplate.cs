@@ -68,8 +68,7 @@ namespace EliteFlower
             //Mongoose.SetWorkUpFalse();
             //Mongoose.SetWorkMesaninFalse();
 
-            Mongoose.DeleteCountIDs("Data");
-            Mongoose.DeleteIDAddOn();
+
             Mongoose.LoadCountIDs("Data", 1);
             Mongoose.GetDistinctAddOn("Data", 10);
 
@@ -81,7 +80,7 @@ namespace EliteFlower
             Utils.SetComboBox(nameVS, new List<ComboBox> { CB_ID1_1, CB_ID2_1, CB_ID3_1 });
             Utils.SetComboBox(nameVS, new List<ComboBox> { CB_ID1_2, CB_ID2_2, CB_ID3_2 });
             Utils.SetComboBox(nameVS, new List<ComboBox> { CB_ID1_3, CB_ID2_3, CB_ID3_3 });
-            //bool checkbool = CheckDB(Mongoose.GetNameVases("Data"), true);
+            bool checkbool = CheckDB(Mongoose.GetNameVases("Data"), true);
 
 
 
