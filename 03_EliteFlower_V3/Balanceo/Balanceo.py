@@ -6,6 +6,7 @@ Original file is located at
     https://colab.research.google.com/drive/1BlaA48w4FHk1hIh_PjzrD-2CPzobT5Uy
 # DEFINICIÓN DE FUNCIONES
 """
+from audioop import reverse
 from itertools import combinations, count
 import json
 from lib2to3.pytree import convert
@@ -389,15 +390,16 @@ Funcion para el balanceo de 4 Vases
 """
 
 def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual):
-  V_P1 = sort_cantidades[0][0];
-  V_P2 = sort_cantidades[1][0];
-  V_P3 = sort_cantidades[2][0];
-  V_P4 = sort_cantidades[3][0];
+  print(f'sort cantidades = {sort_cantidades}')
+  V_P1 = sort_cantidades[0][0]
+  V_P2 = sort_cantidades[1][0]
+  V_P3 = sort_cantidades[2][0]
+  V_P4 = sort_cantidades[3][0]
 
-  cant1 = Vases_count[0]
-  cant2 = Vases_count[1]
-  cant3 = Vases_count[2]
-  cant4 = Vases_count[3]
+  cant1 = sort_cantidades[0][1]
+  cant2 = sort_cantidades[1][1]
+  cant3 = sort_cantidades[2][1]
+  cant4 = sort_cantidades[3][1]
 
 
 
@@ -455,7 +457,13 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
         Distribucion_estaciones[j]= estacion[i][n]
         n+=1
   else:
-    pass
+    k = 0
+    for j in range(3):
+      for i in range(3):
+        estacion[j][i] = Distribucion_estaciones[k]
+        k += 1
+ 
+
 
 
 
@@ -470,6 +478,7 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
   if '-1' in Vases_ID:
     elevadores_asignados.append([-1])
 
+  print(f'Distribucion estaciones = {Distribucion_estaciones}')
   rv = []
 
   rv.append(Distribucion_estaciones.count(V_P1))
@@ -478,7 +487,7 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
   rv.append(Distribucion_estaciones.count(V_P4))
 
   print(f'rv = {rv}')
-
+  pos = list(Vases_ID).index(V_P1)
 
   vases_por_st = int(round(total_con_vase / cant_st))
 
@@ -489,7 +498,7 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
 
 
 
-
+ 
   if cant_st == 2:
     y = int(round(Cantidades[V_P2]/cant_st)) #Cantidad de vase de la segunda con mayor porcentaje por estación
     #Estacion con V_P3 y V_P2
@@ -503,17 +512,23 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
       ea_st2 = [4,5,6]
     else:
       ea_st2 = [7,8,9]
+
+    print(f'l1 = {ea_st1}, l2 = {ea_st2}')
     
     
 
     gr1 = []
     gr2 = []
 
-    for i in range(len(elevadores_asignados[0])):
-      if elevadores_asignados[0][i] in ea_st1:
-        gr1.append(elevadores_asignados[0][i])
-      elif elevadores_asignados[0][i] in ea_st2:
-        gr2.append(elevadores_asignados[0][i])
+  
+
+  
+    
+    for i in range(len(elevadores_asignados[pos])):
+      if elevadores_asignados[pos][i] in ea_st1:
+        gr1.append(elevadores_asignados[pos][i])
+      elif elevadores_asignados[pos][i] in ea_st2:
+        gr2.append(elevadores_asignados[pos][i])
 
 
       
@@ -571,13 +586,13 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
 
 
 
-    for i in range(len(elevadores_asignados[0])):
-      if elevadores_asignados[0][i] in [1,2,3]:
-        gr1.append(elevadores_asignados[0][i])
-      elif elevadores_asignados[0][i] in [4,5,6]:
-        gr2.append(elevadores_asignados[0][i])
-      elif elevadores_asignados[0][i] in [7,8,9]:
-        gr3.append(elevadores_asignados[0][i])
+    for i in range(len(elevadores_asignados[pos])):
+      if elevadores_asignados[pos][i] in [1,2,3]:
+        gr1.append(elevadores_asignados[pos][i])
+      elif elevadores_asignados[pos][i] in [4,5,6]:
+        gr2.append(elevadores_asignados[pos][i])
+      elif elevadores_asignados[pos][i] in [7,8,9]:
+        gr3.append(elevadores_asignados[pos][i])
 
     print(f'grupo1 {gr1}, grupo2 {gr2}, grupo3 {gr3}')
     x = Vases_count
@@ -620,8 +635,15 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
       
       
     surplus = cant1-(x[0]+x[1]+x[2])
-    x[0] += surplus
-
+    if x[0] < x[1] and x[0] < x[2] and x[0] !=0:
+      x[0] += surplus
+    elif x[1] < x[0] and x[1] < x[2] and x[0] != 0:
+      x[1] += surplus
+    elif x[2] < x[0] and x[2] < x[1] and x[2] != 0:
+      x[2] += surplus
+    else:
+      x[0] += surplus
+    
     print(f'x = {x}')
 
 
@@ -630,10 +652,11 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
     # y = int(round(Cantidades[V_P2]/cant_st)) #Cantidad de vase de la segunda con mayor porcentaje por estación
     #  #Estacion con V_P3 y V_P2
     # x = int(round(vases_por_st - (y + Cantidades[V_P3]/(cant_st-1))))
-
+    print(f'VP1 = {V_P1}')
     for i in range(len(elevadores_asignados)):
       lista_aux = []
       k = 0; j = 0; p = 0
+      print(f'vase id {i} = {Vases_ID[i]}')
       if (Vases_ID[i] == V_P1):
         if len(gr1)> 0:
           for h in range(x[0]):
@@ -654,13 +677,17 @@ def balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
             if p > len(gr3)-1:
               p = 0
         random.shuffle(lista_aux)
+        print(f'len_lista_aux {len(lista_aux)}')
       else:
         j = 0
-        for t in range (Vases_count[i]):
+        print(f'vases count {i} = {range(Vases_count[i])}')
+        for t in range(Vases_count[i]):
+          
           if j>(len(elevadores_asignados[i])-1):
             j=0
           lista_aux.append(elevadores_asignados[i][j])
           j=j+1
+      print(f'largo lista = {len(lista_aux)}')
       elevador_ID.append(lista_aux)
   print(f'elevadores asignados {elevadores_asignados}')
   return elevadores_asignados, elevador_ID
@@ -1187,6 +1214,105 @@ def balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vas
    CV: vector con la configuracion usada en el balanceo manual
 """
 
+
+"""
+Balance Manua
+
+"""
+def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
+  import pymongo
+  from collections import defaultdict
+  import pprint
+  import math
+  client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
+  db = client['EliteFlower']
+  collection = db.BalanceTemplate
+  print("\n Balanceo Manual")
+  doc = collection.find_one({"_id": tName})
+  T_Distribucion_estaciones = doc["Configuration"]
+  Cantidades = doc["Percentage"]
+
+  print(f'T_DIstribucion estaciones = {T_Distribucion_estaciones}')
+  print(Cantidades)
+  print(Vases_ID)
+  print(Vases_type_num) 
+  print(Vases_count)
+  
+
+  for vase in T_Distribucion_estaciones:
+    if vase == "NV":
+      pass
+    else:
+      pass
+      
+ 
+  elevadores_asignados = []
+  elevadores_asignados_aux = []
+  for r in range(Vases_type_num):
+    indices = [i for i, x in enumerate(T_Distribucion_estaciones) if  x == Vases_ID[r]]
+    elevadores_asignados_aux.append(indices)
+
+  elevadores_asignados = [[y+1 for y in x ] for x in elevadores_asignados_aux]
+  if '-1' in Vases_ID:
+    elevadores_asignados.append([-1])
+  
+  print(f'elevadores asignados {elevadores_asignados}')
+
+  elevador_ID = []
+  print(elevador_ID)
+  lista_aux = []
+  elevador_ID_aux = []
+  i = 0
+  d_list = []
+  for vase in T_Distribucion_estaciones:
+    lista_aux = []
+    p = list(Vases_ID).index(vase)  
+    a = Vases_count[p]
+    b = int(Cantidades[i])/100
+    c = round(a*b)
+    d = c-a*b #excedente del redondeo
+    #print(f'a = {a}, b = {b}, c = {c}')
+    i += 1
+    for j in range(c):
+      lista_aux.append(i) #lista auxiliar de tamaño C con las posiciones del elevador marcado
+    d_list.append(d)  # lista con sobrante del redondeo, para restarlo mas adelante e igual cantidades   
+    elevador_ID_aux.append(lista_aux)
+ 
+ 
+  i = 0
+  for t in range(len(Vases_ID[i])-1):
+    lista_aux = []
+    vase = Vases_ID[t]
+    #print(f'vase = {vase}')
+    #p = list(T_Distribucion_estaciones).index(vase)
+    gen = [p for p, v in enumerate(T_Distribucion_estaciones) if v == vase]  
+    if vase == '-1':
+      for i in range(Vases_count[t]):
+        lista_aux.append(-1)
+    else:
+      for i in gen: 
+        lista_aux.extend(elevador_ID_aux[i])
+    elevador_ID.append(lista_aux)
+
+
+
+
+  #elevador_ID[p].extend(lista_aux)
+
+
+
+  
+ #print(elevador_ID)
+  print('fin manual\n')
+  
+  return elevadores_asignados, elevador_ID, T_Distribucion_estaciones
+
+
+"""
+Balance Automatico
+
+"""
+
 def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
 
 
@@ -1224,7 +1350,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   Vases_ID = db_group.index.values
   Barcodes = db_group.BARCODE_NUMBER.values
   AddOn_List = db_group.ADD_ON_ID.values
-  Total_ordenes = 0;
+  Total_ordenes = 0
   for i in range(Barcodes.shape[0]):
     Total_ordenes += len(Barcodes[i]) 
 
@@ -1238,9 +1364,20 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
     Vases_type_num = db_group.index.size - 1
     N_V = 0
 
+
   Vases_count = np.zeros((Vases_ID.size), dtype=int)
+  Vases_ID_aux = []
+
   for i in range(Vases_ID.size):
-    Vases_count[i]=len(Barcodes[i])
+    # if i == Vases_ID.size-1:
+    #   #Vases_count[i] = max(Vases_count)+1
+    #   Vases_count.sort()
+    #   Vases_count = Vases_count[::-1]
+    Vases_count[i] = (len(Barcodes[i]))
+
+
+
+
 
   AddOn_ID = ["","",""]
   for i in range(len(AddOn_List)):
@@ -1271,19 +1408,23 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   Cantidades = {}
   for i in range(Vases_type_num):
     Cantidades[Vases_ID[i]] = Vases_count[i]
-
+  print(f'cantidades = {Cantidades}')
   # take the second element for sort
   def take_second(elem):
       return elem[1]
 
   sort_cantidades = sorted(Cantidades.items(),  key=take_second, reverse=True)
+  
+  # for i in range(len(sort_cantidades)):
+  #   Vases_ID[i] = sort_cantidades[i][0]
+  #   Vases_count[i] = sort_cantidades[i][1]
+  
+
 
   ### ESTO ES UNA ENTRADA DIRECTA DE LA UI ###
   ## INGRESAR UNA LISTA CON LAS ESTACIONES SELECCIONADAS
   #Se escogen cuantas y cuales estaciones seran utilizadas #
-  #var_ext_estaciones_slc = ['3']
-  #var_ext_estaciones_slc = ['2','1']
-  #var_ext_estaciones_slc = ['2','3','1']
+
   var_ext_estaciones_slc = list(map(int, var_ext_estaciones_slc))
   var_ext_estaciones_slc.sort()
   cant_st = len(var_ext_estaciones_slc)
@@ -1334,10 +1475,11 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
     print(strg_to_print)
 
   """# BALANCEO AUTOMÁTICO"""
-
+  print(f'Sort cantidades {sort_cantidades}')
   print(f'Numero de Vases {Vases_type_num}')
   print(f'Estaciones seleccionadas: {cant_st}')
   print(f'Estaciones : {var_ext_estaciones_slc}')
+
   print(f'Distribucion de estaciones : {Distribucion_estaciones}')
   print(f'Vases ID : {Vases_ID}')
   print(f'Vases Type Num : {Vases_type_num}')
@@ -1361,10 +1503,48 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
     elevadores_asignados, elevador_ID = balanceo_8_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
   elif Vases_type_num == 9:
     elevadores_asignados, elevador_ID = balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+  
+  manualF = True
+  if (manualF):
+    elevadores_asignados, elevador_ID, Distribucion_estaciones = balanceo_Manual("Prueba2", Vases_ID, Vases_count, Vases_type_num)
+  set_ID = []
+  cant_ID = []
+  lista_aux = []
+  lista_aux2 = []
+
+ ##  ciclo para verificar que la lista de ID se ha generado correctamente, se verifica por medio de un set
+ # que las cantidades y posiciones de los vases corresponden a los elevadores asignados
+ 
+  for i in range(len(elevador_ID)):
+    lista_aux2 = []
+    #print(set(elevador_ID[i]))
+    for j in range(len(list(set(elevador_ID[i])))):
+      lista_aux = list(set(elevador_ID[i]))
+      lista_aux.sort()
+    for item in lista_aux:
+      lista_aux2.append(elevador_ID[i].count(item))
+    cant_ID.append(lista_aux2)
+
+
+
+    set_ID.append(lista_aux)
+
+
+  
+
+  print(f'set_ID = {set_ID}')
+  print(f'cant ID = {cant_ID}')
+  print(f'leng elevador id = {len(elevador_ID)}')
+
+
+  # elevador ID es una lista de lista en donde la primer alista contiene la informacion
+  # del vase que mas se repetie y la ubicacion 1 a 1 de la posicion de los elevadores
 
   """# SALIDA Y VISUALIZACIÓN DE LA BASE DE DATOS CON LA ASIGNACIÓN EJECUTADA"""
 
   base_datos_output = []
+
+
 
   for w in range(len(Vases_ID)):
     CdB = Barcodes[w]
@@ -1372,8 +1552,16 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
     AO_ID = AddOn_List[w]
     ELEV_ID = elevador_ID[w]
     LED_AO = Led_ID[w]
+    print(f'w --> {w}, len elevador ID= {len(elevador_ID[w])}')
+
     for q in range(Vases_count[w]):
-      lista_aux = [CdB[q], V_ID, ELEV_ID[q], AO_ID[q],LED_AO[q]]
+      #print(f'w = {w}, q = {q}')
+      a = CdB[q]
+      b = V_ID
+      c = ELEV_ID[q]
+      d = AO_ID[q]
+      e = LED_AO[q]
+      lista_aux = [a, b ,c, d ,e]
       base_datos_output.append(lista_aux)
 
   Cuenta_Elevador = []
@@ -1382,6 +1570,8 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
     for k in range(len(elevador_ID)):
       acumulador +=  elevador_ID[k].count(i+1)
     Cuenta_Elevador.append(acumulador)
+  print(f'cuenta_elevador = {Cuenta_Elevador}')
+
 
   Balanceo = []
   for i in range (len(Distribucion_estaciones)):
@@ -1406,6 +1596,9 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   return base_datos_output
   """# Crear y cargar TXTs
   """
+
+
+
 """
   #Creo
   file1 = open("/intercambio.txt", "wb")
