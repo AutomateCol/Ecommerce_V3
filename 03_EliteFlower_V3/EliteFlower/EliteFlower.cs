@@ -3769,6 +3769,10 @@ namespace EliteFlower
             Console.WriteLine(lista[0]);
             //----------------------------------------------------------------------//
 
+<<<<<<< HEAD
+=======
+            //Mongoose.LoadExcel(ofdFilename, "Data");
+>>>>>>> 4Vases
             Mongoose.SetFileNameML(ofdFilename, false, lblPath.Text);
 
             Mongoose.DeleteCountIDs("Data");
