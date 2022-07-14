@@ -50,6 +50,7 @@ namespace EliteFlower
             this.mnuEPackage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuEPLC = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBtemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuEChecker = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEManual = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,6 +169,8 @@ namespace EliteFlower
             this.lblMesanin = new System.Windows.Forms.Label();
             this.pcbInitialFill = new System.Windows.Forms.PictureBox();
             this.tabConfiguration = new System.Windows.Forms.TabPage();
+            this.CB_Template = new System.Windows.Forms.ComboBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.chb_manual = new System.Windows.Forms.CheckBox();
             this.Bal_Python = new System.Windows.Forms.Button();
             this.txtControl = new System.Windows.Forms.TextBox();
@@ -321,7 +324,6 @@ namespace EliteFlower
             this.btnRestaurar = new System.Windows.Forms.PictureBox();
             this.comboNext = new System.Windows.Forms.ComboBox();
             this.comboActual = new System.Windows.Forms.ComboBox();
-            this.mnuBtemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuppal.SuspendLayout();
             this.gpMatriz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLeds12)).BeginInit();
@@ -566,6 +568,13 @@ namespace EliteFlower
             this.mnuEPLC.Text = "PLC";
             this.mnuEPLC.Click += new System.EventHandler(this.mnuEPLC_Click_1);
             // 
+            // mnuBtemplate
+            // 
+            this.mnuBtemplate.Name = "mnuBtemplate";
+            this.mnuBtemplate.Size = new System.Drawing.Size(262, 34);
+            this.mnuBtemplate.Text = "Balance Template";
+            this.mnuBtemplate.Click += new System.EventHandler(this.mnuBtemplate_Click);
+            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
@@ -646,7 +655,7 @@ namespace EliteFlower
             this.btnPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPause.ForeColor = System.Drawing.Color.White;
             this.btnPause.Location = new System.Drawing.Point(748, 139);
-            this.btnPause.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPause.Margin = new System.Windows.Forms.Padding(4);
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(160, 49);
             this.btnPause.TabIndex = 50;
@@ -664,7 +673,7 @@ namespace EliteFlower
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.ForeColor = System.Drawing.Color.White;
             this.btnStart.Location = new System.Drawing.Point(749, 78);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(4);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(160, 49);
             this.btnStart.TabIndex = 50;
@@ -712,7 +721,7 @@ namespace EliteFlower
             // SupSubtotal11
             // 
             this.SupSubtotal11.Location = new System.Drawing.Point(775, 229);
-            this.SupSubtotal11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal11.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal11.Name = "SupSubtotal11";
             this.SupSubtotal11.ReadOnly = true;
             this.SupSubtotal11.Size = new System.Drawing.Size(55, 34);
@@ -722,7 +731,7 @@ namespace EliteFlower
             // SupSubtotal12
             // 
             this.SupSubtotal12.Location = new System.Drawing.Point(840, 229);
-            this.SupSubtotal12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal12.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal12.Name = "SupSubtotal12";
             this.SupSubtotal12.ReadOnly = true;
             this.SupSubtotal12.Size = new System.Drawing.Size(55, 34);
@@ -732,7 +741,7 @@ namespace EliteFlower
             // SupSubtotal13
             // 
             this.SupSubtotal13.Location = new System.Drawing.Point(905, 229);
-            this.SupSubtotal13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal13.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal13.Name = "SupSubtotal13";
             this.SupSubtotal13.ReadOnly = true;
             this.SupSubtotal13.Size = new System.Drawing.Size(55, 34);
@@ -742,7 +751,7 @@ namespace EliteFlower
             // SupTotal1
             // 
             this.SupTotal1.Location = new System.Drawing.Point(828, 279);
-            this.SupTotal1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupTotal1.Margin = new System.Windows.Forms.Padding(4);
             this.SupTotal1.Name = "SupTotal1";
             this.SupTotal1.ReadOnly = true;
             this.SupTotal1.Size = new System.Drawing.Size(79, 34);
@@ -752,7 +761,7 @@ namespace EliteFlower
             // SupSubtotal21
             // 
             this.SupSubtotal21.Location = new System.Drawing.Point(569, 229);
-            this.SupSubtotal21.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal21.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal21.Name = "SupSubtotal21";
             this.SupSubtotal21.ReadOnly = true;
             this.SupSubtotal21.Size = new System.Drawing.Size(55, 34);
@@ -762,7 +771,7 @@ namespace EliteFlower
             // SupSubtotal22
             // 
             this.SupSubtotal22.Location = new System.Drawing.Point(635, 229);
-            this.SupSubtotal22.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal22.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal22.Name = "SupSubtotal22";
             this.SupSubtotal22.ReadOnly = true;
             this.SupSubtotal22.Size = new System.Drawing.Size(55, 34);
@@ -772,7 +781,7 @@ namespace EliteFlower
             // SupSubtotal23
             // 
             this.SupSubtotal23.Location = new System.Drawing.Point(700, 229);
-            this.SupSubtotal23.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal23.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal23.Name = "SupSubtotal23";
             this.SupSubtotal23.ReadOnly = true;
             this.SupSubtotal23.Size = new System.Drawing.Size(55, 34);
@@ -782,7 +791,7 @@ namespace EliteFlower
             // SupTotal2
             // 
             this.SupTotal2.Location = new System.Drawing.Point(623, 279);
-            this.SupTotal2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupTotal2.Margin = new System.Windows.Forms.Padding(4);
             this.SupTotal2.Name = "SupTotal2";
             this.SupTotal2.ReadOnly = true;
             this.SupTotal2.Size = new System.Drawing.Size(79, 34);
@@ -792,7 +801,7 @@ namespace EliteFlower
             // SupSubtotal31
             // 
             this.SupSubtotal31.Location = new System.Drawing.Point(364, 229);
-            this.SupSubtotal31.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal31.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal31.Name = "SupSubtotal31";
             this.SupSubtotal31.ReadOnly = true;
             this.SupSubtotal31.Size = new System.Drawing.Size(55, 34);
@@ -802,7 +811,7 @@ namespace EliteFlower
             // SupSubtotal32
             // 
             this.SupSubtotal32.Location = new System.Drawing.Point(429, 229);
-            this.SupSubtotal32.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal32.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal32.Name = "SupSubtotal32";
             this.SupSubtotal32.ReadOnly = true;
             this.SupSubtotal32.Size = new System.Drawing.Size(55, 34);
@@ -823,7 +832,7 @@ namespace EliteFlower
             // SupSubtotal33
             // 
             this.SupSubtotal33.Location = new System.Drawing.Point(495, 229);
-            this.SupSubtotal33.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal33.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal33.Name = "SupSubtotal33";
             this.SupSubtotal33.ReadOnly = true;
             this.SupSubtotal33.Size = new System.Drawing.Size(55, 34);
@@ -844,7 +853,7 @@ namespace EliteFlower
             // SupTotal3
             // 
             this.SupTotal3.Location = new System.Drawing.Point(417, 279);
-            this.SupTotal3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupTotal3.Margin = new System.Windows.Forms.Padding(4);
             this.SupTotal3.Name = "SupTotal3";
             this.SupTotal3.ReadOnly = true;
             this.SupTotal3.Size = new System.Drawing.Size(79, 34);
@@ -998,9 +1007,9 @@ namespace EliteFlower
             this.gpMatriz.Controls.Add(this.SupTotal3);
             this.gpMatriz.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpMatriz.Location = new System.Drawing.Point(4, 347);
-            this.gpMatriz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpMatriz.Margin = new System.Windows.Forms.Padding(4);
             this.gpMatriz.Name = "gpMatriz";
-            this.gpMatriz.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gpMatriz.Padding = new System.Windows.Forms.Padding(4);
             this.gpMatriz.Size = new System.Drawing.Size(1011, 394);
             this.gpMatriz.TabIndex = 50;
             this.gpMatriz.TabStop = false;
@@ -1009,7 +1018,7 @@ namespace EliteFlower
             // SupTotal4
             // 
             this.SupTotal4.Location = new System.Drawing.Point(212, 279);
-            this.SupTotal4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupTotal4.Margin = new System.Windows.Forms.Padding(4);
             this.SupTotal4.Name = "SupTotal4";
             this.SupTotal4.ReadOnly = true;
             this.SupTotal4.Size = new System.Drawing.Size(79, 34);
@@ -1041,7 +1050,7 @@ namespace EliteFlower
             // SupSubtotal43
             // 
             this.SupSubtotal43.Location = new System.Drawing.Point(289, 229);
-            this.SupSubtotal43.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal43.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal43.Name = "SupSubtotal43";
             this.SupSubtotal43.ReadOnly = true;
             this.SupSubtotal43.Size = new System.Drawing.Size(55, 34);
@@ -1052,7 +1061,7 @@ namespace EliteFlower
             // 
             this.pcbLeds12.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds12.Location = new System.Drawing.Point(775, 128);
-            this.pcbLeds12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds12.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds12.Name = "pcbLeds12";
             this.pcbLeds12.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1063,7 +1072,7 @@ namespace EliteFlower
             // 
             this.pcbLeds32.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds32.Location = new System.Drawing.Point(364, 128);
-            this.pcbLeds32.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds32.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds32.Name = "pcbLeds32";
             this.pcbLeds32.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds32.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1074,7 +1083,7 @@ namespace EliteFlower
             // 
             this.pcbLeds21.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds21.Location = new System.Drawing.Point(569, 65);
-            this.pcbLeds21.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds21.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds21.Name = "pcbLeds21";
             this.pcbLeds21.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1085,7 +1094,7 @@ namespace EliteFlower
             // 
             this.pcbLeds22.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds22.Location = new System.Drawing.Point(569, 128);
-            this.pcbLeds22.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds22.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds22.Name = "pcbLeds22";
             this.pcbLeds22.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1095,7 +1104,7 @@ namespace EliteFlower
             // SupSubtotal42
             // 
             this.SupSubtotal42.Location = new System.Drawing.Point(224, 229);
-            this.SupSubtotal42.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal42.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal42.Name = "SupSubtotal42";
             this.SupSubtotal42.ReadOnly = true;
             this.SupSubtotal42.Size = new System.Drawing.Size(55, 34);
@@ -1105,7 +1114,7 @@ namespace EliteFlower
             // SupSubtotal41
             // 
             this.SupSubtotal41.Location = new System.Drawing.Point(159, 229);
-            this.SupSubtotal41.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupSubtotal41.Margin = new System.Windows.Forms.Padding(4);
             this.SupSubtotal41.Name = "SupSubtotal41";
             this.SupSubtotal41.ReadOnly = true;
             this.SupSubtotal41.Size = new System.Drawing.Size(55, 34);
@@ -1127,7 +1136,7 @@ namespace EliteFlower
             // 
             this.pcbLeds42.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds42.Location = new System.Drawing.Point(159, 128);
-            this.pcbLeds42.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds42.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds42.Name = "pcbLeds42";
             this.pcbLeds42.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds42.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1172,7 +1181,7 @@ namespace EliteFlower
             // 
             this.pcbLeds11.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds11.Location = new System.Drawing.Point(775, 65);
-            this.pcbLeds11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds11.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds11.Name = "pcbLeds11";
             this.pcbLeds11.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1183,7 +1192,7 @@ namespace EliteFlower
             // 
             this.pcbLeds41.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds41.Location = new System.Drawing.Point(159, 65);
-            this.pcbLeds41.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds41.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds41.Name = "pcbLeds41";
             this.pcbLeds41.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds41.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1194,7 +1203,7 @@ namespace EliteFlower
             // 
             this.pcbLeds31.Image = global::EliteFlower.Properties.Resources.led000;
             this.pcbLeds31.Location = new System.Drawing.Point(364, 65);
-            this.pcbLeds31.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbLeds31.Margin = new System.Windows.Forms.Padding(4);
             this.pcbLeds31.Name = "pcbLeds31";
             this.pcbLeds31.Size = new System.Drawing.Size(187, 55);
             this.pcbLeds31.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1219,7 +1228,7 @@ namespace EliteFlower
             this.chb_Band2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_Band2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.58F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chb_Band2.Location = new System.Drawing.Point(32, 140);
-            this.chb_Band2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chb_Band2.Margin = new System.Windows.Forms.Padding(4);
             this.chb_Band2.Name = "chb_Band2";
             this.chb_Band2.Size = new System.Drawing.Size(144, 29);
             this.chb_Band2.TabIndex = 14;
@@ -1234,7 +1243,7 @@ namespace EliteFlower
             this.chb_Band1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_Band1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.58F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chb_Band1.Location = new System.Drawing.Point(32, 69);
-            this.chb_Band1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chb_Band1.Margin = new System.Windows.Forms.Padding(4);
             this.chb_Band1.Name = "chb_Band1";
             this.chb_Band1.Size = new System.Drawing.Size(144, 29);
             this.chb_Band1.TabIndex = 15;
@@ -1248,9 +1257,9 @@ namespace EliteFlower
             this.gb_transband.Controls.Add(this.chb_Band2);
             this.gb_transband.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_transband.Location = new System.Drawing.Point(373, 452);
-            this.gb_transband.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_transband.Margin = new System.Windows.Forms.Padding(4);
             this.gb_transband.Name = "gb_transband";
-            this.gb_transband.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_transband.Padding = new System.Windows.Forms.Padding(4);
             this.gb_transband.Size = new System.Drawing.Size(213, 209);
             this.gb_transband.TabIndex = 25;
             this.gb_transband.TabStop = false;
@@ -1272,7 +1281,7 @@ namespace EliteFlower
             this.cbWorker31.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker31.FormattingEnabled = true;
             this.cbWorker31.Location = new System.Drawing.Point(121, 42);
-            this.cbWorker31.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker31.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker31.Name = "cbWorker31";
             this.cbWorker31.Size = new System.Drawing.Size(121, 33);
             this.cbWorker31.TabIndex = 4;
@@ -1303,7 +1312,7 @@ namespace EliteFlower
             this.cbWorker32.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker32.FormattingEnabled = true;
             this.cbWorker32.Location = new System.Drawing.Point(121, 78);
-            this.cbWorker32.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker32.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker32.Name = "cbWorker32";
             this.cbWorker32.Size = new System.Drawing.Size(121, 33);
             this.cbWorker32.TabIndex = 7;
@@ -1314,7 +1323,7 @@ namespace EliteFlower
             this.cbWorker33.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker33.FormattingEnabled = true;
             this.cbWorker33.Location = new System.Drawing.Point(121, 113);
-            this.cbWorker33.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker33.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker33.Name = "cbWorker33";
             this.cbWorker33.Size = new System.Drawing.Size(121, 33);
             this.cbWorker33.TabIndex = 8;
@@ -1323,7 +1332,7 @@ namespace EliteFlower
             // TxtSubtotal31
             // 
             this.TxtSubtotal31.Location = new System.Drawing.Point(252, 42);
-            this.TxtSubtotal31.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal31.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal31.Name = "TxtSubtotal31";
             this.TxtSubtotal31.ReadOnly = true;
             this.TxtSubtotal31.Size = new System.Drawing.Size(77, 31);
@@ -1333,7 +1342,7 @@ namespace EliteFlower
             // TxtSubtotal32
             // 
             this.TxtSubtotal32.Location = new System.Drawing.Point(252, 78);
-            this.TxtSubtotal32.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal32.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal32.Name = "TxtSubtotal32";
             this.TxtSubtotal32.ReadOnly = true;
             this.TxtSubtotal32.Size = new System.Drawing.Size(77, 31);
@@ -1343,7 +1352,7 @@ namespace EliteFlower
             // TxtSubtotal33
             // 
             this.TxtSubtotal33.Location = new System.Drawing.Point(252, 113);
-            this.TxtSubtotal33.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal33.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal33.Name = "TxtSubtotal33";
             this.TxtSubtotal33.ReadOnly = true;
             this.TxtSubtotal33.Size = new System.Drawing.Size(77, 31);
@@ -1353,7 +1362,7 @@ namespace EliteFlower
             // TxtTotal3
             // 
             this.TxtTotal3.Location = new System.Drawing.Point(252, 153);
-            this.TxtTotal3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtTotal3.Margin = new System.Windows.Forms.Padding(4);
             this.TxtTotal3.Name = "TxtTotal3";
             this.TxtTotal3.ReadOnly = true;
             this.TxtTotal3.Size = new System.Drawing.Size(77, 31);
@@ -1385,9 +1394,9 @@ namespace EliteFlower
             this.gb_worker3.Controls.Add(this.TxtSubtotal31);
             this.gb_worker3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_worker3.Location = new System.Drawing.Point(8, 452);
-            this.gb_worker3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_worker3.Margin = new System.Windows.Forms.Padding(4);
             this.gb_worker3.Name = "gb_worker3";
-            this.gb_worker3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_worker3.Padding = new System.Windows.Forms.Padding(4);
             this.gb_worker3.Size = new System.Drawing.Size(360, 209);
             this.gb_worker3.TabIndex = 22;
             this.gb_worker3.TabStop = false;
@@ -1409,7 +1418,7 @@ namespace EliteFlower
             this.cbWorker21.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker21.FormattingEnabled = true;
             this.cbWorker21.Location = new System.Drawing.Point(121, 44);
-            this.cbWorker21.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker21.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker21.Name = "cbWorker21";
             this.cbWorker21.Size = new System.Drawing.Size(121, 33);
             this.cbWorker21.TabIndex = 4;
@@ -1440,7 +1449,7 @@ namespace EliteFlower
             this.cbWorker22.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker22.FormattingEnabled = true;
             this.cbWorker22.Location = new System.Drawing.Point(121, 80);
-            this.cbWorker22.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker22.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker22.Name = "cbWorker22";
             this.cbWorker22.Size = new System.Drawing.Size(121, 33);
             this.cbWorker22.TabIndex = 7;
@@ -1451,7 +1460,7 @@ namespace EliteFlower
             this.cbWorker23.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker23.FormattingEnabled = true;
             this.cbWorker23.Location = new System.Drawing.Point(121, 116);
-            this.cbWorker23.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker23.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker23.Name = "cbWorker23";
             this.cbWorker23.Size = new System.Drawing.Size(121, 33);
             this.cbWorker23.TabIndex = 8;
@@ -1460,7 +1469,7 @@ namespace EliteFlower
             // TxtSubtotal21
             // 
             this.TxtSubtotal21.Location = new System.Drawing.Point(252, 44);
-            this.TxtSubtotal21.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal21.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal21.Name = "TxtSubtotal21";
             this.TxtSubtotal21.ReadOnly = true;
             this.TxtSubtotal21.Size = new System.Drawing.Size(77, 31);
@@ -1470,7 +1479,7 @@ namespace EliteFlower
             // TxtSubtotal22
             // 
             this.TxtSubtotal22.Location = new System.Drawing.Point(252, 80);
-            this.TxtSubtotal22.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal22.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal22.Name = "TxtSubtotal22";
             this.TxtSubtotal22.ReadOnly = true;
             this.TxtSubtotal22.Size = new System.Drawing.Size(77, 31);
@@ -1480,7 +1489,7 @@ namespace EliteFlower
             // TxtSubtotal23
             // 
             this.TxtSubtotal23.Location = new System.Drawing.Point(252, 116);
-            this.TxtSubtotal23.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal23.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal23.Name = "TxtSubtotal23";
             this.TxtSubtotal23.ReadOnly = true;
             this.TxtSubtotal23.Size = new System.Drawing.Size(77, 31);
@@ -1490,7 +1499,7 @@ namespace EliteFlower
             // TxtTotal2
             // 
             this.TxtTotal2.Location = new System.Drawing.Point(252, 155);
-            this.TxtTotal2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtTotal2.Margin = new System.Windows.Forms.Padding(4);
             this.TxtTotal2.Name = "TxtTotal2";
             this.TxtTotal2.ReadOnly = true;
             this.TxtTotal2.Size = new System.Drawing.Size(77, 31);
@@ -1522,9 +1531,9 @@ namespace EliteFlower
             this.gb_worker2.Controls.Add(this.TxtSubtotal21);
             this.gb_worker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_worker2.Location = new System.Drawing.Point(8, 235);
-            this.gb_worker2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_worker2.Margin = new System.Windows.Forms.Padding(4);
             this.gb_worker2.Name = "gb_worker2";
-            this.gb_worker2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_worker2.Padding = new System.Windows.Forms.Padding(4);
             this.gb_worker2.Size = new System.Drawing.Size(360, 209);
             this.gb_worker2.TabIndex = 21;
             this.gb_worker2.TabStop = false;
@@ -1547,7 +1556,7 @@ namespace EliteFlower
             this.cbWorker11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker11.FormattingEnabled = true;
             this.cbWorker11.Location = new System.Drawing.Point(121, 42);
-            this.cbWorker11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker11.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker11.Name = "cbWorker11";
             this.cbWorker11.Size = new System.Drawing.Size(121, 33);
             this.cbWorker11.TabIndex = 4;
@@ -1578,7 +1587,7 @@ namespace EliteFlower
             this.cbWorker12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker12.FormattingEnabled = true;
             this.cbWorker12.Location = new System.Drawing.Point(121, 78);
-            this.cbWorker12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker12.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker12.Name = "cbWorker12";
             this.cbWorker12.Size = new System.Drawing.Size(121, 33);
             this.cbWorker12.TabIndex = 7;
@@ -1589,7 +1598,7 @@ namespace EliteFlower
             this.cbWorker13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbWorker13.FormattingEnabled = true;
             this.cbWorker13.Location = new System.Drawing.Point(121, 113);
-            this.cbWorker13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorker13.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorker13.Name = "cbWorker13";
             this.cbWorker13.Size = new System.Drawing.Size(121, 33);
             this.cbWorker13.TabIndex = 8;
@@ -1598,7 +1607,7 @@ namespace EliteFlower
             // TxtSubtotal11
             // 
             this.TxtSubtotal11.Location = new System.Drawing.Point(252, 42);
-            this.TxtSubtotal11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal11.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal11.Name = "TxtSubtotal11";
             this.TxtSubtotal11.ReadOnly = true;
             this.TxtSubtotal11.Size = new System.Drawing.Size(77, 31);
@@ -1608,7 +1617,7 @@ namespace EliteFlower
             // TxtSubtotal12
             // 
             this.TxtSubtotal12.Location = new System.Drawing.Point(252, 78);
-            this.TxtSubtotal12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal12.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal12.Name = "TxtSubtotal12";
             this.TxtSubtotal12.ReadOnly = true;
             this.TxtSubtotal12.Size = new System.Drawing.Size(77, 31);
@@ -1618,7 +1627,7 @@ namespace EliteFlower
             // TxtSubtotal13
             // 
             this.TxtSubtotal13.Location = new System.Drawing.Point(252, 113);
-            this.TxtSubtotal13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal13.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal13.Name = "TxtSubtotal13";
             this.TxtSubtotal13.ReadOnly = true;
             this.TxtSubtotal13.Size = new System.Drawing.Size(77, 31);
@@ -1628,7 +1637,7 @@ namespace EliteFlower
             // TxtTotal1
             // 
             this.TxtTotal1.Location = new System.Drawing.Point(252, 153);
-            this.TxtTotal1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtTotal1.Margin = new System.Windows.Forms.Padding(4);
             this.TxtTotal1.Name = "TxtTotal1";
             this.TxtTotal1.ReadOnly = true;
             this.TxtTotal1.Size = new System.Drawing.Size(77, 31);
@@ -1660,9 +1669,9 @@ namespace EliteFlower
             this.gb_worker1.Controls.Add(this.TxtSubtotal11);
             this.gb_worker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_worker1.Location = new System.Drawing.Point(8, 7);
-            this.gb_worker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_worker1.Margin = new System.Windows.Forms.Padding(4);
             this.gb_worker1.Name = "gb_worker1";
-            this.gb_worker1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_worker1.Padding = new System.Windows.Forms.Padding(4);
             this.gb_worker1.Size = new System.Drawing.Size(360, 209);
             this.gb_worker1.TabIndex = 20;
             this.gb_worker1.TabStop = false;
@@ -1675,7 +1684,7 @@ namespace EliteFlower
             this.chb_worker3.Checked = true;
             this.chb_worker3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_worker3.Location = new System.Drawing.Point(44, 142);
-            this.chb_worker3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chb_worker3.Margin = new System.Windows.Forms.Padding(4);
             this.chb_worker3.Name = "chb_worker3";
             this.chb_worker3.Size = new System.Drawing.Size(108, 29);
             this.chb_worker3.TabIndex = 13;
@@ -1689,7 +1698,7 @@ namespace EliteFlower
             this.chb_worker2.Checked = true;
             this.chb_worker2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_worker2.Location = new System.Drawing.Point(44, 90);
-            this.chb_worker2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chb_worker2.Margin = new System.Windows.Forms.Padding(4);
             this.chb_worker2.Name = "chb_worker2";
             this.chb_worker2.Size = new System.Drawing.Size(108, 29);
             this.chb_worker2.TabIndex = 14;
@@ -1703,7 +1712,7 @@ namespace EliteFlower
             this.chb_worker1.Checked = true;
             this.chb_worker1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chb_worker1.Location = new System.Drawing.Point(44, 37);
-            this.chb_worker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chb_worker1.Margin = new System.Windows.Forms.Padding(4);
             this.chb_worker1.Name = "chb_worker1";
             this.chb_worker1.Size = new System.Drawing.Size(108, 29);
             this.chb_worker1.TabIndex = 15;
@@ -1718,9 +1727,9 @@ namespace EliteFlower
             this.gb_eworkers.Controls.Add(this.chb_worker3);
             this.gb_eworkers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.58F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_eworkers.Location = new System.Drawing.Point(376, 10);
-            this.gb_eworkers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_eworkers.Margin = new System.Windows.Forms.Padding(4);
             this.gb_eworkers.Name = "gb_eworkers";
-            this.gb_eworkers.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_eworkers.Padding = new System.Windows.Forms.Padding(4);
             this.gb_eworkers.Size = new System.Drawing.Size(213, 207);
             this.gb_eworkers.TabIndex = 24;
             this.gb_eworkers.TabStop = false;
@@ -1737,7 +1746,7 @@ namespace EliteFlower
             this.tabControl.Controls.Add(this.tabElite);
             this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new System.Drawing.Point(4, 4);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1064, 900);
@@ -1749,9 +1758,9 @@ namespace EliteFlower
             this.tabMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
             this.tabMain.Controls.Add(this.panel9);
             this.tabMain.Location = new System.Drawing.Point(4, 34);
-            this.tabMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabMain.Margin = new System.Windows.Forms.Padding(4);
             this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabMain.Padding = new System.Windows.Forms.Padding(4);
             this.tabMain.Size = new System.Drawing.Size(1056, 862);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
@@ -1763,7 +1772,7 @@ namespace EliteFlower
             this.panel9.Controls.Add(this.gbFeeder);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(4, 4);
-            this.panel9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel9.Margin = new System.Windows.Forms.Padding(4);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(1048, 854);
             this.panel9.TabIndex = 98;
@@ -1785,9 +1794,9 @@ namespace EliteFlower
             this.gbFeeder.Controls.Add(this.pcbInitialFill);
             this.gbFeeder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbFeeder.Location = new System.Drawing.Point(4, 4);
-            this.gbFeeder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbFeeder.Margin = new System.Windows.Forms.Padding(4);
             this.gbFeeder.Name = "gbFeeder";
-            this.gbFeeder.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbFeeder.Padding = new System.Windows.Forms.Padding(4);
             this.gbFeeder.Size = new System.Drawing.Size(1005, 336);
             this.gbFeeder.TabIndex = 95;
             this.gbFeeder.TabStop = false;
@@ -1821,7 +1830,7 @@ namespace EliteFlower
             // 
             this.txtVase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
             this.txtVase.Location = new System.Drawing.Point(408, 58);
-            this.txtVase.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtVase.Margin = new System.Windows.Forms.Padding(4);
             this.txtVase.Name = "txtVase";
             this.txtVase.Size = new System.Drawing.Size(127, 34);
             this.txtVase.TabIndex = 141;
@@ -1830,7 +1839,7 @@ namespace EliteFlower
             // 
             this.txtNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
             this.txtNext.Location = new System.Drawing.Point(548, 58);
-            this.txtNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNext.Margin = new System.Windows.Forms.Padding(4);
             this.txtNext.Name = "txtNext";
             this.txtNext.Size = new System.Drawing.Size(63, 34);
             this.txtNext.TabIndex = 140;
@@ -1843,7 +1852,7 @@ namespace EliteFlower
             this.btnResume.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnResume.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnResume.Location = new System.Drawing.Point(735, 262);
-            this.btnResume.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnResume.Margin = new System.Windows.Forms.Padding(4);
             this.btnResume.Name = "btnResume";
             this.btnResume.Size = new System.Drawing.Size(187, 49);
             this.btnResume.TabIndex = 97;
@@ -1859,7 +1868,7 @@ namespace EliteFlower
             this.btnInicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInicio.ForeColor = System.Drawing.Color.White;
             this.btnInicio.Location = new System.Drawing.Point(748, 201);
-            this.btnInicio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnInicio.Margin = new System.Windows.Forms.Padding(4);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Size = new System.Drawing.Size(160, 49);
             this.btnInicio.TabIndex = 50;
@@ -1897,7 +1906,7 @@ namespace EliteFlower
             // 
             this.pcbFill.InitialImage = ((System.Drawing.Image)(resources.GetObject("pcbFill.InitialImage")));
             this.pcbFill.Location = new System.Drawing.Point(385, 102);
-            this.pcbFill.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbFill.Margin = new System.Windows.Forms.Padding(4);
             this.pcbFill.Name = "pcbFill";
             this.pcbFill.Size = new System.Drawing.Size(227, 209);
             this.pcbFill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1920,7 +1929,7 @@ namespace EliteFlower
             // 
             this.pcbInitialFill.InitialImage = ((System.Drawing.Image)(resources.GetObject("pcbInitialFill.InitialImage")));
             this.pcbInitialFill.Location = new System.Drawing.Point(43, 103);
-            this.pcbInitialFill.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbInitialFill.Margin = new System.Windows.Forms.Padding(4);
             this.pcbInitialFill.Name = "pcbInitialFill";
             this.pcbInitialFill.Size = new System.Drawing.Size(227, 209);
             this.pcbInitialFill.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1931,6 +1940,8 @@ namespace EliteFlower
             // tabConfiguration
             // 
             this.tabConfiguration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
+            this.tabConfiguration.Controls.Add(this.CB_Template);
+            this.tabConfiguration.Controls.Add(this.checkBox1);
             this.tabConfiguration.Controls.Add(this.chb_manual);
             this.tabConfiguration.Controls.Add(this.Bal_Python);
             this.tabConfiguration.Controls.Add(this.txtControl);
@@ -1944,23 +1955,49 @@ namespace EliteFlower
             this.tabConfiguration.Controls.Add(this.gb_transband);
             this.tabConfiguration.Controls.Add(this.pcbBandas);
             this.tabConfiguration.Location = new System.Drawing.Point(4, 34);
-            this.tabConfiguration.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabConfiguration.Margin = new System.Windows.Forms.Padding(4);
             this.tabConfiguration.Name = "tabConfiguration";
-            this.tabConfiguration.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabConfiguration.Padding = new System.Windows.Forms.Padding(4);
             this.tabConfiguration.Size = new System.Drawing.Size(1056, 862);
             this.tabConfiguration.TabIndex = 1;
             this.tabConfiguration.Text = "Setup";
+            this.tabConfiguration.Click += new System.EventHandler(this.tabConfiguration_Click);
+            // 
+            // CB_Template
+            // 
+            this.CB_Template.BackColor = System.Drawing.SystemColors.Window;
+            this.CB_Template.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_Template.FormattingEnabled = true;
+            this.CB_Template.Location = new System.Drawing.Point(811, 741);
+            this.CB_Template.Margin = new System.Windows.Forms.Padding(4);
+            this.CB_Template.Name = "CB_Template";
+            this.CB_Template.Size = new System.Drawing.Size(221, 33);
+            this.CB_Template.TabIndex = 14;
+            this.CB_Template.SelectedIndexChanged += new System.EventHandler(this.CB_Template_SelectedIndexChanged);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(811, 678);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(232, 29);
+            this.checkBox1.TabIndex = 58;
+            this.checkBox1.Text = "Use Balance Template";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // chb_manual
             // 
             this.chb_manual.AutoSize = true;
             this.chb_manual.Location = new System.Drawing.Point(601, 678);
-            this.chb_manual.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chb_manual.Margin = new System.Windows.Forms.Padding(4);
             this.chb_manual.Name = "chb_manual";
             this.chb_manual.Size = new System.Drawing.Size(191, 29);
             this.chb_manual.TabIndex = 16;
             this.chb_manual.Text = "Balanceo  Manual";
             this.chb_manual.UseVisualStyleBackColor = true;
+            this.chb_manual.CheckedChanged += new System.EventHandler(this.chb_manual_CheckedChanged);
             // 
             // Bal_Python
             // 
@@ -1971,7 +2008,7 @@ namespace EliteFlower
             this.Bal_Python.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Bal_Python.ForeColor = System.Drawing.Color.White;
             this.Bal_Python.Location = new System.Drawing.Point(405, 668);
-            this.Bal_Python.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Bal_Python.Margin = new System.Windows.Forms.Padding(4);
             this.Bal_Python.Name = "Bal_Python";
             this.Bal_Python.Size = new System.Drawing.Size(160, 49);
             this.Bal_Python.TabIndex = 57;
@@ -1982,7 +2019,7 @@ namespace EliteFlower
             // txtControl
             // 
             this.txtControl.Location = new System.Drawing.Point(597, 226);
-            this.txtControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtControl.Margin = new System.Windows.Forms.Padding(4);
             this.txtControl.Name = "txtControl";
             this.txtControl.ReadOnly = true;
             this.txtControl.Size = new System.Drawing.Size(77, 30);
@@ -2000,7 +2037,7 @@ namespace EliteFlower
             this.btnManBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnManBalance.ForeColor = System.Drawing.Color.White;
             this.btnManBalance.Location = new System.Drawing.Point(397, 353);
-            this.btnManBalance.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnManBalance.Margin = new System.Windows.Forms.Padding(4);
             this.btnManBalance.Name = "btnManBalance";
             this.btnManBalance.Size = new System.Drawing.Size(160, 49);
             this.btnManBalance.TabIndex = 56;
@@ -2023,9 +2060,9 @@ namespace EliteFlower
             this.gb_addon.Controls.Add(this.TxtSubtotal41);
             this.gb_addon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gb_addon.Location = new System.Drawing.Point(597, 10);
-            this.gb_addon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_addon.Margin = new System.Windows.Forms.Padding(4);
             this.gb_addon.Name = "gb_addon";
-            this.gb_addon.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gb_addon.Padding = new System.Windows.Forms.Padding(4);
             this.gb_addon.Size = new System.Drawing.Size(373, 209);
             this.gb_addon.TabIndex = 21;
             this.gb_addon.TabStop = false;
@@ -2046,7 +2083,7 @@ namespace EliteFlower
             this.cbAddon12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAddon12.FormattingEnabled = true;
             this.cbAddon12.Location = new System.Drawing.Point(136, 78);
-            this.cbAddon12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbAddon12.Margin = new System.Windows.Forms.Padding(4);
             this.cbAddon12.Name = "cbAddon12";
             this.cbAddon12.Size = new System.Drawing.Size(121, 33);
             this.cbAddon12.TabIndex = 7;
@@ -2065,7 +2102,7 @@ namespace EliteFlower
             // TxtTotal4
             // 
             this.TxtTotal4.Location = new System.Drawing.Point(267, 153);
-            this.TxtTotal4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtTotal4.Margin = new System.Windows.Forms.Padding(4);
             this.TxtTotal4.Name = "TxtTotal4";
             this.TxtTotal4.ReadOnly = true;
             this.TxtTotal4.Size = new System.Drawing.Size(77, 31);
@@ -2087,7 +2124,7 @@ namespace EliteFlower
             this.cbAddon11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAddon11.FormattingEnabled = true;
             this.cbAddon11.Location = new System.Drawing.Point(136, 42);
-            this.cbAddon11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbAddon11.Margin = new System.Windows.Forms.Padding(4);
             this.cbAddon11.Name = "cbAddon11";
             this.cbAddon11.Size = new System.Drawing.Size(121, 33);
             this.cbAddon11.TabIndex = 4;
@@ -2096,7 +2133,7 @@ namespace EliteFlower
             // TxtSubtotal43
             // 
             this.TxtSubtotal43.Location = new System.Drawing.Point(267, 113);
-            this.TxtSubtotal43.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal43.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal43.Name = "TxtSubtotal43";
             this.TxtSubtotal43.ReadOnly = true;
             this.TxtSubtotal43.Size = new System.Drawing.Size(77, 31);
@@ -2118,7 +2155,7 @@ namespace EliteFlower
             this.cbAddon13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAddon13.FormattingEnabled = true;
             this.cbAddon13.Location = new System.Drawing.Point(136, 113);
-            this.cbAddon13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbAddon13.Margin = new System.Windows.Forms.Padding(4);
             this.cbAddon13.Name = "cbAddon13";
             this.cbAddon13.Size = new System.Drawing.Size(121, 33);
             this.cbAddon13.TabIndex = 8;
@@ -2127,7 +2164,7 @@ namespace EliteFlower
             // TxtSubtotal42
             // 
             this.TxtSubtotal42.Location = new System.Drawing.Point(267, 78);
-            this.TxtSubtotal42.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal42.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal42.Name = "TxtSubtotal42";
             this.TxtSubtotal42.ReadOnly = true;
             this.TxtSubtotal42.Size = new System.Drawing.Size(77, 31);
@@ -2137,7 +2174,7 @@ namespace EliteFlower
             // TxtSubtotal41
             // 
             this.TxtSubtotal41.Location = new System.Drawing.Point(267, 42);
-            this.TxtSubtotal41.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtSubtotal41.Margin = new System.Windows.Forms.Padding(4);
             this.TxtSubtotal41.Name = "TxtSubtotal41";
             this.TxtSubtotal41.ReadOnly = true;
             this.TxtSubtotal41.Size = new System.Drawing.Size(77, 31);
@@ -2153,7 +2190,7 @@ namespace EliteFlower
             this.btnBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBalance.ForeColor = System.Drawing.Color.White;
             this.btnBalance.Location = new System.Drawing.Point(395, 272);
-            this.btnBalance.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBalance.Margin = new System.Windows.Forms.Padding(4);
             this.btnBalance.Name = "btnBalance";
             this.btnBalance.Size = new System.Drawing.Size(160, 49);
             this.btnBalance.TabIndex = 55;
@@ -2165,7 +2202,7 @@ namespace EliteFlower
             // 
             this.pcbBandas.Image = global::EliteFlower.Properties.Resources.bandas11;
             this.pcbBandas.Location = new System.Drawing.Point(597, 267);
-            this.pcbBandas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbBandas.Margin = new System.Windows.Forms.Padding(4);
             this.pcbBandas.Name = "pcbBandas";
             this.pcbBandas.Size = new System.Drawing.Size(427, 394);
             this.pcbBandas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -2202,9 +2239,9 @@ namespace EliteFlower
             this.tabStatus.Controls.Add(this.groupBox2);
             this.tabStatus.Controls.Add(this.groupBox1);
             this.tabStatus.Location = new System.Drawing.Point(4, 34);
-            this.tabStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabStatus.Margin = new System.Windows.Forms.Padding(4);
             this.tabStatus.Name = "tabStatus";
-            this.tabStatus.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabStatus.Padding = new System.Windows.Forms.Padding(4);
             this.tabStatus.Size = new System.Drawing.Size(1056, 862);
             this.tabStatus.TabIndex = 2;
             this.tabStatus.Text = "Status";
@@ -2249,7 +2286,7 @@ namespace EliteFlower
             0,
             0});
             this.numSpeed2.Location = new System.Drawing.Point(933, 528);
-            this.numSpeed2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numSpeed2.Margin = new System.Windows.Forms.Padding(4);
             this.numSpeed2.Maximum = new decimal(new int[] {
             800,
             0,
@@ -2273,7 +2310,7 @@ namespace EliteFlower
             0,
             0});
             this.numSpeed1.Location = new System.Drawing.Point(797, 528);
-            this.numSpeed1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numSpeed1.Margin = new System.Windows.Forms.Padding(4);
             this.numSpeed1.Maximum = new decimal(new int[] {
             800,
             0,
@@ -2304,7 +2341,7 @@ namespace EliteFlower
             this.E4DBON.Image = global::EliteFlower.Properties.Resources.LightON;
             this.E4DBON.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.E4DBON.Location = new System.Drawing.Point(797, 455);
-            this.E4DBON.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.E4DBON.Margin = new System.Windows.Forms.Padding(4);
             this.E4DBON.Name = "E4DBON";
             this.E4DBON.Size = new System.Drawing.Size(32, 30);
             this.E4DBON.TabIndex = 148;
@@ -2313,7 +2350,7 @@ namespace EliteFlower
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(948, 181);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 49);
             this.button2.TabIndex = 147;
@@ -2324,7 +2361,7 @@ namespace EliteFlower
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(837, 181);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 49);
             this.button1.TabIndex = 146;
@@ -2358,7 +2395,7 @@ namespace EliteFlower
             this.E4R2BO.Image = global::EliteFlower.Properties.Resources.LightON;
             this.E4R2BO.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.E4R2BO.Location = new System.Drawing.Point(797, 418);
-            this.E4R2BO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.E4R2BO.Margin = new System.Windows.Forms.Padding(4);
             this.E4R2BO.Name = "E4R2BO";
             this.E4R2BO.Size = new System.Drawing.Size(32, 30);
             this.E4R2BO.TabIndex = 143;
@@ -2370,7 +2407,7 @@ namespace EliteFlower
             this.E4S1B0.Image = global::EliteFlower.Properties.Resources.LightON;
             this.E4S1B0.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.E4S1B0.Location = new System.Drawing.Point(797, 382);
-            this.E4S1B0.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.E4S1B0.Margin = new System.Windows.Forms.Padding(4);
             this.E4S1B0.Name = "E4S1B0";
             this.E4S1B0.Size = new System.Drawing.Size(32, 30);
             this.E4S1B0.TabIndex = 142;
@@ -2399,7 +2436,7 @@ namespace EliteFlower
             // txtModbus
             // 
             this.txtModbus.Location = new System.Drawing.Point(8, 7);
-            this.txtModbus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtModbus.Margin = new System.Windows.Forms.Padding(4);
             this.txtModbus.Name = "txtModbus";
             this.txtModbus.Size = new System.Drawing.Size(332, 30);
             this.txtModbus.TabIndex = 139;
@@ -2408,7 +2445,7 @@ namespace EliteFlower
             // 
             this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnect.Location = new System.Drawing.Point(837, 50);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConnect.Margin = new System.Windows.Forms.Padding(4);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(213, 49);
             this.btnConnect.TabIndex = 138;
@@ -2442,7 +2479,7 @@ namespace EliteFlower
             this.E4N2P2.Image = global::EliteFlower.Properties.Resources.LightON;
             this.E4N2P2.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.E4N2P2.Location = new System.Drawing.Point(797, 271);
-            this.E4N2P2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.E4N2P2.Margin = new System.Windows.Forms.Padding(4);
             this.E4N2P2.Name = "E4N2P2";
             this.E4N2P2.Size = new System.Drawing.Size(32, 30);
             this.E4N2P2.TabIndex = 134;
@@ -2454,7 +2491,7 @@ namespace EliteFlower
             this.E4N2P1.Image = global::EliteFlower.Properties.Resources.LightON;
             this.E4N2P1.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.E4N2P1.Location = new System.Drawing.Point(797, 234);
-            this.E4N2P1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.E4N2P1.Margin = new System.Windows.Forms.Padding(4);
             this.E4N2P1.Name = "E4N2P1";
             this.E4N2P1.Size = new System.Drawing.Size(32, 30);
             this.E4N2P1.TabIndex = 135;
@@ -2466,7 +2503,7 @@ namespace EliteFlower
             this.E4N1P2.Image = global::EliteFlower.Properties.Resources.LightON;
             this.E4N1P2.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.E4N1P2.Location = new System.Drawing.Point(797, 345);
-            this.E4N1P2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.E4N1P2.Margin = new System.Windows.Forms.Padding(4);
             this.E4N1P2.Name = "E4N1P2";
             this.E4N1P2.Size = new System.Drawing.Size(32, 30);
             this.E4N1P2.TabIndex = 119;
@@ -2478,7 +2515,7 @@ namespace EliteFlower
             this.E4N1P1.Image = global::EliteFlower.Properties.Resources.LightON;
             this.E4N1P1.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.E4N1P1.Location = new System.Drawing.Point(797, 308);
-            this.E4N1P1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.E4N1P1.Margin = new System.Windows.Forms.Padding(4);
             this.E4N1P1.Name = "E4N1P1";
             this.E4N1P1.Size = new System.Drawing.Size(32, 30);
             this.E4N1P1.TabIndex = 133;
@@ -2487,7 +2524,7 @@ namespace EliteFlower
             // btnLoadStatus
             // 
             this.btnLoadStatus.Location = new System.Drawing.Point(837, 116);
-            this.btnLoadStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLoadStatus.Margin = new System.Windows.Forms.Padding(4);
             this.btnLoadStatus.Name = "btnLoadStatus";
             this.btnLoadStatus.Size = new System.Drawing.Size(213, 49);
             this.btnLoadStatus.TabIndex = 131;
@@ -2527,9 +2564,9 @@ namespace EliteFlower
             this.groupBox2.Controls.Add(this.pcbElevadoresL14);
             this.groupBox2.Controls.Add(this.pcbElevadoresL15);
             this.groupBox2.Location = new System.Drawing.Point(8, 43);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(821, 165);
             this.groupBox2.TabIndex = 126;
             this.groupBox2.TabStop = false;
@@ -2541,7 +2578,7 @@ namespace EliteFlower
             this.pcbMesaninL19.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL19.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL19.Location = new System.Drawing.Point(769, 27);
-            this.pcbMesaninL19.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL19.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL19.Name = "pcbMesaninL19";
             this.pcbMesaninL19.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL19.TabIndex = 107;
@@ -2553,7 +2590,7 @@ namespace EliteFlower
             this.pcbMesaninL11.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL11.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL11.Location = new System.Drawing.Point(185, 27);
-            this.pcbMesaninL11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL11.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL11.Name = "pcbMesaninL11";
             this.pcbMesaninL11.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL11.TabIndex = 99;
@@ -2565,7 +2602,7 @@ namespace EliteFlower
             this.pcbMesaninL18.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL18.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL18.Location = new System.Drawing.Point(699, 27);
-            this.pcbMesaninL18.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL18.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL18.Name = "pcbMesaninL18";
             this.pcbMesaninL18.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL18.TabIndex = 106;
@@ -2577,7 +2614,7 @@ namespace EliteFlower
             this.pcbMesaninL12.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL12.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL12.Location = new System.Drawing.Point(255, 27);
-            this.pcbMesaninL12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL12.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL12.Name = "pcbMesaninL12";
             this.pcbMesaninL12.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL12.TabIndex = 100;
@@ -2589,7 +2626,7 @@ namespace EliteFlower
             this.pcbMesaninL17.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL17.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL17.Location = new System.Drawing.Point(628, 27);
-            this.pcbMesaninL17.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL17.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL17.Name = "pcbMesaninL17";
             this.pcbMesaninL17.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL17.TabIndex = 105;
@@ -2601,7 +2638,7 @@ namespace EliteFlower
             this.pcbMesaninL13.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL13.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL13.Location = new System.Drawing.Point(323, 27);
-            this.pcbMesaninL13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL13.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL13.Name = "pcbMesaninL13";
             this.pcbMesaninL13.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL13.TabIndex = 101;
@@ -2613,7 +2650,7 @@ namespace EliteFlower
             this.pcbMesaninL16.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL16.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL16.Location = new System.Drawing.Point(547, 27);
-            this.pcbMesaninL16.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL16.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL16.Name = "pcbMesaninL16";
             this.pcbMesaninL16.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL16.TabIndex = 104;
@@ -2625,7 +2662,7 @@ namespace EliteFlower
             this.pcbMesaninL14.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL14.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL14.Location = new System.Drawing.Point(407, 27);
-            this.pcbMesaninL14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL14.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL14.Name = "pcbMesaninL14";
             this.pcbMesaninL14.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL14.TabIndex = 102;
@@ -2647,7 +2684,7 @@ namespace EliteFlower
             this.pcbMesaninL15.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL15.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL15.Location = new System.Drawing.Point(477, 27);
-            this.pcbMesaninL15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL15.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL15.Name = "pcbMesaninL15";
             this.pcbMesaninL15.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL15.TabIndex = 103;
@@ -2759,7 +2796,7 @@ namespace EliteFlower
             this.pcbElevadoresL19.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL19.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL19.Location = new System.Drawing.Point(769, 89);
-            this.pcbElevadoresL19.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL19.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL19.Name = "pcbElevadoresL19";
             this.pcbElevadoresL19.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL19.TabIndex = 107;
@@ -2771,7 +2808,7 @@ namespace EliteFlower
             this.pcbElevadoresL11.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL11.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL11.Location = new System.Drawing.Point(185, 89);
-            this.pcbElevadoresL11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL11.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL11.Name = "pcbElevadoresL11";
             this.pcbElevadoresL11.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL11.TabIndex = 99;
@@ -2783,7 +2820,7 @@ namespace EliteFlower
             this.pcbElevadoresL18.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL18.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL18.Location = new System.Drawing.Point(699, 89);
-            this.pcbElevadoresL18.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL18.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL18.Name = "pcbElevadoresL18";
             this.pcbElevadoresL18.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL18.TabIndex = 106;
@@ -2795,7 +2832,7 @@ namespace EliteFlower
             this.pcbElevadoresL12.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL12.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL12.Location = new System.Drawing.Point(255, 89);
-            this.pcbElevadoresL12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL12.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL12.Name = "pcbElevadoresL12";
             this.pcbElevadoresL12.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL12.TabIndex = 100;
@@ -2807,7 +2844,7 @@ namespace EliteFlower
             this.pcbElevadoresL17.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL17.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL17.Location = new System.Drawing.Point(628, 89);
-            this.pcbElevadoresL17.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL17.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL17.Name = "pcbElevadoresL17";
             this.pcbElevadoresL17.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL17.TabIndex = 105;
@@ -2819,7 +2856,7 @@ namespace EliteFlower
             this.pcbElevadoresL13.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL13.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL13.Location = new System.Drawing.Point(323, 89);
-            this.pcbElevadoresL13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL13.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL13.Name = "pcbElevadoresL13";
             this.pcbElevadoresL13.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL13.TabIndex = 101;
@@ -2831,7 +2868,7 @@ namespace EliteFlower
             this.pcbElevadoresL16.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL16.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL16.Location = new System.Drawing.Point(547, 89);
-            this.pcbElevadoresL16.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL16.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL16.Name = "pcbElevadoresL16";
             this.pcbElevadoresL16.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL16.TabIndex = 104;
@@ -2843,7 +2880,7 @@ namespace EliteFlower
             this.pcbElevadoresL14.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL14.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL14.Location = new System.Drawing.Point(407, 89);
-            this.pcbElevadoresL14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL14.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL14.Name = "pcbElevadoresL14";
             this.pcbElevadoresL14.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL14.TabIndex = 102;
@@ -2855,7 +2892,7 @@ namespace EliteFlower
             this.pcbElevadoresL15.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL15.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbElevadoresL15.Location = new System.Drawing.Point(477, 89);
-            this.pcbElevadoresL15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbElevadoresL15.Margin = new System.Windows.Forms.Padding(4);
             this.pcbElevadoresL15.Name = "pcbElevadoresL15";
             this.pcbElevadoresL15.Size = new System.Drawing.Size(32, 30);
             this.pcbElevadoresL15.TabIndex = 103;
@@ -2878,9 +2915,9 @@ namespace EliteFlower
             this.groupBox1.Controls.Add(this.pcbMesaninRight);
             this.groupBox1.Controls.Add(this.pcbMesanin);
             this.groupBox1.Location = new System.Drawing.Point(8, 222);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(781, 367);
             this.groupBox1.TabIndex = 53;
             this.groupBox1.TabStop = false;
@@ -2892,7 +2929,7 @@ namespace EliteFlower
             this.pcbMesaninL10.Image = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL10.InitialImage = global::EliteFlower.Properties.Resources.LightON;
             this.pcbMesaninL10.Location = new System.Drawing.Point(369, 180);
-            this.pcbMesaninL10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninL10.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninL10.Name = "pcbMesaninL10";
             this.pcbMesaninL10.Size = new System.Drawing.Size(32, 30);
             this.pcbMesaninL10.TabIndex = 108;
@@ -2904,7 +2941,7 @@ namespace EliteFlower
             this.pcbMesaninB19.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB19.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB19.Location = new System.Drawing.Point(649, 80);
-            this.pcbMesaninB19.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB19.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB19.Name = "pcbMesaninB19";
             this.pcbMesaninB19.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB19.TabIndex = 98;
@@ -2916,7 +2953,7 @@ namespace EliteFlower
             this.pcbMesaninB18.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB18.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB18.Location = new System.Drawing.Point(580, 80);
-            this.pcbMesaninB18.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB18.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB18.Name = "pcbMesaninB18";
             this.pcbMesaninB18.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB18.TabIndex = 97;
@@ -2928,7 +2965,7 @@ namespace EliteFlower
             this.pcbMesaninB17.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB17.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB17.Location = new System.Drawing.Point(511, 80);
-            this.pcbMesaninB17.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB17.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB17.Name = "pcbMesaninB17";
             this.pcbMesaninB17.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB17.TabIndex = 96;
@@ -2940,7 +2977,7 @@ namespace EliteFlower
             this.pcbMesaninB16.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB16.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB16.Location = new System.Drawing.Point(427, 80);
-            this.pcbMesaninB16.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB16.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB16.Name = "pcbMesaninB16";
             this.pcbMesaninB16.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB16.TabIndex = 95;
@@ -2952,7 +2989,7 @@ namespace EliteFlower
             this.pcbMesaninB15.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB15.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB15.Location = new System.Drawing.Point(359, 80);
-            this.pcbMesaninB15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB15.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB15.Name = "pcbMesaninB15";
             this.pcbMesaninB15.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB15.TabIndex = 94;
@@ -2964,7 +3001,7 @@ namespace EliteFlower
             this.pcbMesaninB14.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB14.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB14.Location = new System.Drawing.Point(288, 80);
-            this.pcbMesaninB14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB14.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB14.Name = "pcbMesaninB14";
             this.pcbMesaninB14.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB14.TabIndex = 93;
@@ -2976,7 +3013,7 @@ namespace EliteFlower
             this.pcbMesaninB13.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB13.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB13.Location = new System.Drawing.Point(204, 80);
-            this.pcbMesaninB13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB13.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB13.Name = "pcbMesaninB13";
             this.pcbMesaninB13.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB13.TabIndex = 92;
@@ -2988,7 +3025,7 @@ namespace EliteFlower
             this.pcbMesaninB12.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB12.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB12.Location = new System.Drawing.Point(136, 80);
-            this.pcbMesaninB12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB12.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB12.Name = "pcbMesaninB12";
             this.pcbMesaninB12.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB12.TabIndex = 91;
@@ -3000,7 +3037,7 @@ namespace EliteFlower
             this.pcbMesaninB11.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB11.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB11.Location = new System.Drawing.Point(67, 80);
-            this.pcbMesaninB11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB11.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB11.Name = "pcbMesaninB11";
             this.pcbMesaninB11.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB11.TabIndex = 90;
@@ -3012,7 +3049,7 @@ namespace EliteFlower
             this.pcbMesaninB10.Image = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB10.InitialImage = global::EliteFlower.Properties.Resources.box;
             this.pcbMesaninB10.Location = new System.Drawing.Point(359, 202);
-            this.pcbMesaninB10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninB10.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninB10.Name = "pcbMesaninB10";
             this.pcbMesaninB10.Size = new System.Drawing.Size(53, 86);
             this.pcbMesaninB10.TabIndex = 89;
@@ -3025,7 +3062,7 @@ namespace EliteFlower
             this.pcbMesaninLeft.Image = global::EliteFlower.Properties.Resources.LeftOFF;
             this.pcbMesaninLeft.InitialImage = global::EliteFlower.Properties.Resources.LeftON;
             this.pcbMesaninLeft.Location = new System.Drawing.Point(293, 215);
-            this.pcbMesaninLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninLeft.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninLeft.Name = "pcbMesaninLeft";
             this.pcbMesaninLeft.Size = new System.Drawing.Size(40, 37);
             this.pcbMesaninLeft.TabIndex = 88;
@@ -3037,7 +3074,7 @@ namespace EliteFlower
             this.pcbMesaninRight.Image = global::EliteFlower.Properties.Resources.RightOFF;
             this.pcbMesaninRight.InitialImage = global::EliteFlower.Properties.Resources.RightON;
             this.pcbMesaninRight.Location = new System.Drawing.Point(431, 215);
-            this.pcbMesaninRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesaninRight.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesaninRight.Name = "pcbMesaninRight";
             this.pcbMesaninRight.Size = new System.Drawing.Size(40, 37);
             this.pcbMesaninRight.TabIndex = 87;
@@ -3048,7 +3085,7 @@ namespace EliteFlower
             this.pcbMesanin.Image = global::EliteFlower.Properties.Resources.background;
             this.pcbMesanin.InitialImage = null;
             this.pcbMesanin.Location = new System.Drawing.Point(8, 34);
-            this.pcbMesanin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbMesanin.Margin = new System.Windows.Forms.Padding(4);
             this.pcbMesanin.Name = "pcbMesanin";
             this.pcbMesanin.Size = new System.Drawing.Size(752, 286);
             this.pcbMesanin.TabIndex = 86;
@@ -3076,9 +3113,9 @@ namespace EliteFlower
             this.tabPrueba.Controls.Add(this.panel7);
             this.tabPrueba.Controls.Add(this.panel6);
             this.tabPrueba.Location = new System.Drawing.Point(4, 34);
-            this.tabPrueba.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPrueba.Margin = new System.Windows.Forms.Padding(4);
             this.tabPrueba.Name = "tabPrueba";
-            this.tabPrueba.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPrueba.Padding = new System.Windows.Forms.Padding(4);
             this.tabPrueba.Size = new System.Drawing.Size(1056, 862);
             this.tabPrueba.TabIndex = 3;
             this.tabPrueba.Text = "Prueba";
@@ -3086,7 +3123,7 @@ namespace EliteFlower
             // textBox6
             // 
             this.textBox6.Location = new System.Drawing.Point(495, 679);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(127, 30);
             this.textBox6.TabIndex = 144;
@@ -3094,7 +3131,7 @@ namespace EliteFlower
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(345, 679);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(127, 30);
             this.textBox5.TabIndex = 143;
@@ -3102,7 +3139,7 @@ namespace EliteFlower
             // txtSpeed1
             // 
             this.txtSpeed1.Location = new System.Drawing.Point(345, 631);
-            this.txtSpeed1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSpeed1.Margin = new System.Windows.Forms.Padding(4);
             this.txtSpeed1.Name = "txtSpeed1";
             this.txtSpeed1.Size = new System.Drawing.Size(127, 30);
             this.txtSpeed1.TabIndex = 142;
@@ -3140,7 +3177,7 @@ namespace EliteFlower
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(345, 496);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(132, 30);
             this.textBox4.TabIndex = 69;
@@ -3148,7 +3185,7 @@ namespace EliteFlower
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(345, 444);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(132, 30);
             this.textBox3.TabIndex = 68;
@@ -3156,7 +3193,7 @@ namespace EliteFlower
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(345, 395);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(132, 30);
             this.textBox2.TabIndex = 67;
@@ -3164,7 +3201,7 @@ namespace EliteFlower
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(345, 283);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(81, 30);
@@ -3174,7 +3211,7 @@ namespace EliteFlower
             // txtControlP
             // 
             this.txtControlP.Location = new System.Drawing.Point(588, 160);
-            this.txtControlP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtControlP.Margin = new System.Windows.Forms.Padding(4);
             this.txtControlP.Name = "txtControlP";
             this.txtControlP.ReadOnly = true;
             this.txtControlP.Size = new System.Drawing.Size(81, 30);
@@ -3194,7 +3231,7 @@ namespace EliteFlower
             // txtLastPos
             // 
             this.txtLastPos.Location = new System.Drawing.Point(345, 160);
-            this.txtLastPos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLastPos.Margin = new System.Windows.Forms.Padding(4);
             this.txtLastPos.Name = "txtLastPos";
             this.txtLastPos.ReadOnly = true;
             this.txtLastPos.Size = new System.Drawing.Size(212, 30);
@@ -3204,7 +3241,7 @@ namespace EliteFlower
             // txtResponseAddon
             // 
             this.txtResponseAddon.Location = new System.Drawing.Point(345, 89);
-            this.txtResponseAddon.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtResponseAddon.Margin = new System.Windows.Forms.Padding(4);
             this.txtResponseAddon.Name = "txtResponseAddon";
             this.txtResponseAddon.ReadOnly = true;
             this.txtResponseAddon.Size = new System.Drawing.Size(212, 30);
@@ -3214,7 +3251,7 @@ namespace EliteFlower
             // txtResponse
             // 
             this.txtResponse.Location = new System.Drawing.Point(345, 25);
-            this.txtResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtResponse.Margin = new System.Windows.Forms.Padding(4);
             this.txtResponse.Name = "txtResponse";
             this.txtResponse.ReadOnly = true;
             this.txtResponse.Size = new System.Drawing.Size(212, 30);
@@ -3225,7 +3262,7 @@ namespace EliteFlower
             // 
             this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel8.Location = new System.Drawing.Point(1, 60);
-            this.panel8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel8.Margin = new System.Windows.Forms.Padding(4);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(11, 49);
             this.panel8.TabIndex = 63;
@@ -3234,7 +3271,7 @@ namespace EliteFlower
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel7.Location = new System.Drawing.Point(1, 4);
-            this.panel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel7.Margin = new System.Windows.Forms.Padding(4);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(11, 49);
             this.panel7.TabIndex = 62;
@@ -3245,7 +3282,7 @@ namespace EliteFlower
             this.panel6.Controls.Add(this.btnCleanWorkers);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel6.Location = new System.Drawing.Point(4, 4);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(267, 854);
             this.panel6.TabIndex = 62;
@@ -3257,7 +3294,7 @@ namespace EliteFlower
             this.btnCleanDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCleanDB.ForeColor = System.Drawing.Color.White;
             this.btnCleanDB.Location = new System.Drawing.Point(4, 60);
-            this.btnCleanDB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCleanDB.Margin = new System.Windows.Forms.Padding(4);
             this.btnCleanDB.Name = "btnCleanDB";
             this.btnCleanDB.Size = new System.Drawing.Size(263, 46);
             this.btnCleanDB.TabIndex = 59;
@@ -3273,7 +3310,7 @@ namespace EliteFlower
             this.btnCleanWorkers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCleanWorkers.ForeColor = System.Drawing.Color.White;
             this.btnCleanWorkers.Location = new System.Drawing.Point(4, 0);
-            this.btnCleanWorkers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCleanWorkers.Margin = new System.Windows.Forms.Padding(4);
             this.btnCleanWorkers.Name = "btnCleanWorkers";
             this.btnCleanWorkers.Size = new System.Drawing.Size(263, 49);
             this.btnCleanWorkers.TabIndex = 58;
@@ -3295,9 +3332,9 @@ namespace EliteFlower
             this.tabElite.Controls.Add(this.btnServoON);
             this.tabElite.Controls.Add(this.lblRegActual);
             this.tabElite.Location = new System.Drawing.Point(4, 34);
-            this.tabElite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabElite.Margin = new System.Windows.Forms.Padding(4);
             this.tabElite.Name = "tabElite";
-            this.tabElite.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabElite.Padding = new System.Windows.Forms.Padding(4);
             this.tabElite.Size = new System.Drawing.Size(1056, 862);
             this.tabElite.TabIndex = 4;
             this.tabElite.Text = "Elite";
@@ -3323,7 +3360,7 @@ namespace EliteFlower
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
             this.button3.Location = new System.Drawing.Point(448, 688);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(160, 49);
             this.button3.TabIndex = 75;
@@ -3384,7 +3421,7 @@ namespace EliteFlower
             this.btnHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHome.ForeColor = System.Drawing.Color.White;
             this.btnHome.Location = new System.Drawing.Point(448, 575);
-            this.btnHome.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnHome.Margin = new System.Windows.Forms.Padding(4);
             this.btnHome.Name = "btnHome";
             this.btnHome.Size = new System.Drawing.Size(160, 49);
             this.btnHome.TabIndex = 53;
@@ -3402,7 +3439,7 @@ namespace EliteFlower
             this.btnInitAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInitAll.ForeColor = System.Drawing.Color.White;
             this.btnInitAll.Location = new System.Drawing.Point(448, 631);
-            this.btnInitAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnInitAll.Margin = new System.Windows.Forms.Padding(4);
             this.btnInitAll.Name = "btnInitAll";
             this.btnInitAll.Size = new System.Drawing.Size(160, 49);
             this.btnInitAll.TabIndex = 52;
@@ -3419,7 +3456,7 @@ namespace EliteFlower
             this.btnServoON.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServoON.ForeColor = System.Drawing.Color.White;
             this.btnServoON.Location = new System.Drawing.Point(448, 518);
-            this.btnServoON.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnServoON.Margin = new System.Windows.Forms.Padding(4);
             this.btnServoON.Name = "btnServoON";
             this.btnServoON.Size = new System.Drawing.Size(160, 49);
             this.btnServoON.TabIndex = 51;
@@ -3431,7 +3468,7 @@ namespace EliteFlower
             // 
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel11.Location = new System.Drawing.Point(4, 431);
-            this.panel11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel11.Margin = new System.Windows.Forms.Padding(4);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(11, 49);
             this.panel11.TabIndex = 4;
@@ -3440,7 +3477,7 @@ namespace EliteFlower
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel10.Location = new System.Drawing.Point(4, 369);
-            this.panel10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel10.Margin = new System.Windows.Forms.Padding(4);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(11, 49);
             this.panel10.TabIndex = 3;
@@ -3539,7 +3576,7 @@ namespace EliteFlower
             this.MenuVertical.Controls.Add(this.pictureBox1);
             this.MenuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.MenuVertical.Location = new System.Drawing.Point(0, 38);
-            this.MenuVertical.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MenuVertical.Margin = new System.Windows.Forms.Padding(4);
             this.MenuVertical.Name = "MenuVertical";
             this.MenuVertical.Size = new System.Drawing.Size(213, 883);
             this.MenuVertical.TabIndex = 57;
@@ -3548,7 +3585,7 @@ namespace EliteFlower
             // 
             this.panel16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel16.Location = new System.Drawing.Point(4, 738);
-            this.panel16.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel16.Margin = new System.Windows.Forms.Padding(4);
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(11, 49);
             this.panel16.TabIndex = 12;
@@ -3557,7 +3594,7 @@ namespace EliteFlower
             // 
             this.panel15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel15.Location = new System.Drawing.Point(4, 677);
-            this.panel15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel15.Margin = new System.Windows.Forms.Padding(4);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(11, 49);
             this.panel15.TabIndex = 11;
@@ -3566,7 +3603,7 @@ namespace EliteFlower
             // 
             this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel12.Location = new System.Drawing.Point(4, 492);
-            this.panel12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel12.Margin = new System.Windows.Forms.Padding(4);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(11, 49);
             this.panel12.TabIndex = 11;
@@ -3575,7 +3612,7 @@ namespace EliteFlower
             // 
             this.panel13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel13.Location = new System.Drawing.Point(4, 554);
-            this.panel13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel13.Margin = new System.Windows.Forms.Padding(4);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(11, 49);
             this.panel13.TabIndex = 9;
@@ -3584,7 +3621,7 @@ namespace EliteFlower
             // 
             this.panel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel14.Location = new System.Drawing.Point(4, 615);
-            this.panel14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel14.Margin = new System.Windows.Forms.Padding(4);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(11, 49);
             this.panel14.TabIndex = 10;
@@ -3593,7 +3630,7 @@ namespace EliteFlower
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel5.Location = new System.Drawing.Point(4, 308);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(11, 49);
             this.panel5.TabIndex = 8;
@@ -3607,7 +3644,7 @@ namespace EliteFlower
             this.btnPrueba.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrueba.ForeColor = System.Drawing.Color.White;
             this.btnPrueba.Location = new System.Drawing.Point(4, 308);
-            this.btnPrueba.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPrueba.Margin = new System.Windows.Forms.Padding(4);
             this.btnPrueba.Name = "btnPrueba";
             this.btnPrueba.Size = new System.Drawing.Size(213, 49);
             this.btnPrueba.TabIndex = 7;
@@ -3620,7 +3657,7 @@ namespace EliteFlower
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel4.Location = new System.Drawing.Point(4, 246);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(11, 49);
             this.panel4.TabIndex = 6;
@@ -3633,7 +3670,7 @@ namespace EliteFlower
             this.btnStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStatus.ForeColor = System.Drawing.Color.White;
             this.btnStatus.Location = new System.Drawing.Point(4, 246);
-            this.btnStatus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnStatus.Margin = new System.Windows.Forms.Padding(4);
             this.btnStatus.Name = "btnStatus";
             this.btnStatus.Size = new System.Drawing.Size(213, 49);
             this.btnStatus.TabIndex = 5;
@@ -3645,7 +3682,7 @@ namespace EliteFlower
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel3.Location = new System.Drawing.Point(4, 185);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(11, 49);
             this.panel3.TabIndex = 4;
@@ -3658,7 +3695,7 @@ namespace EliteFlower
             this.btnConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfiguration.ForeColor = System.Drawing.Color.White;
             this.btnConfiguration.Location = new System.Drawing.Point(4, 185);
-            this.btnConfiguration.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConfiguration.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfiguration.Name = "btnConfiguration";
             this.btnConfiguration.Size = new System.Drawing.Size(213, 49);
             this.btnConfiguration.TabIndex = 3;
@@ -3670,7 +3707,7 @@ namespace EliteFlower
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
             this.panel2.Location = new System.Drawing.Point(4, 123);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(11, 49);
             this.panel2.TabIndex = 2;
@@ -3683,7 +3720,7 @@ namespace EliteFlower
             this.btnMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMain.ForeColor = System.Drawing.Color.White;
             this.btnMain.Location = new System.Drawing.Point(4, 123);
-            this.btnMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMain.Margin = new System.Windows.Forms.Padding(4);
             this.btnMain.Name = "btnMain";
             this.btnMain.Size = new System.Drawing.Size(213, 49);
             this.btnMain.TabIndex = 1;
@@ -3697,7 +3734,7 @@ namespace EliteFlower
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(213, 123);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -3710,7 +3747,7 @@ namespace EliteFlower
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(66)))), ((int)(((byte)(80)))));
             this.panel1.Controls.Add(this.tabControl);
             this.panel1.Location = new System.Drawing.Point(205, 38);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1159, 882);
             this.panel1.TabIndex = 58;
@@ -3722,7 +3759,7 @@ namespace EliteFlower
             this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
             this.btnCerrar.Location = new System.Drawing.Point(1235, 2);
-            this.btnCerrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCerrar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(33, 31);
             this.btnCerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -3737,7 +3774,7 @@ namespace EliteFlower
             this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
             this.btnMaximizar.Location = new System.Drawing.Point(1193, 2);
-            this.btnMaximizar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMaximizar.Margin = new System.Windows.Forms.Padding(4);
             this.btnMaximizar.Name = "btnMaximizar";
             this.btnMaximizar.Size = new System.Drawing.Size(33, 31);
             this.btnMaximizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -3752,7 +3789,7 @@ namespace EliteFlower
             this.btnMinimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMinimizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizar.Image")));
             this.btnMinimizar.Location = new System.Drawing.Point(1152, 2);
-            this.btnMinimizar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMinimizar.Margin = new System.Windows.Forms.Padding(4);
             this.btnMinimizar.Name = "btnMinimizar";
             this.btnMinimizar.Size = new System.Drawing.Size(33, 31);
             this.btnMinimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -3767,7 +3804,7 @@ namespace EliteFlower
             this.btnRestaurar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRestaurar.Image = ((System.Drawing.Image)(resources.GetObject("btnRestaurar.Image")));
             this.btnRestaurar.Location = new System.Drawing.Point(1193, 2);
-            this.btnRestaurar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRestaurar.Margin = new System.Windows.Forms.Padding(4);
             this.btnRestaurar.Name = "btnRestaurar";
             this.btnRestaurar.Size = new System.Drawing.Size(33, 31);
             this.btnRestaurar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -3781,7 +3818,7 @@ namespace EliteFlower
             this.comboNext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboNext.FormattingEnabled = true;
             this.comboNext.Location = new System.Drawing.Point(1008, 5);
-            this.comboNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboNext.Margin = new System.Windows.Forms.Padding(4);
             this.comboNext.Name = "comboNext";
             this.comboNext.Size = new System.Drawing.Size(160, 24);
             this.comboNext.TabIndex = 46;
@@ -3791,17 +3828,10 @@ namespace EliteFlower
             this.comboActual.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboActual.FormattingEnabled = true;
             this.comboActual.Location = new System.Drawing.Point(816, 7);
-            this.comboActual.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboActual.Margin = new System.Windows.Forms.Padding(4);
             this.comboActual.Name = "comboActual";
             this.comboActual.Size = new System.Drawing.Size(160, 24);
             this.comboActual.TabIndex = 31;
-            // 
-            // mnuBtemplate
-            // 
-            this.mnuBtemplate.Name = "mnuBtemplate";
-            this.mnuBtemplate.Size = new System.Drawing.Size(262, 34);
-            this.mnuBtemplate.Text = "Balance Template";
-            this.mnuBtemplate.Click += new System.EventHandler(this.mnuBtemplate_Click);
             // 
             // EliteFlower
             // 
@@ -3824,7 +3854,7 @@ namespace EliteFlower
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuppal;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EliteFlower";
@@ -4224,6 +4254,8 @@ namespace EliteFlower
         private System.Windows.Forms.Label lblPath;
         private System.Windows.Forms.CheckBox chb_manual;
         private System.Windows.Forms.ToolStripMenuItem mnuBtemplate;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox CB_Template;
     }
 }
 

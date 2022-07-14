@@ -40,23 +40,23 @@ namespace EliteFlower
         // -----------------------------------
         //          Global variables         |
         // -----------------------------------
-        
-        readonly List<Image> Leds = new List<Image> { 
-            Properties.Resources.led100, 
-            Properties.Resources.led010, 
-            Properties.Resources.led001, 
-            Properties.Resources.led000, 
-            Properties.Resources.led111 
+
+        readonly List<Image> Leds = new List<Image> {
+            Properties.Resources.led100,
+            Properties.Resources.led010,
+            Properties.Resources.led001,
+            Properties.Resources.led000,
+            Properties.Resources.led111
         };
-        readonly List<Image> LedsAddon = new List<Image> { 
+        readonly List<Image> LedsAddon = new List<Image> {
             Properties.Resources.led000,
             Properties.Resources.led100,
             Properties.Resources.led010,
             Properties.Resources.led110,
-            Properties.Resources.led001, 
-            Properties.Resources.led011, 
-            Properties.Resources.led101, 
-            Properties.Resources.led111 
+            Properties.Resources.led001,
+            Properties.Resources.led011,
+            Properties.Resources.led101,
+            Properties.Resources.led111
         };
         readonly List<string> serialCOMS = Utils.GetSerials();
 
@@ -67,8 +67,8 @@ namespace EliteFlower
         //coils
         readonly int coilEMG = 90;
 
-       
- 
+
+
         bool balanceCheck = false;
         bool _IsPaused = false;
         bool workerUpForm;
@@ -80,7 +80,7 @@ namespace EliteFlower
         private int[] Speed = new int[2];
         private List<Stage> idSelected = new List<Stage>();
         private ModbusClient modbusLuces = new ModbusClient();
-       // private ModbusClient modbusElevadores = new ModbusClient();
+        // private ModbusClient modbusElevadores = new ModbusClient();
         //private ModbusClient modbusElevadores = new ModbusClient("192.168.56.1", 502);
         private ModbusClient modbusElevadores = new ModbusClient("169.254.1.238", 502);
         readonly List<int> _ElevadoresMesanin = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
@@ -90,10 +90,10 @@ namespace EliteFlower
         readonly int REGS_ELEVADORES = 1000;
         readonly int HREG_Pulmon = 1002;
         public bool start_flag = false;
-     
-        #pragma warning disable CS0414 // El campo 'EliteFlower._Loopback' está asignado pero su valor nunca se usa
+
+#pragma warning disable CS0414 // El campo 'EliteFlower._Loopback' está asignado pero su valor nunca se usa
         bool _Loopback = false;
-        #pragma warning restore CS0414 // El campo 'EliteFlower._Loopback' está asignado pero su valor nunca se usa
+#pragma warning restore CS0414 // El campo 'EliteFlower._Loopback' está asignado pero su valor nunca se usa
         string _LoopPort = "COM";
         msgMesanin lastPositionSorter = new msgMesanin() { Id = "VA", Pos = 4 };
         msgMesanin lastPositionEmpujador = new msgMesanin() { Id = "VA", Pos = 5 };
@@ -108,8 +108,8 @@ namespace EliteFlower
         bool loadFlag = false;
         bool StateFlag = false;
         bool EMGFlag = false;
-        
-        
+
+
 
         private MongoClientSettings settingsMongoDB = new MongoClientSettings();
 
@@ -119,7 +119,7 @@ namespace EliteFlower
             public int Pos { get; set; }
         }
 
-       
+
 
 
 
@@ -131,7 +131,7 @@ namespace EliteFlower
         {
             Console.WriteLine("inicio");
             InitializeComponent();
-            
+
         }
 
 
@@ -156,7 +156,7 @@ namespace EliteFlower
             comboActual.Visible = false;
             comboNext.Visible = false;
             btnPause.Enabled = false;
-            btnServoON.Enabled = true;          
+            btnServoON.Enabled = true;
             gb_eworkers.Enabled = true;
             btnBalance.Enabled = true;
             gb_worker1.Enabled = true;
@@ -169,7 +169,7 @@ namespace EliteFlower
             btnInicio.Enabled = false;
             lblMesanin.Visible = false;
             lblMesanin1.Visible = false;
-            lblMesanin2.Visible = false;       
+            lblMesanin2.Visible = false;
             pcbFill.Visible = false;
             pcbFill.Image = pcbFill.InitialImage;
             tabControl.TabPages.Remove(tabMain);
@@ -217,6 +217,7 @@ namespace EliteFlower
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
             lblPath.Text = $"{Mongoose.GetFilePath()}";
             CheckForIllegalCrossThreadCalls = false;
+            CB_Template.Visible = false;
         }
         /// <summary>
         /// Saca una modal que pregunta si desea salir y si este es el caso entonces lo que hace es 
@@ -263,14 +264,14 @@ namespace EliteFlower
                 }
                 else
                 {
-                    DisconnectScanners(new List<SerialPort> 
-                    { 
-                        serialStage11, serialStage12, 
-                        serialStage21, serialStage22, 
+                    DisconnectScanners(new List<SerialPort>
+                    {
+                        serialStage11, serialStage12,
+                        serialStage21, serialStage22,
                         serialStage31, serialStage32, 
                         //serialAD11, serialAD12, 
-                        serialMElev, 
-                        serialPLC 
+                        serialMElev,
+                        serialPLC
                     });
                     DisconnectModbusLuces(modbusLuces, COILS_LUCES);
                     DisconnectModbus(modbusElevadores, COILS_ELEVADORES);
@@ -280,8 +281,8 @@ namespace EliteFlower
             {
                 Mongoose.LoadError(exForm, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
                 //MessageBox.Show(UIMessages.EliteFlower(64, mnuELEnglish.Checked), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 string msg = $"{UIMessages.EliteFlower(64, mnuELEnglish.Checked)}\n\n{UIMessages.EliteFlower(9, mnuELEnglish.Checked)}";
-                 DialogResult dialogResult = MessageBox.Show(msg, UIMessages.EliteFlower(57, mnuELEnglish.Checked), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                string msg = $"{UIMessages.EliteFlower(64, mnuELEnglish.Checked)}\n\n{UIMessages.EliteFlower(9, mnuELEnglish.Checked)}";
+                DialogResult dialogResult = MessageBox.Show(msg, UIMessages.EliteFlower(57, mnuELEnglish.Checked), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResult == DialogResult.Yes)
                 {
                     CloseStartMesanin();
@@ -292,9 +293,9 @@ namespace EliteFlower
                 }
 
 
-                
-                
-                
+
+
+
             }
             catch (Exception ex)
             {
@@ -312,7 +313,7 @@ namespace EliteFlower
         /// </summary>
         public void btnStart_Click(object sender, EventArgs e)
         {
-             try
+            try
             {
                 List<List<ComboBox>> comboStages = new List<List<ComboBox>>
                 {
@@ -395,7 +396,7 @@ namespace EliteFlower
                                         List<string> noCOMS = serialCOMS.Where(s => !countCOMS.Contains(s)).Select(s => s).ToList();
                                         PLC plc = new PLC(this, mnuELEnglish.Checked);
                                         (int, int, int, int, int) valuesPLC = plc.GetValuesPLC();
-                    
+
                                         //Console.WriteLine($"Tiempo pilotos - {timeBlinkLeds}");
                                         timeBlinkAddonsBand1 = (int)Math.Floor((decimal)(valuesPLC.Item4 * CalculateDelayAddon(valuesPLC.Item2) / 100));
                                         //Console.WriteLine($"Tiempo banda 1 - {timeBlinkAddonsBand1}");
@@ -421,7 +422,7 @@ namespace EliteFlower
                                                 Mongoose.SetWorkUpTrue();
                                                 workerUpForm = Mongoose.GetWorkUp();
                                                 start_flag = true;
-                                             
+
 
 
                                                 chb_Band1.Enabled = false;
@@ -435,7 +436,7 @@ namespace EliteFlower
                                                 btnBalance.Enabled = false;
                                                 btnPause.Enabled = true;
                                                 btnInicio.Enabled = true;
-                                             
+
 
                                                 //-- Edits
                                                 //-- Language
@@ -541,7 +542,7 @@ namespace EliteFlower
 
         async public void changeSpeed(int SpeedC1, int SpeedC2)
         {
-           
+
             modbusLuces.WriteMultipleRegisters(REGS_LUCES, new int[] { SpeedC1, SpeedC2 });
             await Task.Delay(100);
         }
@@ -571,7 +572,7 @@ namespace EliteFlower
                         Mongoose.DeleteEntryData("Actual");
                         Mongoose.DeleteCountIDs("Actual");
                         Mongoose.DeleteIDAddOn();
-                        Mongoose.LoadExcel(ofd.FileName, "Actual");                        
+                        Mongoose.LoadExcel(ofd.FileName, "Actual");
                         Mongoose.SetFileNameML(ofd.FileName, false, lblPath.Text);
                         Mongoose.LoadCountIDs("Actual", 1);
                         Mongoose.GetDistinctAddOn("Actual", 10);
@@ -620,7 +621,7 @@ namespace EliteFlower
         /// indice, luego verifica la cantidad de estaciones seleccionadas para escoger que hacer segun la cantidad
         /// seleccionada entrega la carga de trabajo balanceada.
         /// </summary>
-        private  void btnBalance_Click(object sender, EventArgs e)
+        private void btnBalance_Click(object sender, EventArgs e)
         {
             try
             {
@@ -637,7 +638,7 @@ namespace EliteFlower
             }
         }
 
-   
+
         /// <summary>
         /// Pausa el sistema por si se requiere.
         /// </summary>
@@ -974,11 +975,11 @@ namespace EliteFlower
             CleanWorkers();
         }
 
-        
 
-        private void btnLoadStatus_Click(object sender, EventArgs e)                  
+
+        private void btnLoadStatus_Click(object sender, EventArgs e)
         {
-            leerSensores();                     
+            leerSensores();
         }
 
         // -------------------------------------
@@ -986,7 +987,7 @@ namespace EliteFlower
         // -------------------------------------
         private void DoActionSerial(string portname, int nStage, int nBand, string entrymsg, string band, bool Tracking)
         {
-            
+
             string response = Mongoose.GetSearchVase(entrymsg, nStage, band, Tracking);
             txtResponse.Text = response.ToString();
             if (response == "OFF")
@@ -1010,7 +1011,7 @@ namespace EliteFlower
                     txtControl.Text = "21";
                     new Task(() => RefreshElevatorCount2(p.Item1, p.Item2, response)).Start();
                 }
-                
+
 
             }
         }
@@ -1213,7 +1214,7 @@ namespace EliteFlower
             else if (responseAddon == "ND")
             {
                 new Task(() => SetCoilsAddonsND(nBand, 500, 500)).Start();
-               
+
             }
             else if (responseAddon != "ND" && responseAddon != "CK" && responseAddon != "OFF" && responseAddon != null)
             {
@@ -1304,7 +1305,7 @@ namespace EliteFlower
                 string entry = serialMElev.ReadExisting().ToString();
                 string response = entry.Replace("\r", "").Replace("\n", "");
 
-                switch(response)
+                switch (response)
                 {
                     case "A":
                         //Console.WriteLine("Prueba1");
@@ -1342,23 +1343,24 @@ namespace EliteFlower
                 //showNextBox2Fill();
 
                 bool[] EMG = modbusElevadores.ReadCoils(coilEMG, 1);
-                if (EMG[0]) { 
-                Console.WriteLine("Activo paro de emergencia\n");
-                //int[] tt = modbusElevadores.ReadHoldingRegisters(1002, 1);
-                //Console.WriteLine(tt[0]);
-                //modbusElevadores.Disconnect();
-                //modbusLuces.WriteMultipleCoils(COILS_LUCES + 12, new bool[] { false, false });
-                //DisconnectScanners(new List<SerialPort> { serialStage11, serialStage12, serialStage21, serialStage22, serialStage31, serialStage32, serialPLC });
-                //llenarElevador.Clear();
-                //llenarPulmon.Clear();
-                Mongoose.SetESActiveTrue();
-                btnResume.Visible = true;
+                if (EMG[0])
+                {
+                    Console.WriteLine("Activo paro de emergencia\n");
+                    //int[] tt = modbusElevadores.ReadHoldingRegisters(1002, 1);
+                    //Console.WriteLine(tt[0]);
+                    //modbusElevadores.Disconnect();
+                    //modbusLuces.WriteMultipleCoils(COILS_LUCES + 12, new bool[] { false, false });
+                    //DisconnectScanners(new List<SerialPort> { serialStage11, serialStage12, serialStage21, serialStage22, serialStage31, serialStage32, serialPLC });
+                    //llenarElevador.Clear();
+                    //llenarPulmon.Clear();
+                    Mongoose.SetESActiveTrue();
+                    btnResume.Visible = true;
                     if (!EMGFlag)
                     {
                         EMGFlag = true;
                         MessageBox.Show(UIMessages.EliteFlower(104, mnuELEnglish.Checked), "EliteFlower", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                
+
                 }
             }
             catch (PLCUndervoltageException exUndervoltage)
@@ -1510,27 +1512,27 @@ namespace EliteFlower
                     ShowLoader(UIMessages.EliteFlower(77, mnuELEnglish.Checked));
                     Task oTask1 = new Task(LoadingBalanceData);
                     oTask1.Start();
-                   
+
                     await oTask1;
                     HideLoader();
-                  
+
 
                     string mytext = lblBalance.Text + $"\n\n{UIMessages.EliteFlower(18, mnuELEnglish.Checked)}";
                     DialogResult dialogResult = MessageBox.Show(mytext, UIMessages.EliteFlower(56, mnuELEnglish.Checked), MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        
-                        CleanWorkers();                      
-                        ShowLoader(UIMessages.EliteFlower(78, mnuELEnglish.Checked));                    
-                        Task oTask2 = new Task(LoadingMakeChangesBalance);                    
-                        oTask2.Start();                    
-                        await oTask2;                   
-                        HideLoader();                     
+
+                        CleanWorkers();
+                        ShowLoader(UIMessages.EliteFlower(78, mnuELEnglish.Checked));
+                        Task oTask2 = new Task(LoadingMakeChangesBalance);
+                        oTask2.Start();
+                        await oTask2;
+                        HideLoader();
                         manBalanceCheck = true;
                         MessageBox.Show(UIMessages.EliteFlower(79, mnuELEnglish.Checked), "EliteFlower", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if (dialogResult == DialogResult.No)
-                     {
+                    {
                         ShowLoader("Cancelling Balance");
                         Task oTask2 = new Task(UnbalanceDB_Data);
                         oTask2.Start();
@@ -1573,7 +1575,7 @@ namespace EliteFlower
                 array2D[0][i] = float.Parse(ProductCount[i].ToString());
                 array2D[1][i] = float.Parse(i.ToString());
             }
-     
+
             totalchange2(array2D, rowCount, AvailableWorkers, make_change, combo, document, init);
         }
 
@@ -1703,7 +1705,7 @@ namespace EliteFlower
                     ID3 = values[workers2[i]][2],
                     Stage = true_indexes[i] + 1,
                     Amount = values[workers2[i]].Sum()
-                });            
+                });
             }
 
             Mongoose.DeleteBalanceCount(document);
@@ -1732,11 +1734,11 @@ namespace EliteFlower
             StageIndexPriv = StageIndex;
             lblBalance.Text = mytext;
         }
-        
+
         public void LoadingMakeChangesBalance()
         {
-           // HideLoader();
-           // ShowLoader("BalacingAddon");
+            // HideLoader();
+            // ShowLoader("BalacingAddon");
             BalanceRefreshAddon();
             txtControl.Text = "1";
             List<List<ComboBox>> comboStages = new List<List<ComboBox>>
@@ -1850,7 +1852,7 @@ namespace EliteFlower
                 comboStages[2][i].SelectedItem = "NV";
                 comboStages[3][i].SelectedItem = "NV";
             }
-            
+
             TxtSubtotal11.Text = "0"; TxtSubtotal12.Text = "0"; TxtSubtotal13.Text = "0";
             TxtSubtotal21.Text = "0"; TxtSubtotal22.Text = "0"; TxtSubtotal23.Text = "0";
             TxtSubtotal31.Text = "0"; TxtSubtotal32.Text = "0"; TxtSubtotal33.Text = "0";
@@ -1873,28 +1875,29 @@ namespace EliteFlower
 
             for (int i = 0; i < 3; i++)
             {
-                if  ((comboStages[0][i].Text == "NV") ||
+                if ((comboStages[0][i].Text == "NV") ||
                      (comboStages[1][i].Text == "NV") ||
                      (comboStages[2][i].Text == "NV") ||
-                     (comboStages[3][i].Text == "NV")){
+                     (comboStages[3][i].Text == "NV"))
+                {
                     btnManBalance.Enabled = false;
                 }
                 else
                 {
                     btnManBalance.Enabled = true;
                 }
-                       
+
 
             }
 
         }
         public void LoadingBalanceData()
         {
-            UnbalanceDB_Data();         
+            UnbalanceDB_Data();
             List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };
             int AvailableWorkers = WorkersChecked.Where(c => c).Count();
             List<VaseCount> DataVase = Mongoose.GetDataVase("Data");
-            
+
             LoadBalance(DataVase, true, comboActual, AvailableWorkers, "Data", 1);
         }
         public void UnbalanceDB_Data()
@@ -2023,7 +2026,7 @@ namespace EliteFlower
         {
             if (client.Connected)
             {
-                client.WriteMultipleCoils(COILS_LUCES,      new bool[] { false, false, false, false, false, false, false, false, false, false, false, false });   //-- Banda 1
+                client.WriteMultipleCoils(COILS_LUCES, new bool[] { false, false, false, false, false, false, false, false, false, false, false, false });   //-- Banda 1
                 client.WriteMultipleCoils(COILS_LUCES + 12, new bool[] { false, false });                                                                         //-- Bandas active
                 client.WriteMultipleCoils(COILS_LUCES + 14, new bool[] { false, false, false, false, false, false, false, false, false, false, false, false });   //-- Banda 2
                 client.Disconnect();
@@ -2053,21 +2056,21 @@ namespace EliteFlower
         private async Task WaitLedAsync(int nStage, int nElevator, int span, int delay, int nBand)
         {
             int writecoil = COILS_LUCES + nStage * 3 + span;
-                 txtControl.Text = writecoil.ToString();
+            txtControl.Text = writecoil.ToString();
             if (nBand == 1)
             {
-                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span , SetLights(-1));
+                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span, SetLights(-1));
                 RefreshElevator(nStage, -1);
                 await Task.Delay(delay);
-                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span , SetLights(nElevator));
+                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span, SetLights(nElevator));
                 RefreshElevator(nStage, nElevator);
             }
             else if (nBand == 2)
             {
-                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span , SetLights(-1));
+                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span, SetLights(-1));
                 RefreshElevator2(nStage, -1);
                 await Task.Delay(delay);
-                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span , SetLights(nElevator));
+                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + span, SetLights(nElevator));
                 RefreshElevator2(nStage, nElevator);
             }
         }
@@ -2102,7 +2105,7 @@ namespace EliteFlower
                 else if (nStage != -1 && nElevator != -1)
                 {
                     txtControl.Text = "22";
-                    _ = WaitLedAsync(nStage, nElevator, 0, timeBlinkLeds,1);
+                    _ = WaitLedAsync(nStage, nElevator, 0, timeBlinkLeds, 1);
                 }
                 else
                 {
@@ -2484,14 +2487,14 @@ namespace EliteFlower
             mnuEMElevators.Enabled = true;
             mnuEMLights.Enabled = true;
 
-            DisconnectScanners(new List<SerialPort> 
-            { 
-                serialStage11, serialStage12, 
-                serialStage21, serialStage22, 
+            DisconnectScanners(new List<SerialPort>
+            {
+                serialStage11, serialStage12,
+                serialStage21, serialStage22,
                 serialStage31, serialStage32, 
                 //serialAD11, serialAD12, 
-                serialMElev, 
-                serialPLC 
+                serialMElev,
+                serialPLC
             });
             DisconnectModbus(modbusElevadores, COILS_ELEVADORES);
             DisconnectModbusLuces(modbusLuces, COILS_LUCES);
@@ -2808,7 +2811,7 @@ namespace EliteFlower
         private void manual()
         {
             UnbalanceDB_Data();
-           // Mongoose.UnbalanceData();
+            // Mongoose.UnbalanceData();
             List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };
             List<int> true_indexes = WorkersChecked.Select((value, index) => value ? index : -1).Where(o => o >= 0).ToList();
 
@@ -3292,7 +3295,7 @@ namespace EliteFlower
 
         //--------------------------------------------------------------------------------
 
-        
+
         /// <summary>
         /// Calcula las cajas por hora esperadas segun parametros.
         /// </summary>
@@ -3326,7 +3329,7 @@ namespace EliteFlower
             }
             else
             {
-                return (int)(5.0085*_boxPerHourBandVel-78.429);
+                return (int)(5.0085 * _boxPerHourBandVel - 78.429);
             }
         }
 
@@ -3479,19 +3482,19 @@ namespace EliteFlower
         /// Da el inicio del proceso en la parte del llenado.
         /// </summary>
         private void btnInicio_Click(object sender, EventArgs e)
-        {          
+        {
             try
-            {         
+            {
                 Mongoose.SetInitialFeedTrue();
                 bool initialFeed = Mongoose.GetInitialFeed();
-                workMesanin = Mongoose.GetWorkMesanin();            
+                workMesanin = Mongoose.GetWorkMesanin();
                 if (workMesanin == false && balanceCheck)
                 {
                     string msg = UIMessages.EliteFlower(70, mnuELEnglish.Checked);
                     if (MessageBox.Show(msg, "EliteFlower", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                    {             
+                    {
                         if (modbusElevadores.Available(2))
-                        {                                                     
+                        {
                             List<int> posiciones2unfill = initialFillQueue(initialFeed);
                             if (initialFeed == false)
                             {
@@ -3502,7 +3505,7 @@ namespace EliteFlower
                                     //lblMesanin.Visible = true;
                                     pcbInitialFill.Visible = true;
                                     serialPLC.PortName = "COM42";
-                                    serialPLC.Open();                                   
+                                    serialPLC.Open();
                                     Mongoose.SetWorkMesaninTrue();
                                     workMesanin = Mongoose.GetWorkMesanin();
                                     modbusElevadores.Connect();
@@ -3545,7 +3548,7 @@ namespace EliteFlower
 
                                     //lblMesanin1.Visible = true;
                                     lblMesanin2.Visible = true;
-                                  
+
                                     pcbFill.Visible = true;
                                     btnInicio.Text = "Stop";
 
@@ -3559,7 +3562,7 @@ namespace EliteFlower
                                     btnConnect.Enabled = false;
                                     //btnLoadStatus.Enabled = true;
                                     ShowState();
-                                    
+
                                     modbusElevadores.WriteMultipleCoils(COILS_ELEVADORES + 76, new bool[] { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked });
                                     modbusElevadores.WriteMultipleRegisters(REGS_ELEVADORES, new int[] { 15, 15 });
                                     modbusElevadores.WriteMultipleCoils(50, new bool[] { false, true });    //- InitialFill - Automatico
@@ -3586,7 +3589,7 @@ namespace EliteFlower
 
                         lblMesanin1.Visible = false;
                         lblMesanin2.Visible = false;
-                      
+
                         pcbFill.Visible = false;
                         btnInicio.Text = "Init";
                         btnLoadStatus.Enabled = false;
@@ -3618,21 +3621,21 @@ namespace EliteFlower
                 Console.WriteLine($"{ex.Source} - {ex.Message} - {ex.StackTrace} - {ex.InnerException} - {ex.HResult}");
             }
         }
-         
+
         public MLlenado getInfoMesanin()
         {
-            
+
             MongoClient client = new MongoClient(mongoDBConnection);
             IMongoDatabase database = client.GetDatabase("EliteFlower");
             IMongoCollection<MLlenado> MReferenceDB = database.GetCollection<MLlenado>("BWorkMesanin");
             var tt = MReferenceDB.Find(s => s.ID == 1).ToList();
             return tt[0];
         }
-     
+
         private void actualizaInfoTextos()
         {
             setInfoPulmon(llenarPulmon);
-           // setInfoElevadores(llenarElevador);
+            // setInfoElevadores(llenarElevador);
         }
 
         private void setInfoPulmon(Queue<msgMesanin> llenar)
@@ -3640,9 +3643,9 @@ namespace EliteFlower
 
             int[] tt = modbusElevadores.ReadHoldingRegisters(HREG_Pulmon, 1);
             string s = tt[0].ToString();
-         
 
-           
+
+
 
             if (llenar.Count == 0)
             {
@@ -3652,10 +3655,10 @@ namespace EliteFlower
             }
             else
             {
-               
+
                 lblMesanin1.Text = String.Format(UIMessages.EliteFlower(97, mnuELEnglish.Checked), llenar.Count);
                 // lblMesanin2.Text = String.Format(UIMessages.EliteFlower(98, mnuELEnglish.Checked), llenar.Peek().Id, llenar.Peek().Pos + 1);
-                lblMesanin2.Text = String.Format(UIMessages.EliteFlower(98, mnuELEnglish.Checked),s);
+                lblMesanin2.Text = String.Format(UIMessages.EliteFlower(98, mnuELEnglish.Checked), s);
                 string url = Mongoose.ShowImageMesanin(llenar.Peek().Id);
                 if (url != "ND")
                 {
@@ -3709,7 +3712,7 @@ namespace EliteFlower
         }
 
 
-  
+
 
 
         private void mnuFQuit_Click_1(object sender, EventArgs e)
@@ -3728,12 +3731,12 @@ namespace EliteFlower
                     {
                         if (ofd.ShowDialog() == DialogResult.OK)
                         {
-                                           
+
                             lblData.Text = ofd.FileName;
                             string FilePath = System.IO.Path.GetFullPath(ofd.FileName);
                             lblPath.Text = FilePath;
                             Console.Write("File path is : ");
-                            Console.WriteLine(FilePath);                                                     
+                            Console.WriteLine(FilePath);
                             ShowLoader(UIMessages.EliteFlower(83, mnuELEnglish.Checked));
                             Task oTask = new Task(LoadingNewData);
                             oTask.Start();
@@ -3789,12 +3792,12 @@ namespace EliteFlower
 
             lblRegActual.Text = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
 
-            if (lista[0]!=1 && lista[1] != 1 && lista[2] != 1)
+            if (lista[0] != 1 && lista[1] != 1 && lista[2] != 1)
             {
                 MessageBox.Show("Falta información de VASE ID, ADD_ON_ID o BARCODE_NUMBER");
             }
 
-            else if(lista[0] == 1 && lista[1] == 1 && lista[2] == 1)
+            else if (lista[0] == 1 && lista[1] == 1 && lista[2] == 1)
             {
                 MessageBox.Show("La información esta completa");
             }
@@ -3873,14 +3876,14 @@ namespace EliteFlower
         {
             Mongoose.GetStatistics("Data", mnuELEnglish.Checked);
             Mongoose.UpdateReadedData();
-            GetDataSummary();            
+            GetDataSummary();
         }
 
 
         /// <summary>
         /// Funciones Para Actualizar los graficos de los sensores
         /// </summary>
-      
+
 
         private void updateGraphicsMesaninPulmones(bool[] sensorValues)
         {
@@ -4014,12 +4017,12 @@ namespace EliteFlower
             if (sensorValue[0] == true)
             {
                 E4S1B0.Image = E4S1B0.InitialImage;
-                
+
             }
             else
             {
                 E4S1B0.Image = E4S1B0.ErrorImage;
-              
+
             }
             if (DButtonValue[0] == true)
             {
@@ -4076,8 +4079,8 @@ namespace EliteFlower
                     Emergency_Stop();
                     bool[] _valuesSElevadores = modbusElevadores.ReadCoils(67, 9);
                     bool[] _valuesSPulmones = modbusElevadores.ReadCoils(58, 9);
-                    bool[] _valuesSActuadores = modbusElevadores.ReadCoils(102, 4);                 
-                 
+                    bool[] _valuesSActuadores = modbusElevadores.ReadCoils(102, 4);
+
                     updateGraphicsMesaninPulmones(_valuesSPulmones);
                     updateGraphicsMesaninElevadores(_valuesSElevadores);
                     updateGraphicsBaseSorter();
@@ -4085,7 +4088,7 @@ namespace EliteFlower
                     updateGraphicsFeederElevator();
                     await Task.Delay(100);
 
-                  
+
                     int speed1 = CodeValue((int)numSpeed1.Value);
                     int speed2 = CodeValue((int)numSpeed2.Value);
                     txtSpeed1.Text = speed1.ToString();
@@ -4093,7 +4096,7 @@ namespace EliteFlower
                     {
                         changeSpeed(speed1, speed2);
                     }
-                    
+
 
                     //gpMatriz.Visible = true;
                 }
@@ -4123,10 +4126,10 @@ namespace EliteFlower
                 while (StateFlag)
                 {
                     int[] tt = modbusElevadores.ReadHoldingRegisters(HREG_Pulmon, 1);
-                    string s = tt[0].ToString();                
+                    string s = tt[0].ToString();
                     txtNext.Text = s;
 
-                    string vase; 
+                    string vase;
 
                     switch (s)
                     {
@@ -4163,7 +4166,7 @@ namespace EliteFlower
                     }
                     txtVase.Text = vase;
                     string url = Mongoose.ShowImageMesanin(vase);
-                    
+
                     if (url != "ND")
                     {
                         FileStream fs = File.OpenRead(url);
@@ -4196,26 +4199,26 @@ namespace EliteFlower
             {
                 if (Mongoose.GetESActive() == true)
                 {
-                    
+
                     if (workMesanin == true)
                     {
                         if (modbusElevadores.Connected)
-                        {                                                   
-                                //Mongoose.SetInitialFeedTrue();
-                                //Mongoose.SetWorkMesaninTrue();
-                                //workMesanin = Mongoose.GetWorkMesanin();
-                                //lblMesanin1.Visible = true;
-                                //lblMesanin2.Visible = true;
-                                //lblMesanin3.Visible = true;
-                                //lblMesanin4.Visible = true;
-                                //pcbFill.Visible = true;
-                                //btnInicio.Text = "Stop";
-                                Mongoose.SetESActiveFalse();
-                               // actualizaInfoTextos();              //-- Actualiza textos
-                                btnResume.Visible = false;
-                                modbusElevadores.WriteSingleCoil(coilEMG, false);
+                        {
+                            //Mongoose.SetInitialFeedTrue();
+                            //Mongoose.SetWorkMesaninTrue();
+                            //workMesanin = Mongoose.GetWorkMesanin();
+                            //lblMesanin1.Visible = true;
+                            //lblMesanin2.Visible = true;
+                            //lblMesanin3.Visible = true;
+                            //lblMesanin4.Visible = true;
+                            //pcbFill.Visible = true;
+                            //btnInicio.Text = "Stop";
+                            Mongoose.SetESActiveFalse();
+                            // actualizaInfoTextos();              //-- Actualiza textos
+                            btnResume.Visible = false;
+                            modbusElevadores.WriteSingleCoil(coilEMG, false);
                             Thread.Sleep(3000);
-                             
+
 
 
                         }
@@ -4234,13 +4237,13 @@ namespace EliteFlower
             workMesanin = Mongoose.GetWorkMesanin();
             if (workMesanin == true)
             {
-           
+
                 if (modbusElevadores.Connected)
-                {    
+                {
                     bool[] EMG = modbusElevadores.ReadCoils(coilEMG, 1);
                     if (EMG[0])
                     {
-                   
+
                         //Console.WriteLine("Activo paro de emergencia\n");
                         // int[] tt = modbusElevadores.ReadHoldingRegisters(1002, 1);
 
@@ -4257,8 +4260,8 @@ namespace EliteFlower
                     }
                     else if (!EMG[0])
                     {
-                       // Console.WriteLine("Desactivo paro de emergencia\n");
-                        bool[] BandsChecked = new bool[] { chb_Band1.Checked, chb_Band2.Checked };                       
+                        // Console.WriteLine("Desactivo paro de emergencia\n");
+                        bool[] BandsChecked = new bool[] { chb_Band1.Checked, chb_Band2.Checked };
                         modbusLuces.WriteMultipleCoils(COILS_LUCES + 12, BandsChecked);
                         EMGFlag = false;
                     }
@@ -4343,24 +4346,24 @@ namespace EliteFlower
                             item[2].SelectedIndex = item[2].Items.Count - 1;
                         }
                         Utils.SetValuesTxt(
-                            new List<float> { 
+                            new List<float> {
                                 0, 0, 0,
                                 0, 0, 0,
                                 0, 0, 0,
                                 0, 0, 0
-                            }, 
-                            new List<TextBox> { 
-                                TxtSubtotal11, TxtSubtotal12, TxtSubtotal13, 
-                                TxtSubtotal21, TxtSubtotal22, TxtSubtotal23, 
+                            },
+                            new List<TextBox> {
+                                TxtSubtotal11, TxtSubtotal12, TxtSubtotal13,
+                                TxtSubtotal21, TxtSubtotal22, TxtSubtotal23,
                                 TxtSubtotal31, TxtSubtotal32, TxtSubtotal33,
                                 TxtSubtotal41, TxtSubtotal42, TxtSubtotal43
                             });
                         Utils.SetValuesTxt(
-                            new List<float> { 
-                                0, 0, 0, 0 
-                            }, 
-                            new List<TextBox> { 
-                                TxtTotal1, TxtTotal2, TxtTotal3, TxtTotal4 
+                            new List<float> {
+                                0, 0, 0, 0
+                            },
+                            new List<TextBox> {
+                                TxtTotal1, TxtTotal2, TxtTotal3, TxtTotal4
                             });
                         manBalanceCheck = true;
                     }
@@ -4423,9 +4426,9 @@ namespace EliteFlower
             {
                 if (modbusElevadores.Connected)
                 {
-                    
-                
-                    
+
+
+
                     btnConnect.Text = "Connect";
                     modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 55, true);
                     btnLoadStatus.Enabled = false;
@@ -4469,7 +4472,7 @@ namespace EliteFlower
         {
             try
             {
-               
+
                 modbusElevadores.Disconnect();
             }
             catch (Exception ex)
@@ -4487,21 +4490,21 @@ namespace EliteFlower
                     modbusElevadores.Connect();
                 }
 
-                    if (modbusElevadores.Connected)
+                if (modbusElevadores.Connected)
                 {
                     modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 91, true);
                     Thread.Sleep(500);
-                   // modbusElevadores.Disconnect();
+                    // modbusElevadores.Disconnect();
                     Application.Exit();
                 }
-                
+
             }
             catch (Exception ex)
             {
-                Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);               
+                Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
                 Application.Exit();
             }
-            
+
         }
 
         private void btnMaximizar_Click(object sender, EventArgs e)
@@ -4527,7 +4530,7 @@ namespace EliteFlower
         private void btnMain_Click(object sender, EventArgs e)
         {
             tabControl.TabPages.Add(tabMain);
-            tabControl.TabPages.Remove(tabConfiguration);            
+            tabControl.TabPages.Remove(tabConfiguration);
             tabControl.TabPages.Remove(tabStatus);
             tabControl.TabPages.Remove(tabPrueba);
             tabControl.TabPages.Remove(tabElite);
@@ -4544,7 +4547,7 @@ namespace EliteFlower
             btnPrueba.Enabled = true;
             pictureBox1.Enabled = true;
 
-            
+
             btnConfiguration.Location = new Point(3, 300);
             btnStatus.Location = new Point(3, 350);
             btnPrueba.Location = new Point(3, 400);
@@ -4567,7 +4570,7 @@ namespace EliteFlower
             panel3.Location = new Point(40, 150);
             panel4.Location = new Point(40, 200);
             panel5.Location = new Point(40, 250);
-        
+
 
 
 
@@ -4683,7 +4686,7 @@ namespace EliteFlower
 
 
         }
-        
+
 
         private void btnPrueba_Click(object sender, EventArgs e)
         {
@@ -4811,16 +4814,16 @@ namespace EliteFlower
 
         private void btnServoON_Click(object sender, EventArgs e)
         {
-            
+
             try
-            {                               
-               if (modbusElevadores.Available(2))
-               {
-                    modbusElevadores.Connect();                     
+            {
+                if (modbusElevadores.Available(2))
+                {
+                    modbusElevadores.Connect();
                     modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 50, false);
                     modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 80, true);
-                   
-               }
+
+                }
                 if (modbusElevadores.Connected)
                 {
                     bool[] servostatus = modbusElevadores.ReadCoils(91, 1);
@@ -4828,7 +4831,7 @@ namespace EliteFlower
                     {
                         modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 55, true);
                     }
-              
+
                 }
                 mnuEdit.Enabled = false;
                 btnServoON.Enabled = false;
@@ -4862,8 +4865,8 @@ namespace EliteFlower
 
                 }
 
-               
-                
+
+
                 btnHome.Enabled = false;
                 btnInitAll.Enabled = true;
 
@@ -4892,24 +4895,24 @@ namespace EliteFlower
                         int coil = COILS_ELEVADORES + item;
                         modbusElevadores.WriteSingleCoil(coil, true);
                         await Task.Delay(10);
-                        
+
                     }
                     modbusElevadores.WriteSingleRegister(REGS_ELEVADORES + 0, 5);
                     modbusElevadores.WriteSingleRegister(REGS_ELEVADORES + 1, 6);
                     await Task.Delay(10);
                     flagok = true;
                 }
-                
+
                 Mongoose.SetLastPosZone2(new List<int>() { 5, 6 });
                 if (flagok)
                 {
                     btnInitAll.Enabled = false;
                     button3.Enabled = true;
                 }
-                
 
 
-               
+
+
 
             }
             catch (Exception ex)
@@ -4921,10 +4924,10 @@ namespace EliteFlower
         private void button3_Click(object sender, EventArgs e)
         {
 
-            
+
             if (modbusElevadores.Connected)
             {
-                modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 80, false);             
+                modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 80, false);
                 DisconnectModbusClient();
                 mnuEdit.Enabled = true;
                 button3.Enabled = false;
@@ -4932,7 +4935,7 @@ namespace EliteFlower
             }
         }
 
-         private async void Bal_Python_Click(object sender, EventArgs e)
+        private async void Bal_Python_Click(object sender, EventArgs e)
         {
             ShowLoader("Balancing Data");
             Task oTask2 = new Task(balanceo);
@@ -4944,7 +4947,7 @@ namespace EliteFlower
 
 
 
-        private  void balanceo()
+        private void balanceo()
         {
             List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };
             int AvailableWorkers = WorkersChecked.Where(c => c).Count();
@@ -4965,12 +4968,12 @@ namespace EliteFlower
             };
 
             Console.WriteLine(this.cbWorker11.GetItemText(this.cbWorker11.SelectedItem));
-            
+
 
             Console.WriteLine("Workers checked = ");
 
             var FileName = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
-            var FilePath = lblPath.Text = $"{Mongoose.GetFilePath()}"; 
+            var FilePath = lblPath.Text = $"{Mongoose.GetFilePath()}";
             Console.Write("File Name: ");
             Console.WriteLine(FileName);
             Console.Write("excel path: ");
@@ -5024,7 +5027,7 @@ namespace EliteFlower
             //"Este script usa la funcionalidad de IronPython"
             string pathPy = @"D:\GitHub\EliteFlowerDeploy_V3\03_EliteFlower_V3\Balanceo\module1.py";
             ScriptRuntime py = Python.CreateRuntime();
-            dynamic pyBalanceo = py.UseFile(pathPy);           
+            dynamic pyBalanceo = py.UseFile(pathPy);
             pyBalanceo.Hi("Santiago");
         }
 
@@ -5033,15 +5036,15 @@ namespace EliteFlower
             //1) Create Process Info
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = @"C:\Users\aalej\AppData\Local\Microsoft\WindowsApps\python.exe"; //foldier de instalacion de python
-    
+
 
             //2) Provide script and arguments
 
             var script = @"D:\GitHub\EliteFlowerDeploy_V3\03_EliteFlower_V3\Balanceo\module1.py";
             var name = "Santiago";
             //var otro = "prueba";
-            psi.Arguments = string.Format("\"{0}\" \"{1}\"",script,name);
-          //  psi.Arguments = $"\"{script}\"\"{name}\"\"{otro}\"";
+            psi.Arguments = string.Format("\"{0}\" \"{1}\"", script, name);
+            //  psi.Arguments = $"\"{script}\"\"{name}\"\"{otro}\"";
             //psi.Arguments = $"\"{script}\"";
 
             //3) Process Configuration
@@ -5054,7 +5057,7 @@ namespace EliteFlower
 
             var errors = "";
             var results = "";
-            using(var process = Process.Start(psi))
+            using (var process = Process.Start(psi))
             {
                 errors = process.StandardError.ReadToEnd();
                 results = process.StandardOutput.ReadToEnd();
@@ -5068,7 +5071,7 @@ namespace EliteFlower
             Console.WriteLine("Results");
             Console.WriteLine(results);
 
-            
+
         }
         private void ShowBalance()
         {
@@ -5130,7 +5133,7 @@ namespace EliteFlower
 
         }
 
-        private  void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
 
         }
@@ -5140,6 +5143,141 @@ namespace EliteFlower
             BalanceTemplate Btemplate = new BalanceTemplate(this, mnuELEnglish.Checked);
             Btemplate.Show();
             this.Enabled = false;
+        }
+
+        private void chb_manual_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+            void checkBox1_Click()
+            {
+                switch (checkBox1.CheckState)
+                {
+                    case CheckState.Checked:
+                        // Code for checked state.  
+                        CB_Template.Visible = true;
+
+                        string mongoDBConnection = "mongodb://localhost:27017";
+                        this.FormBorderStyle = FormBorderStyle.FixedSingle;
+                        mongoDBConnection = Mongoose.GetMongoDBConnection();
+
+                        List<string> TemplateName = Mongoose.GetTemplate("BalanceTemplate");
+                        Utils.SetComboBox(TemplateName, new List<ComboBox> { CB_Template });
+
+                        if (Compare_database() == false)
+                        {
+                            MessageBox.Show("No all data base products are created in the master product");
+                        }
+
+                        break;
+
+                    case CheckState.Unchecked:
+                        // Code for unchecked state.
+                        CB_Template.Visible = false;
+                        break;
+
+                    case CheckState.Indeterminate:
+                        // Code for indeterminate state.
+                        CB_Template.Visible = false;
+                        break;
+                }
+            }
+
+            checkBox1_Click();
+            Compare_database();
+        }
+
+        private static List<Btemplate> GetTemplate(string texto)
+        {
+
+            //Console.WriteLine(texto);
+
+            MongoClient client = Mongoose.GetDBConnection();
+            IMongoDatabase database = Mongoose.GetDataBase(client);
+            IMongoCollection<Btemplate> TemplateDB = database.GetCollection<Btemplate>("BalanceTemplate");
+            //List<Btemplate> doc = TemplateDB.Find(f => f._id== 1).ToList();
+
+            List<Btemplate> doc = TemplateDB.Find(d => d.ID == texto).ToList();
+            string id = doc[0].ID;
+            string[] temp = doc[0].Template;
+
+            return doc;
+        }
+
+
+
+        public void Get_Template()
+        {
+            string texto = CB_Template.SelectedItem.ToString();
+            Console.WriteLine("texto = ");
+            Console.WriteLine(texto);
+
+
+            if (texto != "")
+            {
+                List<Btemplate> doc = GetTemplate(texto);
+
+                string id = doc[0].ID;
+                string[] temp = doc[0].Template;
+                //string[] per = doc[0].Percentage;
+
+                cbWorker11.Text = temp[0];
+                cbWorker12.Text = temp[1];
+                cbWorker13.Text = temp[2];
+                
+                cbWorker21.Text = temp[3];
+                cbWorker22.Text = temp[4];
+                cbWorker23.Text = temp[5];
+                
+                cbWorker31.Text = temp[6];
+                cbWorker32.Text = temp[7];
+                cbWorker33.Text = temp[8];
+
+
+                //S1_T1.Text = per[0];
+                //S1_T2.Text = per[1];
+                //S1_T3.Text = per[2];
+
+                //S2_T1.Text = per[3];
+                //S2_T2.Text = per[4];
+                //S2_T3.Text = per[5];
+
+                //S3_T1.Text = per[6];
+                //S3_T2.Text = per[7];
+                //S3_T3.Text = per[8];
+            }
+            //else
+            //{
+            //    //Console.Write("texto vacio");
+            //}
+
+        }
+
+        private void tabConfiguration_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CB_Template_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Get_Template();
+        }
+
+        public bool Compare_database(){
+
+            List<string> ProductDB = Mongoose.GetMasterProducts("MasterProduct");
+            List<string> nameVS = Mongoose.GetNameVases("Data");
+            string[] vases = nameVS.ToArray();
+            string[] products = ProductDB.ToArray();
+            bool equal = true;
+
+            equal = vases.SequenceEqual(products);
+
+            return equal;
         }
     }
 }

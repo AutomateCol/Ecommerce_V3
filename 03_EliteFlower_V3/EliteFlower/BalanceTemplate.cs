@@ -280,6 +280,7 @@ namespace EliteFlower
                                   
                 CB_ID1_3.Enabled = true;
                 CB_ID2_3.Enabled = true;
+                CB_ID3_3.Enabled = true;
 
                 textBox1.Visible = true;
                 Update_template.Visible = false;
