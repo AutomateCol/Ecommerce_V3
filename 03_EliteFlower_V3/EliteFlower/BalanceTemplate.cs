@@ -50,7 +50,7 @@ namespace EliteFlower
         //            Load Data              |
         // -----------------------------------
 
-         
+         //Función que permite que los combox carguen información de la base de datos
         private void BalanceTemplate_Load_Data()
         {
 
@@ -112,20 +112,13 @@ namespace EliteFlower
             }
         }
 
+        //Función que agrega NV a los combox
         private List<string> FillVases(List<string> vases)
         {
             List<String> nameVs = vases.Distinct().ToList();
             nameVs.Add("NV");
             return nameVs;
         }
-
-        //public static List<string> GetNameVases(string document)
-        //{
-        //    MongoClient client = new MongoClient("mongodb://localhost:27017");
-        //    IMongoDatabase database = client.GetDatabase("EliteFlower");
-        //    IMongoCollection<VaseCount> IDDistinctDB = database.GetCollection<VaseCount>("BalanceIDProducts");
-        //    return IDDistinctDB.Find(s => s.File == document).ToList().Select(s => s.Vase).ToList();
-        //}
 
         /// Habilita la ventana que abrio esta.   
         public void BalanceTemplate_FormClosed(object sender, FormClosedEventArgs e)
@@ -245,7 +238,9 @@ namespace EliteFlower
         }
 
 
-
+        // -----------------------------------
+        //            Load Window             |
+        // -----------------------------------
         private void BalanceTemplate_Load_1(object sender, EventArgs e)
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -257,6 +252,10 @@ namespace EliteFlower
 
 
         }
+
+        // --------------------------------
+        //         CheckBoxes y CRUDS     |
+        // --------------------------------
 
         private void chbCreate_CheckedChanged(object sender, EventArgs e)
         {
@@ -342,6 +341,7 @@ namespace EliteFlower
 
                 if (chbDelete.Checked)
                     CRUD_Delete();
+
             }
             catch (Exception ex)
             {
@@ -350,17 +350,14 @@ namespace EliteFlower
         }
 
 
+        //Permite crear usando el text box
         public void CRUD_Create()
         {
             try
             {
                 textBox1.Text = null;
-                Update_template.Items.Clear();
-                //foreach (int item in packages)
-                //{
-                //    Update_template.Items.Add(item);
-                //}
-                //Update_template.SelectedIndex = 0;
+                
+
             }
             catch (Exception ex)
             {
@@ -370,6 +367,9 @@ namespace EliteFlower
         /// <summary>
         /// Activa/Desactiva la seccion de actualizar del CRUD.
         /// </summary>
+
+
+        /// Funcón de actulización de templates <debe revisarse  asi como la de add products>
         public void CRUD_Update()
         {
             try
@@ -377,6 +377,8 @@ namespace EliteFlower
                 MongoClient client = new MongoClient(mongoDBConnection);
                 IMongoDatabase database = client.GetDatabase("EliteFlower");
                 IMongoCollection<Btemplate> ProductDB = database.GetCollection<Btemplate>("BalanceTemplate");
+                Update_template.Items.Clear();
+
 
                 List<string> tt1 = ProductDB.Find(d => d.ID != "").ToList().Select(s => s.ID).ToList();
                 Update_template.Items.Clear();
@@ -393,6 +395,9 @@ namespace EliteFlower
         /// <summary>
         /// Activa/Desactiva la seccion de borrar del CRUD.
         /// </summary>
+        /// 
+
+        //Permite que los elementos de la base de datos sean eliminados al buscarlos por su ID
         public void CRUD_Delete()
         {
             try
@@ -473,8 +478,6 @@ namespace EliteFlower
 
                 string IdText = (string)Update_template.SelectedItem;
                 Console.WriteLine(IdText);
-                //int PackageText = (int)cbUpdatePack.SelectedItem;
-                //string assetVase = $"{PATHVASES}\\{IdText}-vase.jpg";
 
                 if (MessageBox.Show(UIMessages.AddProduct(17, _EnglishChecked), UIMessages.AddProduct(19, _EnglishChecked), MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
                 {
@@ -567,12 +570,13 @@ namespace EliteFlower
 
 
         }
-        private void Del_Template_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Get_Template();
-        }
+
+        // --------------------------
+        //         Get Template     |
+        // --------------------------
 
 
+        // Permite que en el CRUD delete se muestren las plantillas que se desean borrar
         private static List<Btemplate> GetTemplate(string texto)
         {
 
@@ -655,7 +659,10 @@ namespace EliteFlower
                 {
                     if (IdDelete != null)
                     {
-
+                        //List<string> tt = ProductDB.Find(f => f.ID == IdDelete).ToList().Select(s => s.Url).ToList();
+                        //FileInfo info = new FileInfo(tt[0]);
+                        //if (info.Exists)
+                        //    info.Delete();
                         ProductDB.DeleteOne(d => d.ID == IdDelete);
 
                         MessageBox.Show(string.Format(UIMessages.AddProduct(7, _EnglishChecked), IdDelete), UIMessages.AddProduct(18, _EnglishChecked), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -666,6 +673,7 @@ namespace EliteFlower
                         {
                             Del_Template.Items.Add(item);
                         }
+
                     }
                     else
                     {
@@ -699,6 +707,11 @@ namespace EliteFlower
 
         }
 
+        // --------------------------
+        //         Get Template     |
+        // --------------------------
+
+        //Verifica que el porcentage ingresado en las casillas sume 100%
         public bool check_percentage()
         {
 
@@ -840,11 +853,12 @@ namespace EliteFlower
             }
         }
 
+        //Se deshabilita las casillas que tengan NV
         private void CB_ID1_3_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CB_ID1_3.Text == "NV")
             {
-                S3_T1.Enabled = false;
+                S3_T1.Enabled = false; 
             }
             else
             {

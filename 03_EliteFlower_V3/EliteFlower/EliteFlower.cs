@@ -313,7 +313,7 @@ namespace EliteFlower
         /// </summary>
         public void btnStart_Click(object sender, EventArgs e)
         {
-            try
+             try
             {
                 List<List<ComboBox>> comboStages = new List<List<ComboBox>>
                 {
