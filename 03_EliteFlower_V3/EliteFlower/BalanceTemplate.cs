@@ -53,21 +53,7 @@ namespace EliteFlower
          
         private void BalanceTemplate_Load_Data()
         {
-<<<<<<< HEAD
-             
-            //Mongoose.DeleteCountIDs("Data");
-            //Mongoose.DeleteIDAddOn();
-            //Mongoose.LoadCountIDs("Data", 1);
-            //Mongoose.GetDistinctAddOn("Data", 10);
-=======
 
-            //Mongoose.SetWorkUpFalse();
-            //Mongoose.SetWorkMesaninFalse();
-
-
-            Mongoose.LoadCountIDs("Data", 1);
-            Mongoose.GetDistinctAddOn("Data", 10);
->>>>>>> 4Vases
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             mongoDBConnection = Mongoose.GetMongoDBConnection();
@@ -79,7 +65,9 @@ namespace EliteFlower
             Utils.SetComboBox(nameVS, new List<ComboBox> { CB_ID1_3, CB_ID2_3, CB_ID3_3 });
             bool checkbool = CheckDB(Mongoose.GetNameVases("Data"), true);
 
+            List<string> Add_ons = FillVases(Mongoose.GetNamesAddOn("Data"));
 
+            Utils.SetComboBox(Add_ons, new List<ComboBox> { CB_AD1, CB_AD2, CB_AD3 });
 
         }
 
@@ -180,6 +168,11 @@ namespace EliteFlower
                 string S3_3 = (string)CB_ID3_3.SelectedItem;
 
 
+                string AD_1 = (string)CB_AD1.SelectedItem;
+                string AD_2 = (string)CB_AD2.SelectedItem;
+                string AD_3 = (string)CB_AD3.SelectedItem;
+
+
                 string P1 = S1_T1.Text;
                 string P2 = S1_T2.Text;
                 string P3 = S1_T3.Text;
@@ -191,9 +184,10 @@ namespace EliteFlower
                 string P9 = S3_T3.Text;
 
 
-
                 string[] config = { S1_1, S1_2, S1_3, S2_1, S2_2, S2_3, S3_1, S3_2, S3_3 };
                 string[] percentage = { P1, P2, P3, P4, P5, P6, P7, P8, P9 };
+                string[] add_on = { AD_1, AD_2, AD_3 };
+                
   
                 for (int i = 0; i < percentage.Length; i++)
                 {
@@ -206,7 +200,7 @@ namespace EliteFlower
                 {
                     if (IdText != null && IdText != "")  
                     {
-                        Btemplate template = new Btemplate() { ID = IdText, Template = config, Percentage=percentage };
+                        Btemplate template = new Btemplate() { ID = IdText, Template = config, Percentage=percentage, Add_on=add_on };
 
                         int NoCreated = ProductDB.Find(d => d.ID == IdText).ToList().Count;
                         if (NoCreated == 0)
@@ -313,16 +307,25 @@ namespace EliteFlower
 
                 S3_T1.Text = "0";
                 S3_T2.Text = "0";
-                S3_T3.Text = "0";  
+                S3_T3.Text = "0";
 
-               //if (CB_ID1_1.SelectedItem == "NV")
-               // {
-               //     S1_T1.Enabled = false;
-               // }
-               // else
-               // {
-               //     S1_T1.Enabled = true;
-               // }
+                S1_T1.Enabled = true;
+                S1_T2.Enabled = true;
+                S1_T3.Enabled = true;
+
+                S2_T1.Enabled = true;
+                S2_T2.Enabled = true;
+                S2_T3.Enabled = true;
+
+                S3_T1.Enabled = true;
+                S3_T2.Enabled = true;
+                S3_T3.Enabled = true;
+
+                CB_AD1.Enabled = true;
+                CB_AD2.Enabled = true;
+                CB_AD3.Enabled = true;
+
+
             }
             RefreshCRUD();
         }
@@ -339,10 +342,6 @@ namespace EliteFlower
 
                 if (chbDelete.Checked)
                     CRUD_Delete();
-
-                //pcbCreate.Image = pcbCreate.InitialImage;
-                //pcbUpdate.Image = pcbUpdate.InitialImage;
-                //pcbDelete.Image = pcbDelete.InitialImage;
             }
             catch (Exception ex)
             {
@@ -379,12 +378,6 @@ namespace EliteFlower
                 IMongoDatabase database = client.GetDatabase("EliteFlower");
                 IMongoCollection<Btemplate> ProductDB = database.GetCollection<Btemplate>("BalanceTemplate");
 
-
-                //foreach (int item in packages)
-                //{
-                //    cbUpdatePack.Items.Add(item);
-                //}
-                //cbUpdatePack.SelectedItem = packages[0];
                 List<string> tt1 = ProductDB.Find(d => d.ID != "").ToList().Select(s => s.ID).ToList();
                 Update_template.Items.Clear();
                 foreach (string item in tt1)
@@ -549,6 +542,26 @@ namespace EliteFlower
                 chbDelete.Checked = true;
 
                 flagDelete = true;
+
+                if (S1_T1.Enabled == true)
+                {
+                    S1_T1.Enabled = false;
+                    S1_T2.Enabled = false;
+                    S1_T3.Enabled = false;
+
+                    S2_T1.Enabled = false;
+                    S2_T2.Enabled = false;
+                    S2_T3.Enabled = false;
+
+                    S3_T1.Enabled = false;
+                    S3_T2.Enabled = false;
+                    S3_T3.Enabled = false;
+                }
+
+                CB_AD1.Enabled = false;
+                CB_AD2.Enabled= false;
+                CB_AD3.Enabled = false;
+
             }
             RefreshCRUD();
 
@@ -563,40 +576,16 @@ namespace EliteFlower
         private static List<Btemplate> GetTemplate(string texto)
         {
 
-            Console.WriteLine(texto);
-
-
             MongoClient client = Mongoose.GetDBConnection();
             IMongoDatabase database = Mongoose.GetDataBase(client);
             IMongoCollection<Btemplate> TemplateDB = database.GetCollection<Btemplate>("BalanceTemplate");
-            //List<Btemplate> doc = TemplateDB.Find(f => f._id== 1).ToList();
 
             List<Btemplate> doc = TemplateDB.Find(d => d.ID == texto).ToList();
             string id = doc[0].ID;
             string[] temp = doc[0].Template;
-            Console.WriteLine(id);
-
-            for (int i = 0; i < temp.Length; i++)
-            {
-                Console.WriteLine(temp[i]);
-            }
-
-
-
+            string[] add_on = doc[0].Add_on;
 
             Console.WriteLine(doc);
-            //List<Statics> Static = StaticsDB.Find(s => s.BalancedWork).ToList();
-
-            //Console.WriteLine(documents.ToString());
-
-            //foreach (var doc in documents)
-            //{               
-            //        var vases = doc.GetValue(i);         
-            //    Console.WriteLine(vases);
-
-            //
-            //
-
 
             return doc;
         }
@@ -617,6 +606,7 @@ namespace EliteFlower
                 string id = doc[0].ID;
                 string[] temp = doc[0].Template;
                 string[] per = doc[0].Percentage;
+                string[] add_on= doc[0].Add_on;
 
                 CB_ID1_1.Text = temp[0];
                 CB_ID2_1.Text = temp[1];
@@ -642,10 +632,10 @@ namespace EliteFlower
                 S3_T1.Text = per[6];
                 S3_T2.Text = per[7];
                 S3_T3.Text = per[8];
-            }
-            else
-            {
-                //Console.Write("texto vacio");
+
+                CB_AD1.Text = add_on[0];
+                CB_AD2.Text = add_on[1];
+                CB_AD3.Text = add_on[2];
             }
 
         }
@@ -665,10 +655,7 @@ namespace EliteFlower
                 {
                     if (IdDelete != null)
                     {
-                        //List<string> tt = ProductDB.Find(f => f.ID == IdDelete).ToList().Select(s => s.Url).ToList();
-                        //FileInfo info = new FileInfo(tt[0]);
-                        //if (info.Exists)
-                        //    info.Delete();
+
                         ProductDB.DeleteOne(d => d.ID == IdDelete);
 
                         MessageBox.Show(string.Format(UIMessages.AddProduct(7, _EnglishChecked), IdDelete), UIMessages.AddProduct(18, _EnglishChecked), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -679,7 +666,6 @@ namespace EliteFlower
                         {
                             Del_Template.Items.Add(item);
                         }
-                        //pcbDelete.Image = pcbDelete.InitialImage;
                     }
                     else
                     {
@@ -748,14 +734,7 @@ namespace EliteFlower
             string[] Vases = nameVS.ToArray();
             string[] CB_text = { CB1, CB2, CB3, CB4, CB5, CB6, CB7, CB8, CB9 };
             int[] p_values = { p1, p2, p3, p4, p5, p6, p7, p8, p9 };
-            //string[] Vases = { "GINGER", "LARGE", "SLENDER"};
 
-            //Console.WriteLine( "Master products="); 
-
-            //for (int i = 0; i < Vases.Length; i++)
-            //{
-            //    Console.WriteLine(Vases[i]);
-            //}
 
             for (int i = 0; i < Vases.Length; i++)
             {
@@ -790,7 +769,7 @@ namespace EliteFlower
 
         private void CB_ID1_1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID1_1.SelectedItem == "NV")
+            if (CB_ID1_1.Text == "NV")
             {
                 S1_T1.Enabled = false;
             }
@@ -803,7 +782,7 @@ namespace EliteFlower
 
         private void CB_ID2_1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID2_1.SelectedItem == "NV")
+            if (CB_ID2_1.Text == "NV")
             {
                 S1_T2.Enabled = false;
             }
@@ -815,7 +794,7 @@ namespace EliteFlower
 
         private void CB_ID3_1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID3_1.SelectedItem == "NV")
+            if (CB_ID3_1.Text == "NV")
             {
                 S1_T3.Enabled = false;
             }
@@ -827,7 +806,7 @@ namespace EliteFlower
 
         private void CB_ID1_2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID1_2.SelectedItem == "NV")
+            if (CB_ID1_2.Text == "NV")
             {
                 S2_T1.Enabled = false;
             }
@@ -839,7 +818,7 @@ namespace EliteFlower
 
         private void CB_ID2_2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID2_2.SelectedItem == "NV")
+            if (CB_ID2_2.Text == "NV")
             {
                 S2_T2.Enabled = false;
             }
@@ -851,7 +830,7 @@ namespace EliteFlower
 
         private void CB_ID3_2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID3_2.SelectedItem == "NV")
+            if (CB_ID3_2.Text == "NV")
             {
                 S2_T3.Enabled = false;
             }
@@ -863,7 +842,7 @@ namespace EliteFlower
 
         private void CB_ID1_3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID1_3.SelectedItem == "NV")
+            if (CB_ID1_3.Text == "NV")
             {
                 S3_T1.Enabled = false;
             }
@@ -875,7 +854,7 @@ namespace EliteFlower
 
         private void CB_ID2_3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CB_ID2_3.SelectedItem == "NV")
+            if (CB_ID2_3.Text == "NV")
             {
                 S3_T2.Enabled = false;
             }
@@ -887,7 +866,7 @@ namespace EliteFlower
 
         private void CB_ID3_3_SelectedIndexChanged(object sender, EventArgs e) 
         {
-            if (CB_ID3_3.SelectedItem == "NV")
+            if (CB_ID3_3.Text == "NV")
             {
                 S3_T3.Enabled = false;
             }
@@ -895,6 +874,21 @@ namespace EliteFlower
             {
                 S3_T3.Enabled = true;
             }
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

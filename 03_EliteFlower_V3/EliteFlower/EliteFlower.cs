@@ -3769,10 +3769,6 @@ namespace EliteFlower
             Console.WriteLine(lista[0]);
             //----------------------------------------------------------------------//
 
-<<<<<<< HEAD
-=======
-            //Mongoose.LoadExcel(ofdFilename, "Data");
->>>>>>> 4Vases
             Mongoose.SetFileNameML(ofdFilename, false, lblPath.Text);
 
             Mongoose.DeleteCountIDs("Data");
@@ -5156,7 +5152,7 @@ namespace EliteFlower
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
+             
             void checkBox1_Click()
             {
                 switch (checkBox1.CheckState)
@@ -5208,6 +5204,7 @@ namespace EliteFlower
             List<Btemplate> doc = TemplateDB.Find(d => d.ID == texto).ToList();
             string id = doc[0].ID;
             string[] temp = doc[0].Template;
+            string[] add_on = doc[0].Add_on;
 
             return doc;
         }
@@ -5228,6 +5225,7 @@ namespace EliteFlower
                 string id = doc[0].ID;
                 string[] temp = doc[0].Template;
                 //string[] per = doc[0].Percentage;
+                string[] add_on = doc[0].Add_on;
 
                 cbWorker11.Text = temp[0];
                 cbWorker12.Text = temp[1];
@@ -5253,11 +5251,11 @@ namespace EliteFlower
                 //S3_T1.Text = per[6];
                 //S3_T2.Text = per[7];
                 //S3_T3.Text = per[8];
+
+                cbAddon11.Text = add_on[0];
+                cbAddon12.Text = add_on[1];
+                cbAddon13.Text = add_on[2];
             }
-            //else
-            //{
-            //    //Console.Write("texto vacio");
-            //}
 
         }
 
