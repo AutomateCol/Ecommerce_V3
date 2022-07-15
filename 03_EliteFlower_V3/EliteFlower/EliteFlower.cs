@@ -4954,6 +4954,7 @@ namespace EliteFlower
             List<int> true_indexes = WorkersChecked.Select((value, index) => value ? index : -1).Where(o => o >= 0).ToList();
             List<int> false_indexes = int_indexes.Except(true_indexes).ToList();
             int ManualCheck = chb_manual.Checked ? 1 : 0;
+            int BT = checkBox1.Checked ? 1 : 0;
             string[] SV = new string[] {
                 this.cbWorker11.GetItemText(this.cbWorker11.SelectedItem),
                 this.cbWorker12.GetItemText(this.cbWorker12.SelectedItem),
@@ -4973,6 +4974,7 @@ namespace EliteFlower
 
             var FileName = $"{string.Format(UIMessages.EliteFlower(11, mnuELEnglish.Checked), Mongoose.GetFileNameML())}";
             var FilePath = lblPath.Text = $"{Mongoose.GetFilePath()}";
+            var Tname = CB_Template.Text;
             Console.Write("File Name: ");
             Console.WriteLine(FileName);
             Console.Write("excel path: ");
@@ -4987,9 +4989,9 @@ namespace EliteFlower
 
             var script = @"D:\GitHub\EliteFlowerDeploy_V3\03_EliteFlower_V3\Balanceo\Balanceo.py";
             var var_ext_estaciones_slc = new List<int> { '2', '3', '1' };
-            psi.Arguments = string.Format("\"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" \"{6}\" \"{7}\" \"{8}\" \"{9}\" \"{10}\" \"{11}\" \"{12}\" \"{13}\" \"{14}\"",
+            psi.Arguments = string.Format("\"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" \"{6}\" \"{7}\" \"{8}\" \"{9}\" \"{10}\" \"{11}\" \"{12}\" \"{13}\" \"{14}\" \"{15}\" \"{16}\"",
                                            script, WorkersChecked[0], WorkersChecked[1], WorkersChecked[2], FilePath, ManualCheck,
-                                           SV[0], SV[1], SV[2], SV[3], SV[4], SV[5], SV[6], SV[7], SV[8]);
+                                           SV[0], SV[1], SV[2], SV[3], SV[4], SV[5], SV[6], SV[7], SV[8], Tname , BT);
             Console.WriteLine("Argumentos ");
             Console.WriteLine(psi.Arguments);
             //psi.Arguments = $"\"{script}\"\"{WorkersChecked[0]}\"\"{WorkersChecked[1]}\"\"{WorkersChecked[2]}\"";

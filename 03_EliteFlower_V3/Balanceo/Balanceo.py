@@ -9,6 +9,7 @@ Original file is located at
 from audioop import reverse
 from itertools import combinations, count
 import json
+from lib2to3.pgen2.token import tok_name
 from lib2to3.pytree import convert
 from multiprocessing import connection
 from os import getcwd
@@ -1233,8 +1234,8 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   Cantidades = doc["Percentage"]
 
   print(f'T_DIstribucion estaciones = {T_Distribucion_estaciones}')
-  print(Cantidades)
-  print(Vases_ID)
+  print(f' Cantidades {Cantidades}')
+  print(f' Vases ID = {Vases_ID}')
   print(Vases_type_num) 
   print(Vases_count)
   
@@ -1309,19 +1310,15 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   i = 0
   Vases_aux = np.zeros((Vases_ID.size), dtype=int)
   print(f'vases aux = {Vases_aux}')
+  #ciclo para llenar las posiciones de los elevadores con la cantidad de vases
+  #indicada tomando en consideracion el desface al aproximar a entero
   for vase in T_Distribucion_estaciones:
     lista_aux = []
     lista_dic = cantidades_asignadas[vase]
     # print(f'lista dic = {lista_dic}')
     pos = list(Vases_ID).index(vase)
-    # print(f'pos = {pos}')
-    # print(Vases_aux[pos])
     c = lista_dic[Vases_aux[pos]]
-    #print(f'c = {c}')
     Vases_aux[pos] += 1
-    #print(f'vases aux = {Vases_aux}')
-
-    #print(f'a = {a}, b = {b}, c = {c}')
     i += 1
     for j in range(c):
       lista_aux.append(i) #lista auxiliar de tamaño C con las posiciones del elevador marcado
@@ -1329,8 +1326,10 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
 
  # se hace el llenado de la lista de elevadores, con la cantidad de vases
  # por elevador
-  i = 0
-  for t in range(len(Vases_ID[i])-1):
+ 
+  
+  for t in range(len(Vases_ID)):
+    print(f't = {t}')
     lista_aux = []
     vase = Vases_ID[t]
     #print(f'vase = {vase}')
@@ -1352,7 +1351,7 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
 
 
   
- #print(elevador_ID)
+  print(len(elevador_ID))
   print('fin manual\n')
   
   return elevadores_asignados, elevador_ID, T_Distribucion_estaciones
@@ -1363,7 +1362,7 @@ Balance Automatico
 
 """
 
-def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
+def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, BT):
 
 
 
@@ -1534,10 +1533,12 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   print(f'Vases ID : {Vases_ID}')
   print(f'Vases Type Num : {Vases_type_num}')
   print(f'Vases Count : {Vases_count}')
-  manualF = True
-  if (manualF):
-    elevadores_asignados, elevador_ID, Distribucion_estaciones = balanceo_Manual("Prueba2", Vases_ID, Vases_count, Vases_type_num)
+
+  if (BT == '1'):
+    print('\n\n\n se realiza balanceo manual\n\n\n')
+    elevadores_asignados, elevador_ID, Distribucion_estaciones = balanceo_Manual(tName, Vases_ID, Vases_count, Vases_type_num)
   else:
+    print('\n\n\nse realiza balanceo automatico\n\n\n')
     if Vases_type_num == 1:
       elevadores_asignados, elevador_ID = balanceo_1_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, manual)
     elif Vases_type_num == 2:
@@ -1597,14 +1598,14 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   base_datos_output = []
 
 
-
   for w in range(len(Vases_ID)):
+    print(f'w --> {w}, len elevador ID= {len(elevador_ID[w])}')
     CdB = Barcodes[w]
     V_ID = Vases_ID[w]
     AO_ID = AddOn_List[w]
     ELEV_ID = elevador_ID[w]
     LED_AO = Led_ID[w]
-    print(f'w --> {w}, len elevador ID= {len(elevador_ID[w])}')
+
 
     for q in range(Vases_count[w]):
       #print(f'w = {w}, q = {q}')
@@ -1780,7 +1781,8 @@ def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaci
 
 
 dp = 'D:\GitHub\EliteFlowerDeploy_V3\03_EliteFlower_V3'   # direccion del proyecto
-
+tName = sys.argv[15]
+BT = sys.argv[16]
 
 #dp = getcwd(
 var_ext_estaciones_slc = [sys.argv[1],sys.argv[2],sys.argv[3]]
@@ -1801,6 +1803,8 @@ for  i in range(9):
   SV.append(sys.argv[i+6])
 
 print(SV)  
+print(f'Bal Template = {BT}, Nombre Balance template = {tName}')
+
 #print(df)
 s = 'True'
 #print(len(var_ext_estaciones_slc))
@@ -1817,13 +1821,13 @@ for item in var_ext_estaciones_slc:
 
 #print(estaciones_activas) 
 
-balanced_Data = balanceo_automatico(estaciones_activas,df, manual, SV)
-# print("Data balanceda = ")
-# #for item in balanced_Data:
-#  # print((item))
+balanced_Data = balanceo_automatico(estaciones_activas,df, manual, SV, tName, BT)
+print("Data balanceda = ")
+#for item in balanced_Data:
+ # print((item))
   
-# "BARCODE_NUMBER", "VASE_ID", "ELEVATOR_ASIGN","ADD_ON_ID","LED_ASIGN"
-# for i in range(11):
+"BARCODE_NUMBER", "VASE_ID", "ELEVATOR_ASIGN","ADD_ON_ID","LED_ASIGN"
+for i in range(11):
 
-#   print(balanced_Data[i])
-# get_database(balanced_Data)
+  print(balanced_Data[i])
+get_database(balanced_Data)
