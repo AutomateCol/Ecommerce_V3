@@ -1233,6 +1233,15 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   T_Distribucion_estaciones = doc["Configuration"]
   Cantidades = doc["Percentage"]
 
+
+  for j in range(len(T_Distribucion_estaciones)):
+    print(T_Distribucion_estaciones[j])
+    if  T_Distribucion_estaciones[j] == 'NV':
+      T_Distribucion_estaciones[j] = '-1'
+    else:
+      pass
+    
+
   print(f'T_DIstribucion estaciones = {T_Distribucion_estaciones}')
   print(f' Cantidades {Cantidades}')
   print(f' Vases ID = {Vases_ID}')
@@ -1240,11 +1249,7 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   print(Vases_count)
   
 
-  for vase in T_Distribucion_estaciones:
-    if vase == "NV":
-      pass
-    else:
-      pass
+ 
       
  
   elevadores_asignados = []
@@ -1267,24 +1272,31 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   d_list = []
   p_list = []
   for vase in T_Distribucion_estaciones:
-    p = list(Vases_ID).index(vase)  
-    p_list.append(p)
-    a = Vases_count[p]
-    b = int(Cantidades[i])/100
-    i += 1
-   # print(f'a = {a}, b = {b}')
-    c = round(a*b)
-    c_list.append(c)
-    d_list.append(c-a*b)
+    if vase != '-1':
+      p = list(Vases_ID).index(vase)  
+      p_list.append(p)
+      a = Vases_count[p]
+      b = int(Cantidades[i])/100
+      i += 1
+    # print(f'a = {a}, b = {b}')
+      c = round(a*b)
+      c_list.append(c)
+    else:
+      c_list.append(0)
+      p_list.append('-1')
+      i+= 1
   
-  #print(f'p_list = {p_list}')
+  print(f'p_list = {p_list}')
   suma = 0
   cantidades_asignadas = defaultdict(list)
   for j in range(len(p_list)):
-    key = Vases_ID[p_list[j]]
-    cantidades_asignadas[key].append(c_list[j])
+    if p_list[j] =='-1':
+      cantidades_asignadas['-1'].append(0)
+    else:
+      key = Vases_ID[p_list[j]]
+      cantidades_asignadas[key].append(c_list[j])
   
-
+  print(f'cantidades asignadas = {cantidades_asignadas}')
   #print(f'C list = {c_list}')
 
 # ciclo para obtener los desfaces en las cantidades de los porcentajes y ajustarlo
@@ -1313,16 +1325,20 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   #ciclo para llenar las posiciones de los elevadores con la cantidad de vases
   #indicada tomando en consideracion el desface al aproximar a entero
   for vase in T_Distribucion_estaciones:
-    lista_aux = []
-    lista_dic = cantidades_asignadas[vase]
-    # print(f'lista dic = {lista_dic}')
-    pos = list(Vases_ID).index(vase)
-    c = lista_dic[Vases_aux[pos]]
-    Vases_aux[pos] += 1
-    i += 1
-    for j in range(c):
-      lista_aux.append(i) #lista auxiliar de tamaño C con las posiciones del elevador marcado
-    elevador_ID_aux.append(lista_aux)
+    if vase != 'NV':
+      lista_aux = []
+      lista_dic = cantidades_asignadas[vase]
+      # print(f'lista dic = {lista_dic}')
+      pos = list(Vases_ID).index(vase)
+      c = lista_dic[Vases_aux[pos]]
+      Vases_aux[pos] += 1
+      i += 1
+      for j in range(c):
+        lista_aux.append(i) #lista auxiliar de tamaño C con las posiciones del elevador marcado
+      elevador_ID_aux.append(lista_aux)
+    else:
+      lista_aux = []
+      elevador_ID_aux.append(lista_aux)
 
  # se hace el llenado de la lista de elevadores, con la cantidad de vases
  # por elevador
@@ -1335,6 +1351,7 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
     #print(f'vase = {vase}')
     #p = list(T_Distribucion_estaciones).index(vase)
     gen = [p for p, v in enumerate(T_Distribucion_estaciones) if v == vase]  
+    print(f'gen = {gen}')
     if vase == '-1':
       for i in range(Vases_count[t]):
         lista_aux.append(-1)
@@ -1826,8 +1843,8 @@ print("Data balanceda = ")
 #for item in balanced_Data:
  # print((item))
   
-"BARCODE_NUMBER", "VASE_ID", "ELEVATOR_ASIGN","ADD_ON_ID","LED_ASIGN"
-for i in range(11):
+# "BARCODE_NUMBER", "VASE_ID", "ELEVATOR_ASIGN","ADD_ON_ID","LED_ASIGN"
+# for i in range(11):
 
-  print(balanced_Data[i])
-get_database(balanced_Data)
+#   print(balanced_Data[i])
+# get_database(balanced_Data)
