@@ -9,6 +9,7 @@ Original file is located at
 from audioop import reverse
 from itertools import combinations, count
 import json
+from lib2to3.pgen2.token import tok_name
 from lib2to3.pytree import convert
 from multiprocessing import connection
 from os import getcwd
@@ -1232,18 +1233,23 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   T_Distribucion_estaciones = doc["Configuration"]
   Cantidades = doc["Percentage"]
 
+
+  for j in range(len(T_Distribucion_estaciones)):
+    print(T_Distribucion_estaciones[j])
+    if  T_Distribucion_estaciones[j] == 'NV':
+      T_Distribucion_estaciones[j] = '-1'
+    else:
+      pass
+    
+
   print(f'T_DIstribucion estaciones = {T_Distribucion_estaciones}')
-  print(Cantidades)
-  print(Vases_ID)
+  print(f' Cantidades {Cantidades}')
+  print(f' Vases ID = {Vases_ID}')
   print(Vases_type_num) 
   print(Vases_count)
   
 
-  for vase in T_Distribucion_estaciones:
-    if vase == "NV":
-      pass
-    else:
-      pass
+ 
       
  
   elevadores_asignados = []
@@ -1259,33 +1265,93 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
   print(f'elevadores asignados {elevadores_asignados}')
 
   elevador_ID = []
-  print(elevador_ID)
   lista_aux = []
   elevador_ID_aux = []
   i = 0
+  c_list = []
   d_list = []
+  p_list = []
   for vase in T_Distribucion_estaciones:
-    lista_aux = []
-    p = list(Vases_ID).index(vase)  
-    a = Vases_count[p]
-    b = int(Cantidades[i])/100
-    c = round(a*b)
-    d = c-a*b #excedente del redondeo
-    #print(f'a = {a}, b = {b}, c = {c}')
-    i += 1
-    for j in range(c):
-      lista_aux.append(i) #lista auxiliar de tamaño C con las posiciones del elevador marcado
-    d_list.append(d)  # lista con sobrante del redondeo, para restarlo mas adelante e igual cantidades   
-    elevador_ID_aux.append(lista_aux)
- 
- 
+    if vase != '-1':
+      p = list(Vases_ID).index(vase)  
+      p_list.append(p)
+      a = Vases_count[p]
+      b = int(Cantidades[i])/100
+      i += 1
+    # print(f'a = {a}, b = {b}')
+      c = round(a*b)
+      c_list.append(c)
+    else:
+      c_list.append(0)
+      p_list.append('-1')
+      i+= 1
+  
+  print(f'p_list = {p_list}')
+  suma = 0
+  cantidades_asignadas = defaultdict(list)
+  for j in range(len(p_list)):
+    if p_list[j] =='-1':
+      cantidades_asignadas['-1'].append(0)
+    else:
+      key = Vases_ID[p_list[j]]
+      cantidades_asignadas[key].append(c_list[j])
+  
+  print(f'cantidades asignadas = {cantidades_asignadas}')
+  #print(f'C list = {c_list}')
+
+# ciclo para obtener los desfaces en las cantidades de los porcentajes y ajustarlo
+# a un numero entero
+  for vase in Vases_ID:
+    if vase != '-1':
+      suma = 0
+      surplus = 0
+      lista_aux = []
+      for item in cantidades_asignadas[vase]:
+        suma += item
+      cant = Vases_count[list(Vases_ID).index(vase)]
+      if suma == cant:
+        pass
+      else:
+        surplus = cant - suma
+        lista_aux = cantidades_asignadas[vase]
+        lista_aux[0] += surplus
+        cantidades_asignadas[vase] = lista_aux
+
+  print(f'dic = {cantidades_asignadas}')
+
   i = 0
-  for t in range(len(Vases_ID[i])-1):
+  Vases_aux = np.zeros((Vases_ID.size), dtype=int)
+  print(f'vases aux = {Vases_aux}')
+  #ciclo para llenar las posiciones de los elevadores con la cantidad de vases
+  #indicada tomando en consideracion el desface al aproximar a entero
+  for vase in T_Distribucion_estaciones:
+    if vase != 'NV':
+      lista_aux = []
+      lista_dic = cantidades_asignadas[vase]
+      # print(f'lista dic = {lista_dic}')
+      pos = list(Vases_ID).index(vase)
+      c = lista_dic[Vases_aux[pos]]
+      Vases_aux[pos] += 1
+      i += 1
+      for j in range(c):
+        lista_aux.append(i) #lista auxiliar de tamaño C con las posiciones del elevador marcado
+      elevador_ID_aux.append(lista_aux)
+    else:
+      lista_aux = []
+      elevador_ID_aux.append(lista_aux)
+
+ # se hace el llenado de la lista de elevadores, con la cantidad de vases
+ # por elevador
+ 
+  
+  for t in range(len(Vases_ID)):
+    print(f't = {t}')
     lista_aux = []
     vase = Vases_ID[t]
     #print(f'vase = {vase}')
     #p = list(T_Distribucion_estaciones).index(vase)
     gen = [p for p, v in enumerate(T_Distribucion_estaciones) if v == vase]  
+    print(f'gen = {gen}')
     if vase == '-1':
       for i in range(Vases_count[t]):
         lista_aux.append(-1)
@@ -1302,7 +1368,7 @@ def balanceo_Manual(tName, Vases_ID, Vases_count,Vases_type_num):
 
 
   
- #print(elevador_ID)
+  print(len(elevador_ID))
   print('fin manual\n')
   
   return elevadores_asignados, elevador_ID, T_Distribucion_estaciones
@@ -1313,7 +1379,7 @@ Balance Automatico
 
 """
 
-def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
+def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, BT):
 
 
 
@@ -1485,28 +1551,32 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   print(f'Vases Type Num : {Vases_type_num}')
   print(f'Vases Count : {Vases_count}')
 
-  if Vases_type_num == 1:
-    elevadores_asignados, elevador_ID = balanceo_1_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, manual)
-  elif Vases_type_num == 2:
-    elevadores_asignados, elevador_ID = balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 3:
-    elevadores_asignados, elevador_ID = balanceo_3_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 4:
-    elevadores_asignados, elevador_ID = balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 5:
-    elevadores_asignados, elevador_ID = balanceo_5_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 6:
-    elevadores_asignados, elevador_ID = balanceo_6_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 7:
-    elevadores_asignados, elevador_ID = balanceo_7_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 8:
-    elevadores_asignados, elevador_ID = balanceo_8_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  elif Vases_type_num == 9:
-    elevadores_asignados, elevador_ID = balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
-  
-  manualF = True
-  if (manualF):
-    elevadores_asignados, elevador_ID, Distribucion_estaciones = balanceo_Manual("Prueba2", Vases_ID, Vases_count, Vases_type_num)
+  if (BT == '1'):
+    print('\n\n\n se realiza balanceo manual\n\n\n')
+    elevadores_asignados, elevador_ID, Distribucion_estaciones = balanceo_Manual(tName, Vases_ID, Vases_count, Vases_type_num)
+  else:
+    print('\n\n\nse realiza balanceo automatico\n\n\n')
+    if Vases_type_num == 1:
+      elevadores_asignados, elevador_ID = balanceo_1_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, manual)
+    elif Vases_type_num == 2:
+      elevadores_asignados, elevador_ID = balanceo_2_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 3:
+      elevadores_asignados, elevador_ID = balanceo_3_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 4:
+      elevadores_asignados, elevador_ID = balanceo_4_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 5:
+      elevadores_asignados, elevador_ID = balanceo_5_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 6:
+      elevadores_asignados, elevador_ID = balanceo_6_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 7:
+      elevadores_asignados, elevador_ID = balanceo_7_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 8:
+      elevadores_asignados, elevador_ID = balanceo_8_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    elif Vases_type_num == 9:
+      elevadores_asignados, elevador_ID = balanceo_9_vase(cant_st,var_ext_estaciones_slc, Distribucion_estaciones, Vases_ID, Vases_type_num, Vases_count, sort_cantidades, total_con_vase, Cantidades, manual)
+    
+
+
   set_ID = []
   cant_ID = []
   lista_aux = []
@@ -1545,14 +1615,14 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV):
   base_datos_output = []
 
 
-
   for w in range(len(Vases_ID)):
+    print(f'w --> {w}, len elevador ID= {len(elevador_ID[w])}')
     CdB = Barcodes[w]
     V_ID = Vases_ID[w]
     AO_ID = AddOn_List[w]
     ELEV_ID = elevador_ID[w]
     LED_AO = Led_ID[w]
-    print(f'w --> {w}, len elevador ID= {len(elevador_ID[w])}')
+
 
     for q in range(Vases_count[w]):
       #print(f'w = {w}, q = {q}')
@@ -1728,7 +1798,8 @@ def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaci
 
 
 dp = 'D:\GitHub\EliteFlowerDeploy_V3\03_EliteFlower_V3'   # direccion del proyecto
-
+tName = sys.argv[15]
+BT = sys.argv[16]
 
 #dp = getcwd(
 var_ext_estaciones_slc = [sys.argv[1],sys.argv[2],sys.argv[3]]
@@ -1749,6 +1820,8 @@ for  i in range(9):
   SV.append(sys.argv[i+6])
 
 print(SV)  
+print(f'Bal Template = {BT}, Nombre Balance template = {tName}')
+
 #print(df)
 s = 'True'
 #print(len(var_ext_estaciones_slc))
@@ -1765,10 +1838,10 @@ for item in var_ext_estaciones_slc:
 
 #print(estaciones_activas) 
 
-balanced_Data = balanceo_automatico(estaciones_activas,df, manual, SV)
-# print("Data balanceda = ")
-# #for item in balanced_Data:
-#  # print((item))
+balanced_Data = balanceo_automatico(estaciones_activas,df, manual, SV, tName, BT)
+print("Data balanceda = ")
+#for item in balanced_Data:
+ # print((item))
   
 # "BARCODE_NUMBER", "VASE_ID", "ELEVATOR_ASIGN","ADD_ON_ID","LED_ASIGN"
 # for i in range(11):

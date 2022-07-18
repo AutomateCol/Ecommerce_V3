@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -53,6 +53,21 @@ namespace EliteFlower
          //Función que permite que los combox carguen información de la base de datos
         private void BalanceTemplate_Load_Data()
         {
+
+
+             
+            //Mongoose.DeleteCountIDs("Data");
+            //Mongoose.DeleteIDAddOn();
+            //Mongoose.LoadCountIDs("Data", 1);
+            //Mongoose.GetDistinctAddOn("Data", 10);
+
+            //Mongoose.SetWorkUpFalse();
+            //Mongoose.SetWorkMesaninFalse();
+
+
+            Mongoose.LoadCountIDs("Data", 1);
+            Mongoose.GetDistinctAddOn("Data", 10);
+
 
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
