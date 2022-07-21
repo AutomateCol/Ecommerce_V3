@@ -60,6 +60,12 @@ namespace EliteFlower
             this.S3_T2 = new System.Windows.Forms.TextBox();
             this.S3_T3 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.CB_AD1 = new System.Windows.Forms.ComboBox();
+            this.CB_AD2 = new System.Windows.Forms.ComboBox();
+            this.CB_AD3 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // CB_ID3_3
@@ -181,7 +187,7 @@ namespace EliteFlower
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(430, 95);
+            this.textBox1.Location = new System.Drawing.Point(548, 97);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(237, 22);
@@ -192,7 +198,7 @@ namespace EliteFlower
             // 
             this.chbDelete.AutoSize = true;
             this.chbDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbDelete.Location = new System.Drawing.Point(430, 315);
+            this.chbDelete.Location = new System.Drawing.Point(689, 342);
             this.chbDelete.Margin = new System.Windows.Forms.Padding(4);
             this.chbDelete.Name = "chbDelete";
             this.chbDelete.Size = new System.Drawing.Size(96, 29);
@@ -205,7 +211,7 @@ namespace EliteFlower
             // 
             this.chbCreate.AutoSize = true;
             this.chbCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbCreate.Location = new System.Drawing.Point(430, 242);
+            this.chbCreate.Location = new System.Drawing.Point(689, 269);
             this.chbCreate.Margin = new System.Windows.Forms.Padding(4);
             this.chbCreate.Name = "chbCreate";
             this.chbCreate.Size = new System.Drawing.Size(98, 29);
@@ -217,7 +223,7 @@ namespace EliteFlower
             // Del_Template
             // 
             this.Del_Template.FormattingEnabled = true;
-            this.Del_Template.Location = new System.Drawing.Point(430, 95);
+            this.Del_Template.Location = new System.Drawing.Point(548, 95);
             this.Del_Template.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Del_Template.Name = "Del_Template";
             this.Del_Template.Size = new System.Drawing.Size(237, 24);
@@ -251,7 +257,7 @@ namespace EliteFlower
             // Update_template
             // 
             this.Update_template.FormattingEnabled = true;
-            this.Update_template.Location = new System.Drawing.Point(430, 95);
+            this.Update_template.Location = new System.Drawing.Point(548, 95);
             this.Update_template.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Update_template.Name = "Update_template";
             this.Update_template.Size = new System.Drawing.Size(237, 24);
@@ -273,7 +279,7 @@ namespace EliteFlower
             // 
             this.chbUpdate.AutoSize = true;
             this.chbUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbUpdate.Location = new System.Drawing.Point(430, 278);
+            this.chbUpdate.Location = new System.Drawing.Point(689, 305);
             this.chbUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.chbUpdate.Name = "chbUpdate";
             this.chbUpdate.Size = new System.Drawing.Size(103, 29);
@@ -365,11 +371,77 @@ namespace EliteFlower
             this.label4.TabIndex = 59;
             this.label4.Text = "LOAD %";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(350, 257);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(61, 17);
+            this.label14.TabIndex = 62;
+            this.label14.Text = "Addon 3";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(350, 186);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(61, 17);
+            this.label15.TabIndex = 60;
+            this.label15.Text = "Addon 1";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(350, 221);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(61, 17);
+            this.label16.TabIndex = 61;
+            this.label16.Text = "Addon 2";
+            this.label16.Click += new System.EventHandler(this.label16_Click);
+            // 
+            // CB_AD1
+            // 
+            this.CB_AD1.FormattingEnabled = true;
+            this.CB_AD1.Location = new System.Drawing.Point(433, 180);
+            this.CB_AD1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CB_AD1.Name = "CB_AD1";
+            this.CB_AD1.Size = new System.Drawing.Size(121, 24);
+            this.CB_AD1.TabIndex = 13;
+            this.CB_AD1.SelectedIndexChanged += new System.EventHandler(this.CB_ID1_1_SelectedIndexChanged);
+            // 
+            // CB_AD2
+            // 
+            this.CB_AD2.FormattingEnabled = true;
+            this.CB_AD2.Location = new System.Drawing.Point(433, 217);
+            this.CB_AD2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CB_AD2.Name = "CB_AD2";
+            this.CB_AD2.Size = new System.Drawing.Size(121, 24);
+            this.CB_AD2.TabIndex = 13;
+            this.CB_AD2.SelectedIndexChanged += new System.EventHandler(this.CB_ID1_1_SelectedIndexChanged);
+            // 
+            // CB_AD3
+            // 
+            this.CB_AD3.FormattingEnabled = true;
+            this.CB_AD3.Location = new System.Drawing.Point(433, 255);
+            this.CB_AD3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CB_AD3.Name = "CB_AD3";
+            this.CB_AD3.Size = new System.Drawing.Size(121, 24);
+            this.CB_AD3.TabIndex = 13;
+            this.CB_AD3.SelectedIndexChanged += new System.EventHandler(this.CB_ID1_1_SelectedIndexChanged);
+            // 
             // BalanceTemplate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.S3_T3);
             this.Controls.Add(this.S3_T2);
@@ -398,11 +470,14 @@ namespace EliteFlower
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.CB_AD3);
+            this.Controls.Add(this.CB_AD2);
+            this.Controls.Add(this.CB_AD1);
             this.Controls.Add(this.CB_ID1_1);
             this.Controls.Add(this.Del_Template);
             this.Controls.Add(this.btnDelete);
             this.Name = "BalanceTemplate";
-            this.Text = "BalanceTemplate";
+            this.Text = "  ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BalanceTemplate_FormClosed);
             this.Load += new System.EventHandler(this.BalanceTemplate_Load_1);
             this.ResumeLayout(false);
@@ -443,5 +518,11 @@ namespace EliteFlower
         private System.Windows.Forms.TextBox S3_T2;
         private System.Windows.Forms.TextBox S3_T3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox CB_AD1;
+        private System.Windows.Forms.ComboBox CB_AD2;
+        private System.Windows.Forms.ComboBox CB_AD3;
     }
 }

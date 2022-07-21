@@ -70,9 +70,13 @@
     Creado por:         Santiago Lópéz
     Modificado Por:     Santiago López
     Fecha creacion:     06/04/2021
-    Fecha modificacion: 3/03/2022
+    Fecha modificacion: 21/07/2022
     Written by AUTOMATE
     Copyright (c) 2022 AUTOMATE
+
+    Descripcion ultima modificación:
+    Se agrega el reset via software por medio del Watchdog
+    Enlazado al boton de soft reset en la interfaz de usuario
 */
 
 #include <SPI.h>
@@ -80,6 +84,7 @@
 #include <P1AM.h>
 #include <ArduinoRS485.h>   // ArduinoModbus depends on the ArduinoRS485 library
 #include <ArduinoModbus.h>
+
 
 
 #define _TASK_SLEEP_ON_IDLE_RUN
@@ -456,6 +461,10 @@ int PinReflexElev = 10;
 int SlotReflexElev = ENTELEVADOR2;
 
 
+//void(* resetFunc) (void) = 0;
+
+//resetFunc(); //call reset
+
 
 
 void tLeerSensoresElevadores()
@@ -500,6 +509,7 @@ int SerialCallback() {
     _PP("Auto = "); _PL(flagAutom);
     _PP("Manual = "); _PL(flagManual);
     _PP("Banda Estado = "); _PL(BandON);
+    _PP("Estado Reset = "); _PL(modbusTCPServer.coilRead(CoilExit));
 
     _PP("Estaciones Activas =  (");
     for (int jj = 0; jj < 3; jj++) {
@@ -661,6 +671,7 @@ void tCycleCallback()
   SerialCallback();
   leerSensores();
   offservo_exit();
+  
 
   if (P1.readDiscrete(ENTELEVADOR4, 2) == 1 && flag_wait_reset == false) {
     EMGFlag = true;  //no hay paro de emergencia
@@ -684,6 +695,7 @@ void tCycleCallback()
   }
   else if (modbusTCPServer.coilRead(CoilEMG) == true && EMGFlag == false) {
     _PL("Esperando Reset");
+    offservo_exit();
   }
 
 
@@ -2301,6 +2313,8 @@ void loop()
       digitalWrite(LED_BUILTIN, HIGH);
       EthernetClient client = server.available();
       bool connectflag = false;
+
+      _PL("Esperando Conexion");
       //verifica que los actuadores neumaticos esten en la posicion inicial y el motor del sorter esté apagado.
 
       if (client)
@@ -2330,7 +2344,7 @@ void loop()
           tCycle.disable();
           _PL("desconectado");
           connectflag = false;
-
+          offservo_exit();
         }
       }
     }
@@ -2915,6 +2929,19 @@ void  offservo_exit() {
     else {
       _PL("Servos Apagados");
     }
+    _PL("Se activa Reset PLC");
+    resetFunc(); //call reset
+
   }
 
+}
+void resetFunc() {
+  P1.configWD(100, TOGGLE);
+  P1.startWD();
+  while (true){
+    _PL("Esperando Watchdog");
+  }
+  // infinite loop without feeding the dog, should reset in 8ms
+  
+  //P1.petWD();  feed de dog to avoid watch dog reset
 }
