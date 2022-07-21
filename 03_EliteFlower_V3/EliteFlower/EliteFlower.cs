@@ -5253,9 +5253,9 @@ namespace EliteFlower
                 //S3_T2.Text = per[7];
                 //S3_T3.Text = per[8];
 
-                cbAddon11.Text = add_on[0];
-                cbAddon12.Text = add_on[1];
-                cbAddon13.Text = add_on[2];
+                //cbAddon11.Text = add_on[0];
+                //cbAddon12.Text = add_on[1];
+                //cbAddon13.Text = add_on[2];
             }
 
         }
@@ -5282,6 +5282,41 @@ namespace EliteFlower
             equal = vases.SequenceEqual(products);
 
             return equal;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (modbusElevadores.Available(2))
+                {
+                    modbusElevadores.Connect();
+                }
+
+                if (modbusElevadores.Connected)
+                {
+                    modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 91, true);
+                    btnServoON.Enabled = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
+                //Application.Exit();
+            }
+        }
+
+        private void chEnableReset_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chEnableReset.Checked)
+            {
+                btnReset.Enabled = true;
+            }
+            else
+            {
+                btnReset.Enabled = false;
+            }
         }
     }
 }
