@@ -311,26 +311,29 @@ namespace EliteFlower
         {
              try
             {
+                //lista combo box de trabajo
                 List<List<ComboBox>> comboStages = new List<List<ComboBox>>
                 {
                     new List<ComboBox> { cbWorker11, cbWorker12, cbWorker13 },
                     new List<ComboBox> { cbWorker21, cbWorker22, cbWorker23 },
                     new List<ComboBox> { cbWorker31, cbWorker32, cbWorker33 }
                 };
-
-                List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };
-                int AvailableWorkers = WorkersChecked.Where(c => c).Count();
+ 
+                List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };               //lista con los checkers de selección de estaciones
+                int AvailableWorkers = WorkersChecked.Where(c => c).Count();                //se identifican los seleccionados
                 List<int> true_indexes = WorkersChecked.Select((value, index) => value ? index : -1).Where(o => o >= 0).ToList();
-
                 List<int> countStages = new List<int>();
                 foreach (var item in true_indexes)
                 {
+                    Console.WriteLine(comboStages[item][0].Items.Count);
                     countStages.Add(comboStages[item].Select(s => s.SelectedIndex).Where(s => s == (comboStages[item][0].Items.Count - 1)).Count());
                 }
-
+                Console.WriteLine("count = " + countStages.Where(s => s == 3).ToList().Count());
+                Console.WriteLine("Available Workers" + AvailableWorkers);
                 if (countStages.Where(s => s == 3).ToList().Count() == 0 && AvailableWorkers > 0)
                 {
                     bool[] BandsChecked = new bool[] { chb_Band1.Checked, chb_Band2.Checked };
+
                     if (BandsChecked[0] == false && BandsChecked[1] == false)
                     {
                         throw new StartNoBandException();
@@ -338,6 +341,8 @@ namespace EliteFlower
                     else
                     {
                         workerUpForm = Mongoose.GetWorkUp();
+                        Console.WriteLine("workupform = " + workerUpForm);
+
                         if (workerUpForm == false)
                         {
                             if (MessageBox.Show(UIMessages.EliteFlower(3, mnuELEnglish.Checked), UIMessages.EliteFlower(58, mnuELEnglish.Checked), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -346,6 +351,7 @@ namespace EliteFlower
                                 List<float> quantityIDS = new List<float>();
                                 List<BalanceName> balance;
                                 float balancedStages;
+                                Console.WriteLine("balance check: " + balanceCheck);
                                 if (balanceCheck)
                                 {
                                     List<BalanceCount> balanceCount = Mongoose.GetDataBalanceCount();
@@ -474,7 +480,8 @@ namespace EliteFlower
                                                 msg += $"{item}\n";
                                             }
                                             msg += $"\n{UIMessages.EliteFlower(6, mnuELEnglish.Checked)}";
-                                            throw new StartNeedScannersException(msg);
+                                            
+                                            //throw new StartNeedScannersException(msg);
                                         }
                                     }
                                     else
@@ -490,6 +497,7 @@ namespace EliteFlower
                         }
                         else
                         {
+                            //Mensaje 
                             string msg = $"{UIMessages.EliteFlower(8, mnuELEnglish.Checked)}\n\n{UIMessages.EliteFlower(9, mnuELEnglish.Checked)}";
                             DialogResult dialogResult = MessageBox.Show(msg, UIMessages.EliteFlower(57, mnuELEnglish.Checked), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                             if (dialogResult == DialogResult.Yes)
@@ -1198,6 +1206,9 @@ namespace EliteFlower
                 Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
             }
         }
+
+        // Funcion que determina la acción que se debe tomar de acuerdo a la lectura del codigo de barras en la estación indicada
+
         private void DoActionSerialAddon(string entrymsg, bool Tracking, int nIndex, int nBand)
         {
             string responseAddon = Mongoose.GetSearchAddOn(entrymsg, Tracking);
@@ -1207,7 +1218,7 @@ namespace EliteFlower
                 modbusLuces.WriteMultipleCoils(COILS_LUCES + nIndex + 14 * nBand, new bool[] { false, false, false });
                 RefreshAddon(nBand, -1);
             }
-            else if (responseAddon == "ND")
+            else if (responseAddon == "ND") // ND means No Data
             {
                 new Task(() => SetCoilsAddonsND(nBand, 500, 500)).Start();
 
@@ -4936,12 +4947,27 @@ namespace EliteFlower
 
         private async void Bal_Python_Click(object sender, EventArgs e)
         {
-            ShowLoader("Balancing Data");
-            Task oTask2 = new Task(balanceo);
-            oTask2.Start();
-            await oTask2;
-            HideLoader();
-            ShowBalance();
+            try
+            {
+                ShowLoader("Balancing Data");
+                Task oTask2 = new Task(balanceo);
+                oTask2.Start();
+                await oTask2;
+                HideLoader();
+                ShowBalance();
+                balanceCheck = true;
+            }
+            catch (BalanceMoreStationsException exBalance)
+            {
+                Mongoose.LoadError(exBalance, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
+                MessageBox.Show(exBalance.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
+            }
+
+
         }
 
 

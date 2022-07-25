@@ -1662,7 +1662,10 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, B
  #panda_df
 
 
+  
   get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
+  setbWorkQuantity(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
+
   return base_datos_output
   """# Crear y cargar TXTs
   """
@@ -1726,7 +1729,48 @@ def get_database(data):
 def Convert(tup, di):
     di = dict(tup)
     return di
-    
+
+def setbWorkQuantity(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD,AddOn_ID, AddOn_count):
+  import pymongo
+  from collections import defaultdict
+  client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
+  db = client['EliteFlower']
+  Bwork = db.BWorkQuantity
+  Bwork.delete_many({}) #borra todos los elementos de la coleccion
+
+  dictionary = {} 
+  dic_sort_cant = Convert(sort_cantidades,dictionary)
+  for keys in dic_sort_cant:
+    dic_sort_cant[keys] = str(dic_sort_cant[keys])
+
+
+  dictionary = {} 
+  dic_AddON = Convert(Dist_Led_AD,dictionary)
+  for keys in dic_AddON:
+    dic_AddON[keys] = str(dic_AddON[keys])
+
+  ID1_list = []; ID2_list = []; ID3_list = []
+
+
+  j = 0
+  for i in range(3):
+
+    record = { "_id" : i+1,
+            "Stage": i+1,
+            "Count": Cuenta_Elevador[j] + Cuenta_Elevador[j+1] + Cuenta_Elevador[j+2],
+            "ID1": Cuenta_Elevador[j], 
+            "ID2": Cuenta_Elevador[j+1],
+            "ID3": Cuenta_Elevador[j+2],
+            "File" : "Data"
+      
+            }
+    j += 3
+    print (f'record Bwork = {record}')
+    Bwork.insert_one(record)
+  client.close()
+
+
+
 
 def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD,AddOn_ID, AddOn_count):
   print('from statics')
@@ -1734,6 +1778,7 @@ def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaci
   from collections import defaultdict
   client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
   db = client['EliteFlower']
+
   #print(client)
 
   Statics = db.Statics
@@ -1767,8 +1812,8 @@ def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaci
             "Active_Stations": var_ext_estaciones_slc,
             "Estaciones": Distribucion_estaciones,
             "Cuenta_Estaciones" : Cuenta_Elevador,
-             "AddON" : AddOn_ID.tolist(),
-             "Cuenta_AddON" : AddOn_count.tolist()
+            "AddON" : AddOn_ID.tolist(),
+            "Cuenta_AddON" : AddOn_count.tolist()
             # "File" : "Data"
             }
 
