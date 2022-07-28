@@ -1664,7 +1664,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, B
 
   
   get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
-  setbWorkQuantity(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
+  setbWork(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
 
   return base_datos_output
   """# Crear y cargar TXTs
@@ -1730,13 +1730,15 @@ def Convert(tup, di):
     di = dict(tup)
     return di
 
-def setbWorkQuantity(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD,AddOn_ID, AddOn_count):
+def setbWork(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD,AddOn_ID, AddOn_count):
   import pymongo
   from collections import defaultdict
   client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
   db = client['EliteFlower']
-  Bwork = db.BWorkQuantity
-  Bwork.delete_many({}) #borra todos los elementos de la coleccion
+  BworkQuantity = db.BWorkQuantity
+  BworkName = db.BWorkName
+  BworkQuantity.delete_many({}) #borra todos los elementos de la coleccion
+  BworkName.delete_many({}) #borra todos los elementos de la coleccion
 
   dictionary = {} 
   dic_sort_cant = Convert(sort_cantidades,dictionary)
@@ -1761,12 +1763,45 @@ def setbWorkQuantity(Total_ordenes,total_con_vase, sort_cantidades, var_ext_esta
             "ID1": Cuenta_Elevador[j], 
             "ID2": Cuenta_Elevador[j+1],
             "ID3": Cuenta_Elevador[j+2],
-            "File" : "Data"
-      
+            "File" : "Data"   
             }
+    record2 = { "_id" : i+1,
+            "Stage": i+1,
+            "Count": -1,
+            "ID1": Distribucion_estaciones[j], 
+            "ID2": Distribucion_estaciones[j+1],
+            "ID3": Distribucion_estaciones[j+2],
+            "File" : "Data"   
+            }
+      
     j += 3
-    print (f'record Bwork = {record}')
-    Bwork.insert_one(record)
+    # print (f'record BworkQuantity = {record}')
+    # print (f'record BworkName = {record2}')
+    BworkQuantity.insert_one(record)
+    BworkName.insert_one(record2)
+  cuenta = 0
+  AddOn_count_list = AddOn_count.tolist()
+  AddOn_ID_list = AddOn_ID.tolist()
+  for item in AddOn_count_list:
+    cuenta += item
+  record = { "_id" : 4,
+            "Stage": 4,
+            "Count": cuenta,
+            "ID1": AddOn_count_list[0], 
+            "ID2": AddOn_count_list[1],
+            "ID3": AddOn_count_list[2],
+            "File" : "Data"   
+            }
+  record2 = { "_id" : 4,
+            "Stage": 4,
+            "Count": -1,
+            "ID1": AddOn_ID_list[0], 
+            "ID2": AddOn_ID_list[1],
+            "ID3": AddOn_ID_list[2],
+            "File" : "Data"   
+            }
+  BworkQuantity.insert_one(record)
+  BworkName.insert_one(record2)
   client.close()
 
 

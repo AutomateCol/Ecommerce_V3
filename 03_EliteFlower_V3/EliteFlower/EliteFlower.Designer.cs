@@ -281,6 +281,8 @@ namespace EliteFlower
             this.btnCleanDB = new System.Windows.Forms.Button();
             this.btnCleanWorkers = new System.Windows.Forms.Button();
             this.tabElite = new System.Windows.Forms.TabPage();
+            this.chEnableReset = new System.Windows.Forms.CheckBox();
+            this.btnReset = new System.Windows.Forms.Button();
             this.lblPath = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
@@ -324,8 +326,6 @@ namespace EliteFlower
             this.btnRestaurar = new System.Windows.Forms.PictureBox();
             this.comboNext = new System.Windows.Forms.ComboBox();
             this.comboActual = new System.Windows.Forms.ComboBox();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.chEnableReset = new System.Windows.Forms.CheckBox();
             this.mnuppal.SuspendLayout();
             this.gpMatriz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLeds12)).BeginInit();
@@ -1664,7 +1664,7 @@ namespace EliteFlower
             this.tabMain.Controls.Add(this.panel9);
             this.tabMain.Location = new System.Drawing.Point(4, 29);
             this.tabMain.Name = "tabMain";
-            this.tabMain.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabMain.Padding = new System.Windows.Forms.Padding(3);
             this.tabMain.Size = new System.Drawing.Size(790, 698);
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Main";
@@ -1846,7 +1846,7 @@ namespace EliteFlower
             this.tabConfiguration.Controls.Add(this.pcbBandas);
             this.tabConfiguration.Location = new System.Drawing.Point(4, 29);
             this.tabConfiguration.Name = "tabConfiguration";
-            this.tabConfiguration.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabConfiguration.Padding = new System.Windows.Forms.Padding(3);
             this.tabConfiguration.Size = new System.Drawing.Size(790, 698);
             this.tabConfiguration.TabIndex = 1;
             this.tabConfiguration.Text = "Setup";
@@ -2108,7 +2108,7 @@ namespace EliteFlower
             this.tabStatus.Controls.Add(this.groupBox1);
             this.tabStatus.Location = new System.Drawing.Point(4, 29);
             this.tabStatus.Name = "tabStatus";
-            this.tabStatus.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabStatus.Padding = new System.Windows.Forms.Padding(3);
             this.tabStatus.Size = new System.Drawing.Size(790, 698);
             this.tabStatus.TabIndex = 2;
             this.tabStatus.Text = "Status";
@@ -2910,7 +2910,7 @@ namespace EliteFlower
             this.tabPrueba.Controls.Add(this.panel6);
             this.tabPrueba.Location = new System.Drawing.Point(4, 29);
             this.tabPrueba.Name = "tabPrueba";
-            this.tabPrueba.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPrueba.Padding = new System.Windows.Forms.Padding(3);
             this.tabPrueba.Size = new System.Drawing.Size(790, 698);
             this.tabPrueba.TabIndex = 3;
             this.tabPrueba.Text = "Prueba";
@@ -3110,10 +3110,38 @@ namespace EliteFlower
             this.tabElite.Controls.Add(this.lblRegActual);
             this.tabElite.Location = new System.Drawing.Point(4, 29);
             this.tabElite.Name = "tabElite";
-            this.tabElite.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabElite.Padding = new System.Windows.Forms.Padding(3);
             this.tabElite.Size = new System.Drawing.Size(790, 698);
             this.tabElite.TabIndex = 4;
             this.tabElite.Text = "Elite";
+            // 
+            // chEnableReset
+            // 
+            this.chEnableReset.AutoSize = true;
+            this.chEnableReset.Location = new System.Drawing.Point(302, 264);
+            this.chEnableReset.Name = "chEnableReset";
+            this.chEnableReset.Size = new System.Drawing.Size(193, 24);
+            this.chEnableReset.TabIndex = 78;
+            this.chEnableReset.Text = "Enable PLC Soft Reset";
+            this.chEnableReset.UseVisualStyleBackColor = true;
+            this.chEnableReset.CheckedChanged += new System.EventHandler(this.chEnableReset_CheckedChanged);
+            // 
+            // btnReset
+            // 
+            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.btnReset.Enabled = false;
+            this.btnReset.FlatAppearance.BorderSize = 0;
+            this.btnReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
+            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.ForeColor = System.Drawing.Color.White;
+            this.btnReset.Location = new System.Drawing.Point(336, 294);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(120, 50);
+            this.btnReset.TabIndex = 77;
+            this.btnReset.Text = "PLC Soft Reset";
+            this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // lblPath
             // 
@@ -3573,34 +3601,6 @@ namespace EliteFlower
             this.comboActual.Name = "comboActual";
             this.comboActual.Size = new System.Drawing.Size(121, 21);
             this.comboActual.TabIndex = 31;
-            // 
-            // btnReset
-            // 
-            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.btnReset.Enabled = false;
-            this.btnReset.FlatAppearance.BorderSize = 0;
-            this.btnReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(60)))), ((int)(((byte)(112)))));
-            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.ForeColor = System.Drawing.Color.White;
-            this.btnReset.Location = new System.Drawing.Point(336, 294);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(120, 50);
-            this.btnReset.TabIndex = 77;
-            this.btnReset.Text = "PLC Soft Reset";
-            this.btnReset.UseVisualStyleBackColor = false;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // chEnableReset
-            // 
-            this.chEnableReset.AutoSize = true;
-            this.chEnableReset.Location = new System.Drawing.Point(302, 264);
-            this.chEnableReset.Name = "chEnableReset";
-            this.chEnableReset.Size = new System.Drawing.Size(193, 24);
-            this.chEnableReset.TabIndex = 78;
-            this.chEnableReset.Text = "Enable PLC Soft Reset";
-            this.chEnableReset.UseVisualStyleBackColor = true;
-            this.chEnableReset.CheckedChanged += new System.EventHandler(this.chEnableReset_CheckedChanged);
             // 
             // EliteFlower
             // 

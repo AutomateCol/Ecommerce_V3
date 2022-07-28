@@ -361,6 +361,8 @@ namespace EliteFlower
                                     idSelected = Utils.FillSelected(comboStages, quantityIDS);
                                     distinctIDS = idSelected.Select(s => s.ID).ToList().Distinct().ToList();
                                     balancedStages = balanceCountWithoutAddons.Select(s => s.Count).Sum();
+                                    
+
                                 }
                                 else
                                 {
@@ -383,9 +385,11 @@ namespace EliteFlower
                                     balancedStages = valueStages.Sum();
                                     balance = Utils.ConvertBalance(idSelected);
                                 }
+                                Console.WriteLine("Check db = " + CheckDB(distinctIDS, false));
                                 if (CheckDB(distinctIDS, false))
                                 {
                                     float disparitystages = quantityIDS.Sum();
+                                    Console.WriteLine("disparitystages " + disparitystages + ", balancedstages " + balancedStages);
                                     if (disparitystages == balancedStages)
                                     {
                                         List<Stage> newidSelected = CheckNames(balance, idSelected, balanceCheck);
@@ -396,22 +400,76 @@ namespace EliteFlower
                                         List<string> countCOMS = new List<string>();
                                         countCOMS.AddRange(SerialPort.GetPortNames());
                                         List<string> noCOMS = serialCOMS.Where(s => !countCOMS.Contains(s)).Select(s => s).ToList();
+                                        List<string> COMS = serialCOMS;
+                                        
                                         PLC plc = new PLC(this, mnuELEnglish.Checked);
                                         (int, int, int, int, int) valuesPLC = plc.GetValuesPLC();
 
-                                        //Console.WriteLine($"Tiempo pilotos - {timeBlinkLeds}");
-                                        timeBlinkAddonsBand1 = (int)Math.Floor((decimal)(valuesPLC.Item4 * CalculateDelayAddon(valuesPLC.Item2) / 100));
-                                        //Console.WriteLine($"Tiempo banda 1 - {timeBlinkAddonsBand1}");
-                                        timeBlinkAddonsBand2 = (int)Math.Floor((decimal)(valuesPLC.Item5 * CalculateDelayAddon(valuesPLC.Item3) / 100));
-                                        //Console.WriteLine($"Tiempo banda 2 - {timeBlinkAddonsBand2}");
-                                        if (noCOMS.Count == 0)
+                                        ////Console.WriteLine($"Tiempo pilotos - {timeBlinkLeds}");
+                                        //timeBlinkAddonsBand1 = (int)Math.Floor((decimal)(valuesPLC.Item4 * CalculateDelayAddon(valuesPLC.Item2) / 100));
+                                        ////Console.WriteLine($"Tiempo banda 1 - {timeBlinkAddonsBand1}");
+                                        //timeBlinkAddonsBand2 = (int)Math.Floor((decimal)(valuesPLC.Item5 * CalculateDelayAddon(valuesPLC.Item3) / 100));
+                                        ////Console.WriteLine($"Tiempo banda 2 - {timeBlinkAddonsBand2}");
+                                        ///
+                                        if (noCOMS.Count > 0)
                                         {
+                                            for (int i = 0; i < noCOMS.Count; i++)
+                                            {
+                                                Console.WriteLine("No Coms  = " + noCOMS[i]);
+                                            }
+                                        }
+                                      
+                                        foreach (string item in noCOMS)
+                                        {
+                                            COMS.Remove(item);
+                                        }
+                                        if (COMS.Count > 0)
+                                        {
+                                            for (int i = 0; i < COMS.Count; i++)
+                                            {
+                                                Console.WriteLine("Coms  = " + COMS[i]);
+                                            }
+                                        }
+                                        
+                                        else
+                                        {
+                                            Console.WriteLine("Ningun Lector Conectado" );
+                                        }
+                                        List<string> lectoresBanda1 = new List<string>();
+                                        List<string> lectoresBanda2 = new List<string>();
+
+                                        lectoresBanda1.Add("COM21"); lectoresBanda1.Add("COM22"); lectoresBanda1.Add("COM23"); lectoresBanda1.Add("COM24");
+                                        lectoresBanda2.Add("COM31"); lectoresBanda2.Add("COM32"); lectoresBanda2.Add("COM33"); lectoresBanda2.Add("COM34");
+
+                                        foreach(string item in COMS)
+                                        {
+                                            lectoresBanda1.Remove(item);
+                                            lectoresBanda2.Remove(item);
+                                        }
+
+                                        
+
+
+                                        Console.WriteLine("No Coms = " + noCOMS);
+                                        if (noCOMS.Count == 0 || lectoresBanda1.Count == 0 || lectoresBanda2.Count == 0)
+                                        {
+                                            if (noCOMS.Count == 0)
+                                            {
+                                                Console.WriteLine("Todos los lectores conectados");
+                                            }
+                                            else if(lectoresBanda1.Count == 0){
+                                                Console.WriteLine("Lectores de la banda 1 conectados");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Lectores de la banda 2 conectados");
+                                            }
                                             modbusElevadores = new ModbusClient("169.254.1.238", 502);
                                             modbusLuces = new ModbusClient("169.254.1.236", 502);
                                             //if (modbusElevadores.Available(2) && modbusLuces.Available(2))
                                             if (!modbusLuces.Connected)
                                             //if (true)
-                                            {
+                                            {  
                                                 //-- PLC Luces
                                                 modbusLuces.Connect();
                                                 modbusLuces.WriteMultipleCoils(COILS_LUCES + 12, BandsChecked);
@@ -472,6 +530,11 @@ namespace EliteFlower
                                                 throw new StartNoPLCException();
                                             }
                                         }
+                                        else if (noCOMS.Count == 4)
+                                        {
+                                            
+
+                                        }
                                         else
                                         {
                                             string msg = $"{UIMessages.EliteFlower(5, mnuELEnglish.Checked)}\n\n";
@@ -480,8 +543,8 @@ namespace EliteFlower
                                                 msg += $"{item}\n";
                                             }
                                             msg += $"\n{UIMessages.EliteFlower(6, mnuELEnglish.Checked)}";
-                                            
-                                            //throw new StartNeedScannersException(msg);
+
+                                            throw new StartNeedScannersException(msg);
                                         }
                                     }
                                     else
@@ -2499,7 +2562,7 @@ namespace EliteFlower
                 serialStage11, serialStage12,
                 serialStage21, serialStage22,
                 serialStage31, serialStage32, 
-                //serialAD11, serialAD12, 
+                serialAD11, serialAD12, 
                 serialMElev,
                 serialPLC
             });
@@ -2525,15 +2588,15 @@ namespace EliteFlower
             RefreshElevator2(2, -1);
             RefreshAddon(0, -1);
             RefreshAddon(1, -1);
-            Mongoose.DeleteStateStages();
-            Mongoose.DeleteIDStages();
+            //Mongoose.DeleteStateStages();
+            //Mongoose.DeleteIDStages();
 
-            Mongoose.UpdateReadedData();
+            //Mongoose.UpdateReadedData();
 
-            Mongoose.DeleteCountIDs("Data");
-            Mongoose.DeleteIDAddOn();
-            Mongoose.LoadCountIDs("Data", 1);
-            Mongoose.GetDistinctAddOn("Data", 10);
+            //Mongoose.DeleteCountIDs("Data");
+            //Mongoose.DeleteIDAddOn();
+            //Mongoose.LoadCountIDs("Data", 1);
+            //Mongoose.GetDistinctAddOn("Data", 10);
 
             List<string> nameVS = FillVases(Mongoose.GetNameVases("Data"));
             List<string> nameAD = FillVases(Mongoose.GetNamesAddOn("Data"));
@@ -2546,7 +2609,7 @@ namespace EliteFlower
             Utils.SetComboBox(nameAD, new List<ComboBox> { cbAddon11, cbAddon12, cbAddon13 });
             Utils.SetValuesTxt(new List<float> { 0, 0, 0, 0 }, new List<TextBox> { TxtSubtotal41, TxtSubtotal42, TxtSubtotal43, TxtTotal4 });
             Utils.SetComboBox(nameVS, new List<ComboBox> { comboActual });
-            UnbalanceDB_Data();
+            //UnbalanceDB_Data();
             //Mongoose.UnbalanceData();
             MessageBox.Show(UIMessages.EliteFlower(103, mnuELEnglish.Checked), "EliteFlower", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -3603,12 +3666,12 @@ namespace EliteFlower
                         if (modbusElevadores.Connected)
                         {
                             modbusElevadores.WriteMultipleCoils(50, new bool[] { false, false });   //- InitialFill - Automatico
-                            modbusElevadores.Disconnect();
+                            DisconnectModbusClient();
                         }
-                        if (serialPLC.IsOpen)
-                        {
-                            serialPLC.Close();
-                        }
+                        //if (serialPLC.IsOpen)
+                        //{
+                        //    serialPLC.Close();
+                        //}
                         llenarElevador.Clear();
                         llenarPulmon.Clear();
                         llenadoInicial.Clear();
@@ -3738,7 +3801,7 @@ namespace EliteFlower
                     {
                         if (ofd.ShowDialog() == DialogResult.OK)
                         {
-
+                            reset_plc();
                             lblData.Text = ofd.FileName;
                             string FilePath = System.IO.Path.GetFullPath(ofd.FileName);
                             lblPath.Text = FilePath;
@@ -5310,20 +5373,25 @@ namespace EliteFlower
             return equal;
         }
 
-        private void btnReset_Click(object sender, EventArgs e)
+        private void reset_plc()
         {
             try
             {
                 if (modbusElevadores.Available(2))
                 {
+                    Console.WriteLine("Available ");
                     modbusElevadores.Connect();
+                    System.Threading.Thread.Sleep(500);
                 }
 
                 if (modbusElevadores.Connected)
                 {
+                    Console.WriteLine("Connected and restart ");
                     modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 91, true);
                     btnServoON.Enabled = true;
                 }
+
+                Application.Restart();
 
             }
             catch (Exception ex)
@@ -5331,6 +5399,11 @@ namespace EliteFlower
                 Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
                 //Application.Exit();
             }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            reset_plc();
         }
 
         private void chEnableReset_CheckedChanged(object sender, EventArgs e)
