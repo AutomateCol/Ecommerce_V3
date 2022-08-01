@@ -1472,6 +1472,8 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, B
     total_con_vase = total_con_vase + Vases_count[i]
 
   Cantidades = {}
+ 
+  print(f'Vases Type Num {Vases_type_num}')
   for i in range(Vases_type_num):
     Cantidades[Vases_ID[i]] = Vases_count[i]
   print(f'cantidades = {Cantidades}')
@@ -1504,7 +1506,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, B
     print("!ERROR! -> La cantidad de vases supera el número de elevadores seleccionados")
 
   else:
-    #print(f"Addon Id: {AddOn_ID}")
+    print(f"Addon Id: {AddOn_ID}")
     Led_Pos = ['N_A','N_A','N_A']
     for i in range(AddOn_ID.size):
       Led_Pos[i] = AddOn_ID[i]
@@ -1705,7 +1707,13 @@ def get_database(data):
       if item[3] == -1:
         Whstage = -1
       else:
-        whstage = 1
+        if item[2] < 4:
+          whstage = 1
+        elif item[2] > 6:
+          whstage = 3
+        else:
+          whstage = 2
+
       if item[1] == "-1": 
         item[1] = "null"
       else:
@@ -1723,7 +1731,7 @@ def get_database(data):
                   'WhStage': whstage                 
                  }
       balanceData.insert_one(jsondata)
-      db.Data.update_many({"TrackingNumber":item[0]},{"$set":{'Vase': item[1],'Balance': item[2],'AddOnId':item[3],'AddOnBalance': item[4],'WhStage': whstage}})
+      Data.update_many({"TrackingNumber":item[0]},{"$set":{'Vase': item[1],'Balance': item[2],'AddOnId':item[3],'AddOnBalance': item[4],'WhStage': whstage}})
     client.close()
 
 def Convert(tup, di):
@@ -1919,7 +1927,7 @@ for item in var_ext_estaciones_slc:
 #print(estaciones_activas) 
 
 balanced_Data = balanceo_automatico(estaciones_activas,df, manual, SV, tName, BT)
-print("Data balanceda = ")
+#print("Data balanceda = ")
 #for item in balanced_Data:
  # print((item))
   
@@ -1927,4 +1935,4 @@ print("Data balanceda = ")
 # for i in range(11):
 
 #   print(balanced_Data[i])
-# get_database(balanced_Data)
+get_database(balanced_Data)

@@ -1268,6 +1268,16 @@ namespace EliteFlower.Methods
             List<MLlenado> tt = MReferenceDB.Find(s => s.ID == indRef).ToList();
             return tt[0];
         }
+        public static DataProduct GetIndexElevador(string query, bool Tracking)
+        {
+            MongoClient client = new MongoClient(mongoDBConnection);
+            IMongoDatabase database = client.GetDatabase("EliteFlower");
+            IMongoCollection<DataProduct> DataProductDB = database.GetCollection<DataProduct>("Data");
+            List<DataProduct> data = (Tracking) ?
+            DataProductDB.Find(w => w.TrackingNumber == query).Limit(1).ToList() :
+            DataProductDB.Find(w => w.OrderNumber == query).Limit(1).ToList();
+            return data[0];
+        }
         /// <summary>
         /// Indica el nombre del archivo actual.
         /// </summary>
@@ -1426,7 +1436,7 @@ namespace EliteFlower.Methods
                 //en la que se realiza la lectura
                 else if (/*data[0].ReadedStage[nStage] == 0 &&*/ data[0].WhStage == nStage + 1)
                 {
-                    Console.WriteLine("Vase: " + data[0].Vase + "en estacion " + nStage +1);
+                    Console.WriteLine("Vase: " + data[0].Vase + " en estacion " + nStage +1);
                     return data[0].Vase; //retorna el vase correspondiente a la lectura
                 }
                 //se verifica que el dato no se halla leido en la estación y la estación generada en el balanceo no corresponde a la estación

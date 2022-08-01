@@ -1071,17 +1071,18 @@ namespace EliteFlower
             //si la respuesta es un vase
             else if (response != "ND" && response != "CK" && response != "OFF" && response != null)
             {
-               
-                (int, int) p = GetIndexStage(portname, response, entrymsg, band, Tracking);
-                Console.WriteLine("nStage = " + p.Item1 + ", nElevador = " + p.Item2);
+                (int, int) q = GetIndexStage2(portname, nStage, entrymsg);
+    
+                Console.WriteLine("nStage = " + q.Item1 + ", nElevador = " + q.Item2);
+
 
                 if (nBand == 0)  //lectura de la banda 1
                 {                   
-                    new Task(() => RefreshElevatorCount(p.Item1, p.Item2, response)).Start();
+                    new Task(() => RefreshElevatorCount(q.Item1, q.Item2, response)).Start();
                 }
                 else if (nBand == 14) //lectura de la banda 2
                 {                  
-                    new Task(() => RefreshElevatorCount2(p.Item1, p.Item2, response)).Start();
+                    new Task(() => RefreshElevatorCount2(q.Item1, q.Item2, response)).Start();
                 }
 
 
@@ -2003,84 +2004,32 @@ namespace EliteFlower
         /// Obtiene la referencia del Vase aplicando un filtro en la DB.
         /// </summary>
         /// <param name="portname">Cadena de texto que indica el nombre del puerto</param>
-        /// <param name="response">Cadena de texto que indica el codigo de la caja</param>
-        /// <returns></returns>
-        private (int nStage, int nElevador) GetIndexStage(string portname, string response, string serialMessage, string typeband, bool Tracking)
+        private (int nStage, int nElevador) GetIndexStage2(string portname, int nStage, string query)
         {
-            Random random = new Random();
-            int indexSt;
+            DataProduct data = Mongoose.GetIndexElevador(query, true);
+            int balance = data.Balance;
+            int indexSt = 0;
             if (Utils.GetStageSerials(1).Contains(portname))
             {
-                List<Stage> stage1 = idSelected.Where(s => s.StageN == 1).ToList();
-                IEnumerable<int> filterStage = stage1.Select((s, index) => (s.ID == response && s.Quantity > 0) ? index : -1);
-                List<int> checkStage = filterStage.Where(o => o >= 0).ToList();
                 indexSt = 0;
-                if (checkStage.ToList().Sum() != -3)
-                {
-                    if (checkStage.Count > 0)
-                    {
-                        int index = checkStage[random.Next(checkStage.Count)];
-                        Stage selected = idSelected[indexSt * 3 + index];
-                        if (selected.Quantity >= 0)
-                        {
-                            idSelected[indexSt * 3 + index].Quantity -= 1;
-                        }
-                        Mongoose.SetReadedVase(serialMessage, 0, typeband, Tracking);
-                        return (indexSt, index);
-                    }
-                    return (indexSt, -1);
-                }
-                return (indexSt, -1);
             }
             if (Utils.GetStageSerials(2).Contains(portname))
             {
-                Console.WriteLine("Lectura en estacion 2");
-                List<Stage> stage2 = idSelected.Where(s => s.StageN == 2).ToList();
-                IEnumerable<int> filterStage = stage2.Select((s, index) => (s.ID == response && s.Quantity > 0) ? index : -1);
-                List<int> checkStage = filterStage.Where(o => o >= 0).ToList();
                 indexSt = 1;
-                if (checkStage.ToList().Sum() != -3)
-                {
-                    if (checkStage.Count > 0)
-                    {
-                        int index = checkStage[random.Next(checkStage.Count)];
-                        Stage selected = idSelected[indexSt * 3 + index];
-                        if (selected.Quantity >= 0)
-                        {
-                            idSelected[indexSt * 3 + index].Quantity -= 1;
-                        }
-                        Mongoose.SetReadedVase(serialMessage, 1, typeband, Tracking);
-                        return (indexSt, index);
-                    }
-                    return (indexSt, -1);
-                }
-                return (indexSt, -1);
             }
             if (Utils.GetStageSerials(3).Contains(portname))
             {
-                List<Stage> stage3 = idSelected.Where(s => s.StageN == 3).ToList();
-                IEnumerable<int> filterStage = stage3.Select((s, index) => (s.ID == response && s.Quantity > 0) ? index : -1);
-                List<int> checkStage = filterStage.Where(o => o >= 0).ToList();
                 indexSt = 2;
-                if (checkStage.ToList().Sum() != -3)
-                {
-                    if (checkStage.Count > 0)
-                    {
-                        int index = checkStage[random.Next(checkStage.Count)];
-                        Stage selected = idSelected[indexSt * 3 + index];
-                        if (selected.Quantity >= 0)
-                        {
-                            idSelected[indexSt * 3 + index].Quantity -= 1;
-                        }
-                        Mongoose.SetReadedVase(serialMessage, 2, typeband, Tracking);
-                        return (indexSt, index);
-                    }
-                    return (indexSt, -1);
-                }
-                return (indexSt, -1);
             }
-            return (-1, -1);
+
+            int index = (balance - 3 * indexSt)-1;
+            
+            Console.WriteLine("Tracking Number : " + data.TrackingNumber);
+
+            return (indexSt, index);
         }
+
+
         /// <summary>
         /// Deshabilita la comunicacion con el PLC.
         /// </summary>
