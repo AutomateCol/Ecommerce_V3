@@ -307,6 +307,7 @@ namespace EliteFlower.Methods
 
         }
 
+        //Se copia el registro de la coleccion data una vez se haya realizada la lectura del vase, la copia se relaiza en la coleccion DataSummary
         public static void UpdateReadedData()
         {
             MongoClient client = new MongoClient(mongoDBConnection);
@@ -324,7 +325,7 @@ namespace EliteFlower.Methods
             {
                 DataSummaryDB.InsertOneAsync(itemreaded);
             }
-            DataDB.DeleteMany(s => s.Readed || s.ReadedAddon);
+            //DataDB.DeleteMany(s => s.Readed || s.ReadedAddon);
         }
 
         public static void UpdateEntryData()
@@ -1410,6 +1411,7 @@ namespace EliteFlower.Methods
                 DataProductDB.Find(w => w.OrderNumber == query).Limit(1).ToList();
             if (data.Count > 0)
             {
+              //Se verifica si el Vase  es Nulo y si este no se ha leido en la estación de la cual llega la lectura
                 if (data[0].Vase == null && data[0].ReadedStage[nStage] == 0)
                 {
                     if (data[0].Readed == false)
@@ -1420,17 +1422,23 @@ namespace EliteFlower.Methods
                     }
                     return "OFF";
                 }
-                else if (data[0].ReadedStage[nStage] == 0 && data[0].WhStage == nStage + 1)
+                //se verifica que el dato no se halla leido en la estación y la estación generada en el balanceo corresponde a la estación
+                //en la que se realiza la lectura
+                else if (/*data[0].ReadedStage[nStage] == 0 &&*/ data[0].WhStage == nStage + 1)
                 {
-                    return data[0].Vase;
+                    Console.WriteLine("Vase: " + data[0].Vase + "en estacion " + nStage +1);
+                    return data[0].Vase; //retorna el vase correspondiente a la lectura
                 }
+                //se verifica que el dato no se halla leido en la estación y la estación generada en el balanceo no corresponde a la estación
+                //en la que se realiza la lectura
                 else if (data[0].ReadedStage[nStage] == 0 && data[0].WhStage != nStage + 1)
                 {
                     return "OFF";
                 }
                 else
                 {
-                    return "CK";
+                    Console.WriteLine("Vase ya se leyó en esta estación");
+                    return "CK";  //condicion correspondiente a que ya se realizó la lectura
                 }
             }
             else

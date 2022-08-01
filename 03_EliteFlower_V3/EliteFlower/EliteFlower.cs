@@ -1058,24 +1058,29 @@ namespace EliteFlower
             string response = Mongoose.GetSearchVase(entrymsg, nStage, band, Tracking);
             txtResponse.Text = response.ToString();
             if (response == "OFF")
-            {
-                txtControl.Text = "18";
+            {             
                 modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + nBand, new bool[] { false, false, false });
                 Mongoose.SetReadedStage(entrymsg, nStage, Tracking);
                 RefreshElevator(nStage, -1);
             }
+            else if (response == "CK")
+            {
+                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + nBand, new bool[] { false, false, false });
+                RefreshElevator(nStage, -1);
+            }
+            //si la respuesta es un vase
             else if (response != "ND" && response != "CK" && response != "OFF" && response != null)
             {
-                txtControl.Text = "19";
+               
                 (int, int) p = GetIndexStage(portname, response, entrymsg, band, Tracking);
-                if (nBand == 0)
-                {
-                    txtControl.Text = "20";
+                Console.WriteLine("nStage = " + p.Item1 + ", nElevador = " + p.Item2);
+
+                if (nBand == 0)  //lectura de la banda 1
+                {                   
                     new Task(() => RefreshElevatorCount(p.Item1, p.Item2, response)).Start();
                 }
-                else if (nBand == 14)
-                {
-                    txtControl.Text = "21";
+                else if (nBand == 14) //lectura de la banda 2
+                {                  
                     new Task(() => RefreshElevatorCount2(p.Item1, p.Item2, response)).Start();
                 }
 
@@ -1091,6 +1096,7 @@ namespace EliteFlower
             try
             {
                 string entry = serialStage11.ReadExisting().ToString();
+                //Console.WriteLine("stage 11" + entry);
                 if (workerUpForm)
                 {
                     Console.WriteLine($"B1E1 {entry}");
@@ -2028,6 +2034,7 @@ namespace EliteFlower
             }
             if (Utils.GetStageSerials(2).Contains(portname))
             {
+                Console.WriteLine("Lectura en estacion 2");
                 List<Stage> stage2 = idSelected.Where(s => s.StageN == 2).ToList();
                 IEnumerable<int> filterStage = stage2.Select((s, index) => (s.ID == response && s.Quantity > 0) ? index : -1);
                 List<int> checkStage = filterStage.Where(o => o >= 0).ToList();
@@ -3801,7 +3808,7 @@ namespace EliteFlower
                     {
                         if (ofd.ShowDialog() == DialogResult.OK)
                         {
-                            reset_plc();
+                            reset_plc(false);
                             lblData.Text = ofd.FileName;
                             string FilePath = System.IO.Path.GetFullPath(ofd.FileName);
                             lblPath.Text = FilePath;
@@ -5373,7 +5380,7 @@ namespace EliteFlower
             return equal;
         }
 
-        private void reset_plc()
+        private void reset_plc(bool res)
         {
             try
             {
@@ -5390,8 +5397,11 @@ namespace EliteFlower
                     modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 91, true);
                     btnServoON.Enabled = true;
                 }
-
-                Application.Restart();
+                if (res)
+                {
+                    Application.Restart();
+                }
+                
 
             }
             catch (Exception ex)
@@ -5403,7 +5413,7 @@ namespace EliteFlower
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            reset_plc();
+            reset_plc(true);
         }
 
         private void chEnableReset_CheckedChanged(object sender, EventArgs e)
