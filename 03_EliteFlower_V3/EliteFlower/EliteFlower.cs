@@ -2656,13 +2656,17 @@ namespace EliteFlower
             List<string> noDB = new List<string>();
             foreach (string item in nameVasesFile)
             {
-                if (!dbIDS.Contains(item))
+                Console.WriteLine(item);
+                if (item != "null")
                 {
-                    if (item != "NV")
+                    if (!dbIDS.Contains(item))
                     {
-                        noDB.Add(item);
+                        if (item != "NV")
+                        {
+                            noDB.Add(item);
+                        }
                     }
-                }
+                }             
             }
             if (showMsg && noDB.Count > 0)
             {
