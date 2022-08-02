@@ -311,26 +311,29 @@ namespace EliteFlower
         {
              try
             {
+                //lista combo box de trabajo
                 List<List<ComboBox>> comboStages = new List<List<ComboBox>>
                 {
                     new List<ComboBox> { cbWorker11, cbWorker12, cbWorker13 },
                     new List<ComboBox> { cbWorker21, cbWorker22, cbWorker23 },
                     new List<ComboBox> { cbWorker31, cbWorker32, cbWorker33 }
                 };
-
-                List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };
-                int AvailableWorkers = WorkersChecked.Where(c => c).Count();
+ 
+                List<bool> WorkersChecked = new List<bool>() { chb_worker1.Checked, chb_worker2.Checked, chb_worker3.Checked };               //lista con los checkers de selección de estaciones
+                int AvailableWorkers = WorkersChecked.Where(c => c).Count();                //se identifican los seleccionados
                 List<int> true_indexes = WorkersChecked.Select((value, index) => value ? index : -1).Where(o => o >= 0).ToList();
-
                 List<int> countStages = new List<int>();
                 foreach (var item in true_indexes)
                 {
+                    Console.WriteLine(comboStages[item][0].Items.Count);
                     countStages.Add(comboStages[item].Select(s => s.SelectedIndex).Where(s => s == (comboStages[item][0].Items.Count - 1)).Count());
                 }
-
+                Console.WriteLine("count = " + countStages.Where(s => s == 3).ToList().Count());
+                Console.WriteLine("Available Workers" + AvailableWorkers);
                 if (countStages.Where(s => s == 3).ToList().Count() == 0 && AvailableWorkers > 0)
                 {
                     bool[] BandsChecked = new bool[] { chb_Band1.Checked, chb_Band2.Checked };
+
                     if (BandsChecked[0] == false && BandsChecked[1] == false)
                     {
                         throw new StartNoBandException();
@@ -338,6 +341,8 @@ namespace EliteFlower
                     else
                     {
                         workerUpForm = Mongoose.GetWorkUp();
+                        Console.WriteLine("workupform = " + workerUpForm);
+
                         if (workerUpForm == false)
                         {
                             if (MessageBox.Show(UIMessages.EliteFlower(3, mnuELEnglish.Checked), UIMessages.EliteFlower(58, mnuELEnglish.Checked), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -346,6 +351,7 @@ namespace EliteFlower
                                 List<float> quantityIDS = new List<float>();
                                 List<BalanceName> balance;
                                 float balancedStages;
+                                Console.WriteLine("balance check: " + balanceCheck);
                                 if (balanceCheck)
                                 {
                                     List<BalanceCount> balanceCount = Mongoose.GetDataBalanceCount();
@@ -355,6 +361,8 @@ namespace EliteFlower
                                     idSelected = Utils.FillSelected(comboStages, quantityIDS);
                                     distinctIDS = idSelected.Select(s => s.ID).ToList().Distinct().ToList();
                                     balancedStages = balanceCountWithoutAddons.Select(s => s.Count).Sum();
+                                    
+
                                 }
                                 else
                                 {
@@ -377,9 +385,11 @@ namespace EliteFlower
                                     balancedStages = valueStages.Sum();
                                     balance = Utils.ConvertBalance(idSelected);
                                 }
+                                Console.WriteLine("Check db = " + CheckDB(distinctIDS, false));
                                 if (CheckDB(distinctIDS, false))
                                 {
                                     float disparitystages = quantityIDS.Sum();
+                                    Console.WriteLine("disparitystages " + disparitystages + ", balancedstages " + balancedStages);
                                     if (disparitystages == balancedStages)
                                     {
                                         List<Stage> newidSelected = CheckNames(balance, idSelected, balanceCheck);
@@ -390,22 +400,76 @@ namespace EliteFlower
                                         List<string> countCOMS = new List<string>();
                                         countCOMS.AddRange(SerialPort.GetPortNames());
                                         List<string> noCOMS = serialCOMS.Where(s => !countCOMS.Contains(s)).Select(s => s).ToList();
+                                        List<string> COMS = serialCOMS;
+                                        
                                         PLC plc = new PLC(this, mnuELEnglish.Checked);
                                         (int, int, int, int, int) valuesPLC = plc.GetValuesPLC();
 
-                                        //Console.WriteLine($"Tiempo pilotos - {timeBlinkLeds}");
-                                        timeBlinkAddonsBand1 = (int)Math.Floor((decimal)(valuesPLC.Item4 * CalculateDelayAddon(valuesPLC.Item2) / 100));
-                                        //Console.WriteLine($"Tiempo banda 1 - {timeBlinkAddonsBand1}");
-                                        timeBlinkAddonsBand2 = (int)Math.Floor((decimal)(valuesPLC.Item5 * CalculateDelayAddon(valuesPLC.Item3) / 100));
-                                        //Console.WriteLine($"Tiempo banda 2 - {timeBlinkAddonsBand2}");
-                                        if (noCOMS.Count == 0)
+                                        ////Console.WriteLine($"Tiempo pilotos - {timeBlinkLeds}");
+                                        //timeBlinkAddonsBand1 = (int)Math.Floor((decimal)(valuesPLC.Item4 * CalculateDelayAddon(valuesPLC.Item2) / 100));
+                                        ////Console.WriteLine($"Tiempo banda 1 - {timeBlinkAddonsBand1}");
+                                        //timeBlinkAddonsBand2 = (int)Math.Floor((decimal)(valuesPLC.Item5 * CalculateDelayAddon(valuesPLC.Item3) / 100));
+                                        ////Console.WriteLine($"Tiempo banda 2 - {timeBlinkAddonsBand2}");
+                                        ///
+                                        if (noCOMS.Count > 0)
                                         {
+                                            for (int i = 0; i < noCOMS.Count; i++)
+                                            {
+                                                Console.WriteLine("No Coms  = " + noCOMS[i]);
+                                            }
+                                        }
+                                      
+                                        foreach (string item in noCOMS)
+                                        {
+                                            COMS.Remove(item);
+                                        }
+                                        if (COMS.Count > 0)
+                                        {
+                                            for (int i = 0; i < COMS.Count; i++)
+                                            {
+                                                Console.WriteLine("Coms  = " + COMS[i]);
+                                            }
+                                        }
+                                        
+                                        else
+                                        {
+                                            Console.WriteLine("Ningun Lector Conectado" );
+                                        }
+                                        List<string> lectoresBanda1 = new List<string>();
+                                        List<string> lectoresBanda2 = new List<string>();
+
+                                        lectoresBanda1.Add("COM21"); lectoresBanda1.Add("COM22"); lectoresBanda1.Add("COM23"); lectoresBanda1.Add("COM24");
+                                        lectoresBanda2.Add("COM31"); lectoresBanda2.Add("COM32"); lectoresBanda2.Add("COM33"); lectoresBanda2.Add("COM34");
+
+                                        foreach(string item in COMS)
+                                        {
+                                            lectoresBanda1.Remove(item);
+                                            lectoresBanda2.Remove(item);
+                                        }
+
+                                        
+
+
+                                        Console.WriteLine("No Coms = " + noCOMS);
+                                        if (noCOMS.Count == 0 || lectoresBanda1.Count == 0 || lectoresBanda2.Count == 0)
+                                        {
+                                            if (noCOMS.Count == 0)
+                                            {
+                                                Console.WriteLine("Todos los lectores conectados");
+                                            }
+                                            else if(lectoresBanda1.Count == 0){
+                                                Console.WriteLine("Lectores de la banda 1 conectados");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Lectores de la banda 2 conectados");
+                                            }
                                             modbusElevadores = new ModbusClient("169.254.1.238", 502);
                                             modbusLuces = new ModbusClient("169.254.1.236", 502);
                                             //if (modbusElevadores.Available(2) && modbusLuces.Available(2))
                                             if (!modbusLuces.Connected)
                                             //if (true)
-                                            {
+                                            {  
                                                 //-- PLC Luces
                                                 modbusLuces.Connect();
                                                 modbusLuces.WriteMultipleCoils(COILS_LUCES + 12, BandsChecked);
@@ -466,6 +530,11 @@ namespace EliteFlower
                                                 throw new StartNoPLCException();
                                             }
                                         }
+                                        else if (noCOMS.Count == 4)
+                                        {
+                                            
+
+                                        }
                                         else
                                         {
                                             string msg = $"{UIMessages.EliteFlower(5, mnuELEnglish.Checked)}\n\n";
@@ -474,6 +543,7 @@ namespace EliteFlower
                                                 msg += $"{item}\n";
                                             }
                                             msg += $"\n{UIMessages.EliteFlower(6, mnuELEnglish.Checked)}";
+
                                             throw new StartNeedScannersException(msg);
                                         }
                                     }
@@ -490,6 +560,7 @@ namespace EliteFlower
                         }
                         else
                         {
+                            //Mensaje 
                             string msg = $"{UIMessages.EliteFlower(8, mnuELEnglish.Checked)}\n\n{UIMessages.EliteFlower(9, mnuELEnglish.Checked)}";
                             DialogResult dialogResult = MessageBox.Show(msg, UIMessages.EliteFlower(57, mnuELEnglish.Checked), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                             if (dialogResult == DialogResult.Yes)
@@ -987,25 +1058,31 @@ namespace EliteFlower
             string response = Mongoose.GetSearchVase(entrymsg, nStage, band, Tracking);
             txtResponse.Text = response.ToString();
             if (response == "OFF")
-            {
-                txtControl.Text = "18";
+            {             
                 modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + nBand, new bool[] { false, false, false });
                 Mongoose.SetReadedStage(entrymsg, nStage, Tracking);
                 RefreshElevator(nStage, -1);
             }
+            else if (response == "CK")
+            {
+                modbusLuces.WriteMultipleCoils(COILS_LUCES + nStage * 3 + nBand, new bool[] { false, false, false });
+                RefreshElevator(nStage, -1);
+            }
+            //si la respuesta es un vase
             else if (response != "ND" && response != "CK" && response != "OFF" && response != null)
             {
-                txtControl.Text = "19";
-                (int, int) p = GetIndexStage(portname, response, entrymsg, band, Tracking);
-                if (nBand == 0)
-                {
-                    txtControl.Text = "20";
-                    new Task(() => RefreshElevatorCount(p.Item1, p.Item2, response)).Start();
+                (int, int) q = GetIndexStage2(portname, nStage, entrymsg);
+    
+                Console.WriteLine("nStage = " + q.Item1 + ", nElevador = " + q.Item2);
+
+
+                if (nBand == 0)  //lectura de la banda 1
+                {                   
+                    new Task(() => RefreshElevatorCount(q.Item1, q.Item2, response)).Start();
                 }
-                else if (nBand == 14)
-                {
-                    txtControl.Text = "21";
-                    new Task(() => RefreshElevatorCount2(p.Item1, p.Item2, response)).Start();
+                else if (nBand == 14) //lectura de la banda 2
+                {                  
+                    new Task(() => RefreshElevatorCount2(q.Item1, q.Item2, response)).Start();
                 }
 
 
@@ -1020,6 +1097,7 @@ namespace EliteFlower
             try
             {
                 string entry = serialStage11.ReadExisting().ToString();
+                //Console.WriteLine("stage 11" + entry);
                 if (workerUpForm)
                 {
                     Console.WriteLine($"B1E1 {entry}");
@@ -1198,6 +1276,9 @@ namespace EliteFlower
                 Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
             }
         }
+
+        // Funcion que determina la acción que se debe tomar de acuerdo a la lectura del codigo de barras en la estación indicada
+
         private void DoActionSerialAddon(string entrymsg, bool Tracking, int nIndex, int nBand)
         {
             string responseAddon = Mongoose.GetSearchAddOn(entrymsg, Tracking);
@@ -1207,7 +1288,7 @@ namespace EliteFlower
                 modbusLuces.WriteMultipleCoils(COILS_LUCES + nIndex + 14 * nBand, new bool[] { false, false, false });
                 RefreshAddon(nBand, -1);
             }
-            else if (responseAddon == "ND")
+            else if (responseAddon == "ND") // ND means No Data
             {
                 new Task(() => SetCoilsAddonsND(nBand, 500, 500)).Start();
 
@@ -1923,83 +2004,32 @@ namespace EliteFlower
         /// Obtiene la referencia del Vase aplicando un filtro en la DB.
         /// </summary>
         /// <param name="portname">Cadena de texto que indica el nombre del puerto</param>
-        /// <param name="response">Cadena de texto que indica el codigo de la caja</param>
-        /// <returns></returns>
-        private (int nStage, int nElevador) GetIndexStage(string portname, string response, string serialMessage, string typeband, bool Tracking)
+        private (int nStage, int nElevador) GetIndexStage2(string portname, int nStage, string query)
         {
-            Random random = new Random();
-            int indexSt;
+            DataProduct data = Mongoose.GetIndexElevador(query, true);
+            int balance = data.Balance;
+            int indexSt = 0;
             if (Utils.GetStageSerials(1).Contains(portname))
             {
-                List<Stage> stage1 = idSelected.Where(s => s.StageN == 1).ToList();
-                IEnumerable<int> filterStage = stage1.Select((s, index) => (s.ID == response && s.Quantity > 0) ? index : -1);
-                List<int> checkStage = filterStage.Where(o => o >= 0).ToList();
                 indexSt = 0;
-                if (checkStage.ToList().Sum() != -3)
-                {
-                    if (checkStage.Count > 0)
-                    {
-                        int index = checkStage[random.Next(checkStage.Count)];
-                        Stage selected = idSelected[indexSt * 3 + index];
-                        if (selected.Quantity >= 0)
-                        {
-                            idSelected[indexSt * 3 + index].Quantity -= 1;
-                        }
-                        Mongoose.SetReadedVase(serialMessage, 0, typeband, Tracking);
-                        return (indexSt, index);
-                    }
-                    return (indexSt, -1);
-                }
-                return (indexSt, -1);
             }
             if (Utils.GetStageSerials(2).Contains(portname))
             {
-                List<Stage> stage2 = idSelected.Where(s => s.StageN == 2).ToList();
-                IEnumerable<int> filterStage = stage2.Select((s, index) => (s.ID == response && s.Quantity > 0) ? index : -1);
-                List<int> checkStage = filterStage.Where(o => o >= 0).ToList();
                 indexSt = 1;
-                if (checkStage.ToList().Sum() != -3)
-                {
-                    if (checkStage.Count > 0)
-                    {
-                        int index = checkStage[random.Next(checkStage.Count)];
-                        Stage selected = idSelected[indexSt * 3 + index];
-                        if (selected.Quantity >= 0)
-                        {
-                            idSelected[indexSt * 3 + index].Quantity -= 1;
-                        }
-                        Mongoose.SetReadedVase(serialMessage, 1, typeband, Tracking);
-                        return (indexSt, index);
-                    }
-                    return (indexSt, -1);
-                }
-                return (indexSt, -1);
             }
             if (Utils.GetStageSerials(3).Contains(portname))
             {
-                List<Stage> stage3 = idSelected.Where(s => s.StageN == 3).ToList();
-                IEnumerable<int> filterStage = stage3.Select((s, index) => (s.ID == response && s.Quantity > 0) ? index : -1);
-                List<int> checkStage = filterStage.Where(o => o >= 0).ToList();
                 indexSt = 2;
-                if (checkStage.ToList().Sum() != -3)
-                {
-                    if (checkStage.Count > 0)
-                    {
-                        int index = checkStage[random.Next(checkStage.Count)];
-                        Stage selected = idSelected[indexSt * 3 + index];
-                        if (selected.Quantity >= 0)
-                        {
-                            idSelected[indexSt * 3 + index].Quantity -= 1;
-                        }
-                        Mongoose.SetReadedVase(serialMessage, 2, typeband, Tracking);
-                        return (indexSt, index);
-                    }
-                    return (indexSt, -1);
-                }
-                return (indexSt, -1);
             }
-            return (-1, -1);
+
+            int index = (balance - 3 * indexSt)-1;
+            
+            Console.WriteLine("Tracking Number : " + data.TrackingNumber);
+
+            return (indexSt, index);
         }
+
+
         /// <summary>
         /// Deshabilita la comunicacion con el PLC.
         /// </summary>
@@ -2488,7 +2518,7 @@ namespace EliteFlower
                 serialStage11, serialStage12,
                 serialStage21, serialStage22,
                 serialStage31, serialStage32, 
-                //serialAD11, serialAD12, 
+                serialAD11, serialAD12, 
                 serialMElev,
                 serialPLC
             });
@@ -2514,15 +2544,15 @@ namespace EliteFlower
             RefreshElevator2(2, -1);
             RefreshAddon(0, -1);
             RefreshAddon(1, -1);
-            Mongoose.DeleteStateStages();
-            Mongoose.DeleteIDStages();
+            //Mongoose.DeleteStateStages();
+            //Mongoose.DeleteIDStages();
 
-            Mongoose.UpdateReadedData();
+            //Mongoose.UpdateReadedData();
 
-            Mongoose.DeleteCountIDs("Data");
-            Mongoose.DeleteIDAddOn();
-            Mongoose.LoadCountIDs("Data", 1);
-            Mongoose.GetDistinctAddOn("Data", 10);
+            //Mongoose.DeleteCountIDs("Data");
+            //Mongoose.DeleteIDAddOn();
+            //Mongoose.LoadCountIDs("Data", 1);
+            //Mongoose.GetDistinctAddOn("Data", 10);
 
             List<string> nameVS = FillVases(Mongoose.GetNameVases("Data"));
             List<string> nameAD = FillVases(Mongoose.GetNamesAddOn("Data"));
@@ -2535,7 +2565,7 @@ namespace EliteFlower
             Utils.SetComboBox(nameAD, new List<ComboBox> { cbAddon11, cbAddon12, cbAddon13 });
             Utils.SetValuesTxt(new List<float> { 0, 0, 0, 0 }, new List<TextBox> { TxtSubtotal41, TxtSubtotal42, TxtSubtotal43, TxtTotal4 });
             Utils.SetComboBox(nameVS, new List<ComboBox> { comboActual });
-            UnbalanceDB_Data();
+            //UnbalanceDB_Data();
             //Mongoose.UnbalanceData();
             MessageBox.Show(UIMessages.EliteFlower(103, mnuELEnglish.Checked), "EliteFlower", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -2626,13 +2656,17 @@ namespace EliteFlower
             List<string> noDB = new List<string>();
             foreach (string item in nameVasesFile)
             {
-                if (!dbIDS.Contains(item))
+                Console.WriteLine(item);
+                if (item != "null")
                 {
-                    if (item != "NV")
+                    if (!dbIDS.Contains(item))
                     {
-                        noDB.Add(item);
+                        if (item != "NV")
+                        {
+                            noDB.Add(item);
+                        }
                     }
-                }
+                }             
             }
             if (showMsg && noDB.Count > 0)
             {
@@ -3592,12 +3626,12 @@ namespace EliteFlower
                         if (modbusElevadores.Connected)
                         {
                             modbusElevadores.WriteMultipleCoils(50, new bool[] { false, false });   //- InitialFill - Automatico
-                            modbusElevadores.Disconnect();
+                            DisconnectModbusClient();
                         }
-                        if (serialPLC.IsOpen)
-                        {
-                            serialPLC.Close();
-                        }
+                        //if (serialPLC.IsOpen)
+                        //{
+                        //    serialPLC.Close();
+                        //}
                         llenarElevador.Clear();
                         llenarPulmon.Clear();
                         llenadoInicial.Clear();
@@ -3727,7 +3761,7 @@ namespace EliteFlower
                     {
                         if (ofd.ShowDialog() == DialogResult.OK)
                         {
-
+                            reset_plc(false);
                             lblData.Text = ofd.FileName;
                             string FilePath = System.IO.Path.GetFullPath(ofd.FileName);
                             lblPath.Text = FilePath;
@@ -4936,12 +4970,27 @@ namespace EliteFlower
 
         private async void Bal_Python_Click(object sender, EventArgs e)
         {
-            ShowLoader("Balancing Data");
-            Task oTask2 = new Task(balanceo);
-            oTask2.Start();
-            await oTask2;
-            HideLoader();
-            ShowBalance();
+            try
+            {
+                ShowLoader("Balancing Data");
+                Task oTask2 = new Task(balanceo);
+                oTask2.Start();
+                await oTask2;
+                HideLoader();
+                ShowBalance();
+                balanceCheck = true;
+            }
+            catch (BalanceMoreStationsException exBalance)
+            {
+                Mongoose.LoadError(exBalance, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
+                MessageBox.Show(exBalance.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
+            }
+
+
         }
 
 
@@ -5284,20 +5333,28 @@ namespace EliteFlower
             return equal;
         }
 
-        private void btnReset_Click(object sender, EventArgs e)
+        private void reset_plc(bool res)
         {
             try
             {
                 if (modbusElevadores.Available(2))
                 {
+                    Console.WriteLine("Available ");
                     modbusElevadores.Connect();
+                    System.Threading.Thread.Sleep(500);
                 }
 
                 if (modbusElevadores.Connected)
                 {
+                    Console.WriteLine("Connected and restart ");
                     modbusElevadores.WriteSingleCoil(COILS_ELEVADORES + 91, true);
                     btnServoON.Enabled = true;
                 }
+                if (res)
+                {
+                    Application.Restart();
+                }
+                
 
             }
             catch (Exception ex)
@@ -5305,6 +5362,11 @@ namespace EliteFlower
                 Mongoose.LoadError(ex, System.Reflection.MethodBase.GetCurrentMethod().Name, GetType().FullName);
                 //Application.Exit();
             }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            reset_plc(true);
         }
 
         private void chEnableReset_CheckedChanged(object sender, EventArgs e)

@@ -31,7 +31,7 @@ namespace EliteFlower.Methods
             try
             {
                 cliente = new MongoClient(mongoDBConnection);
-             
+
 
                 //MessageBox.Show("se ha conectado con la base de datos " + database.ToString());
             }
@@ -284,9 +284,9 @@ namespace EliteFlower.Methods
         {
             MongoClient client = GetDBConnection();
             IMongoDatabase database = GetDataBase(client);
-      
+
             IMongoCollection<DataProduct> DataProductDB = database.GetCollection<DataProduct>("Data");
-         
+
 
             List<DataProduct> dataproduct = DataProductDB.Find(f => f.TrackingNumber != "").ToList();
 
@@ -298,7 +298,7 @@ namespace EliteFlower.Methods
                 item.Balance = -1;
                 item.BalanceUUID = "";
                 DataProductDB.ReplaceOneAsync(f => f.TrackingNumber == item.TrackingNumber, item);
-                
+
             }
             database.GetCollection<BalanceName>("BWorkName").DeleteManyAsync(a => a._Id <= 4);
             database.GetCollection<BalanceName>("BWorkQuantity").DeleteManyAsync(a => a._Id <= 4);
@@ -307,6 +307,7 @@ namespace EliteFlower.Methods
 
         }
 
+        //Se copia el registro de la coleccion data una vez se haya realizada la lectura del vase, la copia se relaiza en la coleccion DataSummary
         public static void UpdateReadedData()
         {
             MongoClient client = new MongoClient(mongoDBConnection);
@@ -324,7 +325,7 @@ namespace EliteFlower.Methods
             {
                 DataSummaryDB.InsertOneAsync(itemreaded);
             }
-            DataDB.DeleteMany(s => s.Readed || s.ReadedAddon);
+            //DataDB.DeleteMany(s => s.Readed || s.ReadedAddon);
         }
 
         public static void UpdateEntryData()
@@ -1012,7 +1013,7 @@ namespace EliteFlower.Methods
             IMongoDatabase database = GetDataBase(client);
             IMongoCollection<Statics> StaticsDB = database.GetCollection<Statics>("Statics");
             List<Statics> doc = StaticsDB.Find(f => f._id == 1).ToList();
-           
+
 
 
             Console.WriteLine(doc);
@@ -1039,26 +1040,26 @@ namespace EliteFlower.Methods
 
             IMongoDatabase database = GetDataBase(client);
 
-            IMongoCollection<DataProduct> DataProductDB = database.GetCollection<DataProduct>("Data");      
-            IMongoCollection<BalanceName> BalanceNameDB = database.GetCollection<BalanceName>("BWorkName");       
+            IMongoCollection<DataProduct> DataProductDB = database.GetCollection<DataProduct>("Data");
+            IMongoCollection<BalanceName> BalanceNameDB = database.GetCollection<BalanceName>("BWorkName");
             IMongoCollection<BalanceCount> BalanceQuantityDB = database.GetCollection<BalanceCount>("BWorkQuantity");
-          
+
 
             List<BalanceName> balanceNames = BalanceNameDB.Find(s => s.Stage < 4).ToList();
             List<BalanceCount> balanceCounts = BalanceQuantityDB.Find(s => s.Stage < 4).ToList();
             string balanceUUID = Guid.NewGuid().ToString();
             int stages = balanceNames.Count;
             int contador = 0;
-        
+
 
 
             System.Threading.Thread.Sleep(10);
             for (int ii = 0; ii < stages; ii++)
             {
-                
-               // int tickswait = 5;
-                
-                
+
+                // int tickswait = 5;
+
+
                 //Debug.WriteLine("ii = "+ ii.ToString());
                 //-- ID1
                 //List<DataProduct> dataProductID1 = DataProductDB.Find(s => s.Vase == balanceNames[ii].ID1 && s.WhStage == -1).ToList().OrderBy(ob => ob.Random).ToList();
@@ -1067,7 +1068,7 @@ namespace EliteFlower.Methods
                 {
                     for (int jj = 0; jj < balanceCounts[ii].ID1; jj++)
                     {
-                        
+
                         //Debug.WriteLine("jj = " + jj.ToString());
                         dataProductID1[jj].WhStage = balanceNames[ii].Stage;
                         dataProductID1[jj].BalanceUUID = balanceUUID;
@@ -1078,7 +1079,7 @@ namespace EliteFlower.Methods
                         //contadorID1++;
                         //if (contadorID1 == 1000)
                         //{
-                            System.Threading.Thread.Sleep(1);
+                        System.Threading.Thread.Sleep(1);
                         //    contadorID1 = 0;
                         //}
                     }
@@ -1090,16 +1091,16 @@ namespace EliteFlower.Methods
                 {
                     for (int jj = 0; jj < balanceCounts[ii].ID2; jj++)
                     {
-                        
+
                         dataProductID2[jj].WhStage = balanceNames[ii].Stage;
                         dataProductID2[jj].BalanceUUID = balanceUUID;
                         dataProductID2[jj].Balance = valueBalance;
                         DataProductDB.ReplaceOneAsync(r => r.TrackingNumber == dataProductID2[jj].TrackingNumber, dataProductID2[jj]);
-                       // System.Threading.Thread.SpinWait(tickswait);
+                        // System.Threading.Thread.SpinWait(tickswait);
                         //contadorID2++;
                         //if (contadorID2 == 1000)
                         //{
-                           System.Threading.Thread.Sleep(1);
+                        System.Threading.Thread.Sleep(1);
                         //    contadorID2 = 0;
                         //}
                     }
@@ -1111,16 +1112,16 @@ namespace EliteFlower.Methods
                 {
                     for (int jj = 0; jj < balanceCounts[ii].ID3; jj++)
                     {
-                        
+
                         dataProductID3[jj].WhStage = balanceNames[ii].Stage;
                         dataProductID3[jj].BalanceUUID = balanceUUID;
                         dataProductID3[jj].Balance = valueBalance;
                         DataProductDB.ReplaceOneAsync(r => r.TrackingNumber == dataProductID3[jj].TrackingNumber, dataProductID3[jj]);
-                       // System.Threading.Thread.SpinWait(tickswait);
+                        // System.Threading.Thread.SpinWait(tickswait);
                         //contadorID3++;
                         //if (contadorID3 == 1000)
                         //{
-                           System.Threading.Thread.Sleep(1);
+                        System.Threading.Thread.Sleep(1);
                         //    contadorID3 = 0;
                         //}
                     }
@@ -1131,7 +1132,7 @@ namespace EliteFlower.Methods
                     System.Threading.Thread.Sleep(10);
                     contador = 0;
                 }
-                
+
             }
         }
         /// <summary>
@@ -1267,6 +1268,16 @@ namespace EliteFlower.Methods
             List<MLlenado> tt = MReferenceDB.Find(s => s.ID == indRef).ToList();
             return tt[0];
         }
+        public static DataProduct GetIndexElevador(string query, bool Tracking)
+        {
+            MongoClient client = new MongoClient(mongoDBConnection);
+            IMongoDatabase database = client.GetDatabase("EliteFlower");
+            IMongoCollection<DataProduct> DataProductDB = database.GetCollection<DataProduct>("Data");
+            List<DataProduct> data = (Tracking) ?
+            DataProductDB.Find(w => w.TrackingNumber == query).Limit(1).ToList() :
+            DataProductDB.Find(w => w.OrderNumber == query).Limit(1).ToList();
+            return data[0];
+        }
         /// <summary>
         /// Indica el nombre del archivo actual.
         /// </summary>
@@ -1368,7 +1379,7 @@ namespace EliteFlower.Methods
             MessageBox.Show(msgShow, UIMessages.EliteFlower(56, english), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-     
+
 
         /// <summary>
         /// Muestra un resumen de cuantas ordenes se han procesado hasta el momento.
@@ -1410,6 +1421,7 @@ namespace EliteFlower.Methods
                 DataProductDB.Find(w => w.OrderNumber == query).Limit(1).ToList();
             if (data.Count > 0)
             {
+              //Se verifica si el Vase  es Nulo y si este no se ha leido en la estación de la cual llega la lectura
                 if (data[0].Vase == null && data[0].ReadedStage[nStage] == 0)
                 {
                     if (data[0].Readed == false)
@@ -1420,17 +1432,23 @@ namespace EliteFlower.Methods
                     }
                     return "OFF";
                 }
-                else if (data[0].ReadedStage[nStage] == 0 && data[0].WhStage == nStage + 1)
+                //se verifica que el dato no se halla leido en la estación y la estación generada en el balanceo corresponde a la estación
+                //en la que se realiza la lectura
+                else if (/*data[0].ReadedStage[nStage] == 0 &&*/ data[0].WhStage == nStage + 1)
                 {
-                    return data[0].Vase;
+                    Console.WriteLine("Vase: " + data[0].Vase + " en estacion " + nStage +1);
+                    return data[0].Vase; //retorna el vase correspondiente a la lectura
                 }
+                //se verifica que el dato no se halla leido en la estación y la estación generada en el balanceo no corresponde a la estación
+                //en la que se realiza la lectura
                 else if (data[0].ReadedStage[nStage] == 0 && data[0].WhStage != nStage + 1)
                 {
                     return "OFF";
                 }
                 else
                 {
-                    return "CK";
+                    Console.WriteLine("Vase ya se leyó en esta estación");
+                    return "CK";  //condicion correspondiente a que ya se realizó la lectura
                 }
             }
             else
@@ -1502,8 +1520,8 @@ namespace EliteFlower.Methods
 
             List<DataProduct> data = (Tracking) ?
                 DataProductDB.Find(w => w.TrackingNumber == query).Limit(1).ToList() :
-                DataProductDB.Find(w => w.OrderNumber == query).Limit(1).ToList(); 
-            if (data.Count > 0) 
+                DataProductDB.Find(w => w.OrderNumber == query).Limit(1).ToList();
+            if (data.Count > 0)
             {
                 if (data[0].AddOnId == null && data[0].ReadedAddon == false)
                 {
@@ -1525,7 +1543,7 @@ namespace EliteFlower.Methods
             }
             else
             {
-                 // ND : No data?
+                // ND : No data?
                 return "ND";
             }
         }
@@ -1553,7 +1571,7 @@ namespace EliteFlower.Methods
             MongoClient client = new MongoClient(mongoDBConnection);
             IMongoDatabase database = client.GetDatabase("EliteFlower");
             IMongoCollection<Product> ProductDB = database.GetCollection<Product>("MasterProduct");
-            return  ProductDB.Find(d => d.ID != "").ToList().Select(s => s.ID).ToList();
+            return ProductDB.Find(d => d.ID != "").ToList().Select(s => s.ID).ToList();
         }
 
         public static List<string> GetTemplate(string document)
@@ -1948,6 +1966,6 @@ namespace EliteFlower.Methods
             StateStageDB.DeleteManyAsync(d => d._Id != 0);
         }
 
-   
+
     }
 }

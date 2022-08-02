@@ -1472,6 +1472,8 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, B
     total_con_vase = total_con_vase + Vases_count[i]
 
   Cantidades = {}
+ 
+  print(f'Vases Type Num {Vases_type_num}')
   for i in range(Vases_type_num):
     Cantidades[Vases_ID[i]] = Vases_count[i]
   print(f'cantidades = {Cantidades}')
@@ -1504,7 +1506,7 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, B
     print("!ERROR! -> La cantidad de vases supera el número de elevadores seleccionados")
 
   else:
-    #print(f"Addon Id: {AddOn_ID}")
+    print(f"Addon Id: {AddOn_ID}")
     Led_Pos = ['N_A','N_A','N_A']
     for i in range(AddOn_ID.size):
       Led_Pos[i] = AddOn_ID[i]
@@ -1662,7 +1664,10 @@ def balanceo_automatico(var_ext_estaciones_slc, df_original, manual, CV,tName, B
  #panda_df
 
 
+  
   get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
+  setbWork(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD, AddOn_ID, AddOn_count)
+
   return base_datos_output
   """# Crear y cargar TXTs
   """
@@ -1702,7 +1707,13 @@ def get_database(data):
       if item[3] == -1:
         Whstage = -1
       else:
-        whstage = 1
+        if item[2] < 4:
+          whstage = 1
+        elif item[2] > 6:
+          whstage = 3
+        else:
+          whstage = 2
+
       if item[1] == "-1": 
         item[1] = "null"
       else:
@@ -1720,13 +1731,89 @@ def get_database(data):
                   'WhStage': whstage                 
                  }
       balanceData.insert_one(jsondata)
-      db.Data.update_many({"TrackingNumber":item[0]},{"$set":{'Vase': item[1],'Balance': item[2],'AddOnId':item[3],'AddOnBalance': item[4],'WhStage': whstage}})
+      Data.update_many({"TrackingNumber":item[0]},{"$set":{'Vase': item[1],'Balance': item[2],'AddOnId':item[3],'AddOnBalance': item[4],'WhStage': whstage}})
     client.close()
 
 def Convert(tup, di):
     di = dict(tup)
     return di
-    
+
+def setbWork(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD,AddOn_ID, AddOn_count):
+  import pymongo
+  from collections import defaultdict
+  client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
+  db = client['EliteFlower']
+  BworkQuantity = db.BWorkQuantity
+  BworkName = db.BWorkName
+  BworkQuantity.delete_many({}) #borra todos los elementos de la coleccion
+  BworkName.delete_many({}) #borra todos los elementos de la coleccion
+
+  dictionary = {} 
+  dic_sort_cant = Convert(sort_cantidades,dictionary)
+  for keys in dic_sort_cant:
+    dic_sort_cant[keys] = str(dic_sort_cant[keys])
+
+
+  dictionary = {} 
+  dic_AddON = Convert(Dist_Led_AD,dictionary)
+  for keys in dic_AddON:
+    dic_AddON[keys] = str(dic_AddON[keys])
+
+  ID1_list = []; ID2_list = []; ID3_list = []
+
+
+  j = 0
+  for i in range(3):
+
+    record = { "_id" : i+1,
+            "Stage": i+1,
+            "Count": Cuenta_Elevador[j] + Cuenta_Elevador[j+1] + Cuenta_Elevador[j+2],
+            "ID1": Cuenta_Elevador[j], 
+            "ID2": Cuenta_Elevador[j+1],
+            "ID3": Cuenta_Elevador[j+2],
+            "File" : "Data"   
+            }
+    record2 = { "_id" : i+1,
+            "Stage": i+1,
+            "Count": -1,
+            "ID1": Distribucion_estaciones[j], 
+            "ID2": Distribucion_estaciones[j+1],
+            "ID3": Distribucion_estaciones[j+2],
+            "File" : "Data"   
+            }
+      
+    j += 3
+    # print (f'record BworkQuantity = {record}')
+    # print (f'record BworkName = {record2}')
+    BworkQuantity.insert_one(record)
+    BworkName.insert_one(record2)
+  cuenta = 0
+  AddOn_count_list = AddOn_count.tolist()
+  AddOn_ID_list = AddOn_ID.tolist()
+  for item in AddOn_count_list:
+    cuenta += item
+  record = { "_id" : 4,
+            "Stage": 4,
+            "Count": cuenta,
+            "ID1": AddOn_count_list[0], 
+            "ID2": AddOn_count_list[1],
+            "ID3": AddOn_count_list[2],
+            "File" : "Data"   
+            }
+  record2 = { "_id" : 4,
+            "Stage": 4,
+            "Count": -1,
+            "ID1": AddOn_ID_list[0], 
+            "ID2": AddOn_ID_list[1],
+            "ID3": AddOn_ID_list[2],
+            "File" : "Data"   
+            }
+  BworkQuantity.insert_one(record)
+  BworkName.insert_one(record2)
+  client.close()
+
+
+
 
 def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaciones_slc, Balanceo,Distribucion_estaciones,Cuenta_Elevador, Dist_Led_AD,AddOn_ID, AddOn_count):
   print('from statics')
@@ -1734,6 +1821,7 @@ def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaci
   from collections import defaultdict
   client = pymongo.MongoClient('mongodb://127.0.0.1:27017/')
   db = client['EliteFlower']
+
   #print(client)
 
   Statics = db.Statics
@@ -1767,8 +1855,8 @@ def get_db_statics(Total_ordenes,total_con_vase, sort_cantidades, var_ext_estaci
             "Active_Stations": var_ext_estaciones_slc,
             "Estaciones": Distribucion_estaciones,
             "Cuenta_Estaciones" : Cuenta_Elevador,
-             "AddON" : AddOn_ID.tolist(),
-             "Cuenta_AddON" : AddOn_count.tolist()
+            "AddON" : AddOn_ID.tolist(),
+            "Cuenta_AddON" : AddOn_count.tolist()
             # "File" : "Data"
             }
 
@@ -1839,7 +1927,7 @@ for item in var_ext_estaciones_slc:
 #print(estaciones_activas) 
 
 balanced_Data = balanceo_automatico(estaciones_activas,df, manual, SV, tName, BT)
-print("Data balanceda = ")
+#print("Data balanceda = ")
 #for item in balanced_Data:
  # print((item))
   
@@ -1847,4 +1935,4 @@ print("Data balanceda = ")
 # for i in range(11):
 
 #   print(balanced_Data[i])
-# get_database(balanced_Data)
+get_database(balanced_Data)
